@@ -1,0 +1,20 @@
+#!/bin/bash
+# Script publish — commit + push en 1 commande
+# Usage : ./publish "message optionnel"
+set -e
+
+MSG="${1:-update}"
+
+git add -A
+
+if git diff --cached --quiet; then
+  echo "Rien a publier — aucun changement detecte."
+  exit 0
+fi
+
+git commit -m "$MSG"
+git push
+
+echo ""
+echo "Publie. GitHub Pages rebuild dans ~1 min :"
+echo "https://stephmood.github.io/mood-creative-studio/"
