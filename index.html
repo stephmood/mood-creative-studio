@@ -169,6 +169,116 @@ input[type=file]{display:none}
 .perf-fort{background:rgba(70,170,70,.15);color:#5acc5a;border:1px solid rgba(70,170,70,.30)}
 .perf-moyen{background:rgba(210,170,40,.15);color:#d4b020;border:1px solid rgba(210,170,40,.30)}
 .perf-branding{background:rgba(100,130,180,.15);color:#7aabdf;border:1px solid rgba(100,130,180,.30)}
+
+/* ═══ TABS ═══ */
+.tab-bar{background:var(--s1);border-bottom:1px solid var(--b1);display:flex;padding:0 28px;position:sticky;top:61px;z-index:190}
+.tab-btn{padding:11px 22px;font-size:11px;font-weight:700;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer;transition:all .2s;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-btn:hover:not(.active){color:var(--text)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* ═══ CAMPAIGN BUILDER ═══ */
+.camp-layout{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 104px)}
+.camp-l{background:var(--s1);border-right:1px solid var(--b1);padding:24px 20px;position:sticky;top:104px;height:calc(100vh - 104px);overflow-y:auto;display:flex;flex-direction:column;gap:20px}
+.camp-r{padding:32px;overflow-y:auto;background:var(--bg)}
+.camp-input{width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:var(--r3);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:10px 12px;outline:none;transition:border .2s}
+.camp-input:focus{border-color:var(--gold)}
+.camp-input::placeholder{color:var(--muted)}
+.camp-select{appearance:none;cursor:pointer}
+.camp-row{display:flex;gap:8px}
+.camp-row .camp-input{flex:1}
+.btn-camp-gen{width:100%;padding:14px;background:var(--gold);color:#000;font-weight:700;font-size:13px;border:none;border-radius:var(--r2);cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.3px;transition:background .2s;margin-top:4px}
+.btn-camp-gen:hover{background:var(--gold2)}
+.btn-camp-gen:disabled{opacity:.4;cursor:not-allowed}
+
+/* AUDIENCE LEVELS */
+.nlevel-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.nlevel-card{background:var(--s2);border:1.5px solid var(--b1);border-radius:var(--r2);padding:9px 11px;cursor:pointer;transition:all .2s}
+.nlevel-card:hover{border-color:var(--b2)}
+.nlevel-card.sel{border-color:var(--gold);background:rgba(201,169,110,.10)}
+.nlevel-tag{font-size:10px;font-weight:700;letter-spacing:.5px;margin-bottom:2px}
+.nlevel-name{font-size:11px;color:var(--muted);line-height:1.3}
+
+/* CAMPAIGN OUTPUT */
+.camp-output{display:flex;flex-direction:column;gap:24px}
+.camp-block{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:22px 24px}
+.camp-block-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.camp-block-title span{font-size:16px}
+.rec-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(201,169,110,.12);border:1px solid rgba(201,169,110,.25);border-radius:var(--r2);padding:6px 12px;font-size:12px;font-weight:600;color:var(--gold);margin-bottom:10px}
+.rec-detail{font-size:12px;color:var(--muted);line-height:1.6;margin-top:6px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi-box{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r2);padding:14px 16px;text-align:center}
+.kpi-val{font-size:22px;font-weight:800;color:var(--gold);line-height:1}
+.kpi-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.kpi-note{font-size:9px;color:var(--muted2);margin-top:3px}
+.copy-variants{display:flex;flex-direction:column;gap:14px}
+.copy-card{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r2);padding:16px 18px}
+.copy-card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.copy-tone-badge{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.tone-doux{background:rgba(90,138,90,.15);color:#7acc7a;border:1px solid rgba(90,138,90,.3)}
+.tone-emotionnel{background:rgba(201,169,110,.15);color:var(--gold);border:1px solid rgba(201,169,110,.3)}
+.tone-fomo{background:rgba(176,48,48,.15);color:#e06060;border:1px solid rgba(176,48,48,.3)}
+.copy-hook{font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.4}
+.copy-body{font-size:12px;color:var(--muted);line-height:1.65;white-space:pre-line}
+.copy-cta-row{margin-top:10px;padding-top:10px;border-top:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between}
+.copy-cta-pill{background:var(--gold);color:#000;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px}
+.copy-copy-btn{font-size:10px;color:var(--muted);cursor:pointer;background:var(--s3);border:1px solid var(--b1);border-radius:var(--r3);padding:4px 10px;transition:all .15s}
+.copy-copy-btn:hover{color:var(--text);border-color:var(--b2)}
+.aud-target-block{display:flex;flex-direction:column;gap:8px}
+.aud-target-row{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--s2);border:1px solid var(--b1);border-radius:var(--r2)}
+.aud-target-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.aud-target-label{font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px}
+.aud-target-detail{font-size:10px;color:var(--muted);line-height:1.5}
+.budget-bars{display:flex;flex-direction:column;gap:8px}
+.budget-row{display:flex;align-items:center;gap:10px}
+.budget-row-label{font-size:11px;color:var(--muted);width:180px;flex-shrink:0}
+.budget-bar-wrap{flex:1;background:var(--s2);border-radius:3px;height:6px;overflow:hidden}
+.budget-bar-fill{height:100%;background:var(--gold);border-radius:3px;transition:width .4s}
+.budget-row-val{font-size:11px;font-weight:700;color:var(--gold);width:60px;text-align:right}
+.camp-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;gap:12px;color:var(--muted)}
+.camp-empty-icon{font-size:48px;opacity:.3}
+.camp-empty-title{font-size:16px;font-weight:700;color:var(--muted)}
+.camp-empty-sub{font-size:12px;text-align:center;max-width:300px;line-height:1.6}
+
+/* ═══ MONITORING ═══ */
+.pilot-layout{padding:28px 32px;display:flex;flex-direction:column;gap:24px;min-height:calc(100vh - 104px)}
+.pilot-connect-bar{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:16px 22px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pilot-connect-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);flex-shrink:0;margin-right:4px}
+.connect-btn{display:flex;align-items:center;gap:7px;padding:8px 16px;border:1.5px solid var(--b2);border-radius:var(--r2);background:var(--s2);cursor:pointer;transition:all .2s;font-size:12px;font-weight:600;color:var(--muted)}
+.connect-btn:hover{border-color:var(--gold);color:var(--text)}
+.connect-btn.connected{border-color:#4caf50;background:rgba(76,175,80,.08);color:#5acc5a}
+.connect-dot{width:7px;height:7px;border-radius:50%;background:var(--b2);flex-shrink:0}
+.connect-btn.connected .connect-dot{background:#4caf50}
+.pilot-kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.pilot-kpi{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r2);padding:16px 18px}
+.pilot-kpi-val{font-size:24px;font-weight:800;line-height:1;color:var(--text)}
+.pilot-kpi-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.pilot-kpi-delta{font-size:10px;margin-top:4px}
+.pilot-kpi-delta.up{color:#5acc5a}
+.pilot-kpi-delta.down{color:#e06060}
+.pilot-section-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.pilot-section-title::after{content:'';flex:1;height:1px;background:var(--b1)}
+.pilot-table{width:100%;border-collapse:collapse;font-size:12px}
+.pilot-table th{text-align:left;padding:8px 12px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--b1)}
+.pilot-table td{padding:11px 12px;border-bottom:1px solid rgba(42,42,42,.5);color:var(--text);vertical-align:middle}
+.pilot-table tr:hover td{background:var(--s1)}
+.status-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:6px}
+.status-active{background:#4caf50}
+.status-paused{background:#666}
+.status-learning{background:#c9a96e}
+.pilot-roas{font-weight:800;color:var(--gold)}
+.pilot-creatives-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.pilot-creative-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r2);overflow:hidden}
+.pilot-creative-thumb{width:100%;aspect-ratio:1;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--muted2)}
+.pilot-creative-meta{padding:10px 12px}
+.pilot-creative-name{font-size:10px;font-weight:700;color:var(--text);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pilot-creative-kpis{display:flex;gap:10px}
+.pilot-creative-kpi{font-size:9px;color:var(--muted)}
+.pilot-creative-kpi strong{color:var(--gold);font-weight:700}
+.pilot-alert{background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.2);border-radius:var(--r2);padding:12px 16px;font-size:11px;color:var(--gold);display:flex;align-items:center;gap:10px}
+.pilot-no-data{text-align:center;padding:60px 20px;color:var(--muted);font-size:12px}
+.pilot-no-data .icon{font-size:36px;margin-bottom:12px;opacity:.3}
 </style>
 </head>
 <body>
@@ -177,11 +287,11 @@ input[type=file]{display:none}
   <div class="hdr-l">
     <div class="logo">m</div>
     <div>
-      <div class="hdr-title">Creative Studio</div>
-      <div class="hdr-sub">mood · Production publicitaire</div>
+      <div class="hdr-title">mood Ads Studio</div>
+      <div class="hdr-sub">Créatifs · Campagnes · Pilotage</div>
     </div>
   </div>
-  <div class="hdr-r">
+  <div class="hdr-r" id="hdr-steps">
     <div class="step-indicator">
       <div class="step active" id="s1">1</div>
       <div class="step-line"></div>
@@ -192,6 +302,13 @@ input[type=file]{display:none}
   </div>
 </header>
 
+<div class="tab-bar">
+  <div class="tab-btn active" onclick="switchTab('creatives',this)">🎨 Créatifs</div>
+  <div class="tab-btn" onclick="switchTab('campaign',this)">🚀 Campagnes</div>
+  <div class="tab-btn" onclick="switchTab('pilotage',this)">📊 Pilotage</div>
+</div>
+
+<div id="tab-creatives" class="tab-content active">
 <div class="layout">
   <!-- PANEL GAUCHE : BRIEF -->
   <aside class="panel-l">
@@ -386,7 +503,180 @@ input[type=file]{display:none}
     </div>
 
   </main>
+</div><!-- end .layout -->
+</div><!-- end #tab-creatives -->
+
+<!-- ══════════════════════════════════════════
+     TAB 2 — CRÉATION DE CAMPAGNE
+══════════════════════════════════════════ -->
+<div id="tab-campaign" class="tab-content">
+<div class="camp-layout">
+
+  <!-- BRIEF GAUCHE -->
+  <aside class="camp-l">
+
+    <div class="sec">
+      <div class="sec-label">Plateforme</div>
+      <div class="pills" id="plat-pills">
+        <div class="pill on" data-plat="meta" onclick="setCampPlat(this)" style="flex:1;text-align:center">📘 Meta / Instagram</div>
+        <div class="pill" data-plat="google" onclick="setCampPlat(this)" style="flex:1;text-align:center">🔍 Google</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-label">Objectif campagne</div>
+      <div class="pills" id="goal-pills">
+        <div class="pill on" data-goal="acquisition" onclick="setCampGoal(this)">🆕 Acquisition</div>
+        <div class="pill" data-goal="conversion" onclick="setCampGoal(this)">💳 Conversion</div>
+        <div class="pill" data-goal="traffic" onclick="setCampGoal(this)">👀 Trafic</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-label">Niveau d'audience</div>
+      <div class="nlevel-grid" id="nlevel-grid">
+        <div class="nlevel-card sel" data-level="N0" onclick="setCampLevel(this)">
+          <div class="nlevel-tag" style="color:#3b6ea5">N0 — Froide</div>
+          <div class="nlevel-name">Inconsciente · ~30K<br>Ne connaît pas Mood</div>
+        </div>
+        <div class="nlevel-card" data-level="N1" onclick="setCampLevel(this)">
+          <div class="nlevel-tag" style="color:#6a9ecf">N1 — Curieuse</div>
+          <div class="nlevel-name">A découvert le concept · ~25K</div>
+        </div>
+        <div class="nlevel-card" data-level="N2" onclick="setCampLevel(this)">
+          <div class="nlevel-tag" style="color:#c97d3b">N2 — Intéressée</div>
+          <div class="nlevel-name">Visite mais pas de panier · ~20K</div>
+        </div>
+        <div class="nlevel-card" data-level="N3" onclick="setCampLevel(this)">
+          <div class="nlevel-tag" style="color:#b03030">N3 — Chaude</div>
+          <div class="nlevel-name">Panier abandonné · ~12K</div>
+        </div>
+        <div class="nlevel-card" data-level="occasional" onclick="setCampLevel(this)">
+          <div class="nlevel-tag" style="color:#5a8a5a">Clientes occ.</div>
+          <div class="nlevel-name">1-2 achats · inactives 6M+</div>
+        </div>
+        <div class="nlevel-card" data-level="loyal" onclick="setCampLevel(this)">
+          <div class="nlevel-tag" style="color:#c9a96e">VIP / Fidèles</div>
+          <div class="nlevel-name">3+ achats · CA >300 CHF</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-label">Langue</div>
+      <div class="pills" id="camp-lang-pills">
+        <div class="pill on" data-lang="fr" onclick="setCampLang(this)" style="flex:1;text-align:center">🇫🇷 FR</div>
+        <div class="pill" data-lang="de" onclick="setCampLang(this)" style="flex:1;text-align:center">🇩🇪 DE</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-label">Landing page</div>
+      <input class="camp-input" id="camp-landing" type="text" placeholder="ex : yourmood.net/aura ou /collection-ete" />
+    </div>
+
+    <div class="sec">
+      <div class="sec-label">Offre / Nouveauté à promouvoir</div>
+      <textarea class="camp-input" id="camp-offer" rows="3" placeholder="ex : Collection Caliente Day — 545 produits FR/DE, bague mood Aura, pépites été 2026, promo -10%…" style="resize:vertical"></textarea>
+    </div>
+
+    <div class="sec">
+      <div class="sec-label">Budget & durée</div>
+      <div class="camp-row">
+        <input class="camp-input" id="camp-budget" type="number" min="10" placeholder="Budget / jour (CHF)" />
+        <input class="camp-input" id="camp-duration" type="number" min="1" placeholder="Durée (jours)" />
+      </div>
+    </div>
+
+    <button class="btn-camp-gen" id="btn-camp-gen" onclick="generateCampaign()">
+      Générer le brief campagne →
+    </button>
+
+  </aside>
+
+  <!-- OUTPUT DROIT -->
+  <div class="camp-r" id="camp-r">
+    <div class="camp-empty" id="camp-empty">
+      <div class="camp-empty-icon">🚀</div>
+      <div class="camp-empty-title">Brief campagne prêt en 10 secondes</div>
+      <div class="camp-empty-sub">Remplis le brief à gauche — plateforme, audience, offre, budget — et je génère la structure, les textes et les KPIs estimés.</div>
+    </div>
+    <div class="camp-output" id="camp-output" style="display:none"></div>
+  </div>
+
 </div>
+</div><!-- end #tab-campaign -->
+
+<!-- ══════════════════════════════════════════
+     TAB 3 — PILOTAGE
+══════════════════════════════════════════ -->
+<div id="tab-pilotage" class="tab-content">
+<div class="pilot-layout">
+
+  <!-- CONNEXION -->
+  <div class="pilot-connect-bar">
+    <div class="pilot-connect-title">Connexions</div>
+    <div class="connect-btn" id="connect-meta" onclick="connectPlatform('meta')">
+      <div class="connect-dot"></div>📘 Meta Ads
+    </div>
+    <div class="connect-btn" id="connect-google" onclick="connectPlatform('google')">
+      <div class="connect-dot"></div>🔍 Google Ads
+    </div>
+    <div class="connect-btn" id="connect-klaviyo" onclick="connectPlatform('klaviyo')">
+      <div class="connect-dot"></div>📧 Klaviyo
+    </div>
+    <div class="connect-btn" id="connect-triplewhale" onclick="connectPlatform('triplewhale')">
+      <div class="connect-dot"></div>🐳 Triple Whale
+    </div>
+    <div style="flex:1"></div>
+    <div style="font-size:10px;color:var(--muted)">Données : <span id="pilot-data-src">demo</span> · <span id="pilot-last-sync">—</span></div>
+  </div>
+
+  <!-- KPIs OVERVIEW -->
+  <div>
+    <div class="pilot-section-title">Vue d'ensemble <span style="color:var(--gold);font-weight:800" id="pilot-period">7 derniers jours</span>
+      <div style="display:flex;gap:6px;margin-left:auto">
+        <div class="pill" style="font-size:9px;padding:3px 10px" onclick="setPilotPeriod(7,this)">7j</div>
+        <div class="pill" style="font-size:9px;padding:3px 10px" onclick="setPilotPeriod(14,this)">14j</div>
+        <div class="pill on" style="font-size:9px;padding:3px 10px" onclick="setPilotPeriod(30,this)">30j</div>
+      </div>
+    </div>
+    <div class="pilot-kpi-row" id="pilot-kpis">
+      <div class="pilot-kpi"><div class="pilot-kpi-val" id="pk-spend">—</div><div class="pilot-kpi-label">Dépensé</div><div class="pilot-kpi-delta" id="pk-spend-d"></div></div>
+      <div class="pilot-kpi"><div class="pilot-kpi-val" id="pk-revenue">—</div><div class="pilot-kpi-label">Revenus</div><div class="pilot-kpi-delta" id="pk-revenue-d"></div></div>
+      <div class="pilot-kpi"><div class="pilot-kpi-val" id="pk-roas" style="color:var(--gold)">—</div><div class="pilot-kpi-label">ROAS</div><div class="pilot-kpi-delta" id="pk-roas-d"></div></div>
+      <div class="pilot-kpi"><div class="pilot-kpi-val" id="pk-cpa">—</div><div class="pilot-kpi-label">CPA</div><div class="pilot-kpi-delta" id="pk-cpa-d"></div></div>
+      <div class="pilot-kpi"><div class="pilot-kpi-val" id="pk-orders">—</div><div class="pilot-kpi-label">Commandes</div><div class="pilot-kpi-delta" id="pk-orders-d"></div></div>
+      <div class="pilot-kpi"><div class="pilot-kpi-val" id="pk-ctr">—</div><div class="pilot-kpi-label">CTR moyen</div><div class="pilot-kpi-delta" id="pk-ctr-d"></div></div>
+    </div>
+  </div>
+
+  <!-- CAMPAGNES ACTIVES -->
+  <div>
+    <div class="pilot-section-title">Campagnes actives</div>
+    <div id="pilot-campaigns-wrap">
+      <div class="pilot-no-data"><div class="icon">📡</div>Connecte Meta Ads pour voir tes campagnes en live.</div>
+    </div>
+  </div>
+
+  <!-- TOP CRÉATIFS -->
+  <div>
+    <div class="pilot-section-title">Top créatifs (ROAS)</div>
+    <div class="pilot-creatives-grid" id="pilot-creatives-grid">
+      <div class="pilot-no-data" style="grid-column:1/-1"><div class="icon">🖼️</div>Connecte Meta Ads pour voir tes créatifs en performance.</div>
+    </div>
+  </div>
+
+  <!-- ALERTES -->
+  <div>
+    <div class="pilot-section-title">Alertes & recommandations</div>
+    <div id="pilot-alerts">
+      <div class="pilot-alert">⚡ Connecte tes comptes pour activer les alertes automatiques (ROAS en chute, créatif en fatigue, audience saturée).</div>
+    </div>
+  </div>
+
+</div>
+</div><!-- end #tab-pilotage -->
 
 <div class="toast" id="toast"></div>
 
@@ -2988,9 +3278,597 @@ function downloadByGlobalIdx(gIdx){
   toast(`${c.isVideo?'Vidéo':'PNG'} téléchargé ✓`);
 }
 
+// ═══════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════
+
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('hdr-steps').style.display=id==='creatives'?'flex':'none';
+}
+
+// ═══════════════════════════════════════════
+// CAMPAIGN BUILDER STATE
+// ═══════════════════════════════════════════
+
+const campState={
+  platform:'meta',
+  goal:'acquisition',
+  level:'N0',
+  lang:'fr'
+};
+
+function setCampPlat(el){
+  campState.platform=el.dataset.plat;
+  document.querySelectorAll('#plat-pills .pill').forEach(p=>p.classList.toggle('on',p===el));
+}
+function setCampGoal(el){
+  campState.goal=el.dataset.goal;
+  document.querySelectorAll('#goal-pills .pill').forEach(p=>p.classList.toggle('on',p===el));
+}
+function setCampLevel(el){
+  campState.level=el.dataset.level;
+  document.querySelectorAll('#nlevel-grid .nlevel-card').forEach(c=>c.classList.toggle('sel',c===el));
+}
+function setCampLang(el){
+  campState.lang=el.dataset.lang;
+  document.querySelectorAll('#camp-lang-pills .pill').forEach(p=>p.classList.toggle('on',p===el));
+}
+
+// ═══════════════════════════════════════════
+// CAMPAIGN DATA — COPY × AUDIENCE × TONE × LANG
+// ═══════════════════════════════════════════
+
+const CAMP={
+  N0:{
+    label:'N0 — Inconsciente (~30K)',color:'#3b6ea5',
+    klaviyo:'Segment Inconscientes — inscrites via stand/concours/cadeau, aucune visite site',
+    metaObjective:{acquisition:'REACH / VIDEO_VIEWS',conversion:'REACH / VIDEO_VIEWS',traffic:'REACH / VIDEO_VIEWS'},
+    googleObjective:'Display / YouTube — sensibilisation marque',
+    budgetReco:40,cpaMeta:null,roasFR:null,roasDE:null,
+    copy:{
+      fr:{
+        doux:{
+          hook:'Elle portait la même bague depuis 10 ans. Puis elle a découvert le clic.',
+          body:'La bague mood, c\'est un système suisse qui te permet de changer tes anneaux en 2 secondes.\nUn geste. Infini de possibilités.\n\nDécouvre comment 75 000 clientes ont réinventé leur façon de porter leurs bijoux.',
+          cta:'Découvrir le concept'
+        },
+        emotionnel:{
+          hook:'Et si ta bague changeait avec ton humeur ?',
+          body:'Imagine une bague qui s\'adapte à toi — pas l\'inverse.\n\nLa bague mood : une base + des anneaux interchangeables. Tu cliques, tu crées, tu changes.\nConçue à Orbe. Garantie à vie.',
+          cta:'Voir comment ça marche'
+        },
+        fomo:{
+          hook:'75 000 clientes ont déjà leur compo. Tu ne sais pas encore ce que c\'est ?',
+          body:'Le clic mood, c\'est LE geste joaillerie de cette décennie.\n\nUne base en acier chirurgical suisse. Des anneaux qui s\'échangent en 2 secondes.\n\nDécouvre le concept — et trouve ta compo signature.',
+          cta:'Je découvre'
+        }
+      },
+      de:{
+        doux:{
+          hook:'Sie trug denselben Ring seit 10 Jahren. Dann entdeckte sie das Klick-System.',
+          body:'Der mood Ring ist ein Schweizer System, das dir erlaubt, deine Innenringe in 2 Sekunden zu wechseln.\nEine Bewegung. Unendliche Möglichkeiten.\n\nEntdecke, wie 75 000 Kundinnen ihre Art, Schmuck zu tragen, neu erfunden haben.',
+          cta:'Das Konzept entdecken'
+        },
+        emotionnel:{
+          hook:'Was wäre, wenn dein Ring sich deiner Stimmung anpasst?',
+          body:'Stell dir einen Ring vor, der sich dir anpasst — nicht umgekehrt.\n\nDer mood Ring: eine Fassung + auswechselbare Innenringe. Du klickst, du kreierst, du wechselst.\nEntworfen in Orbe. Lebenslange Garantie.',
+          cta:'Sehen, wie es funktioniert'
+        },
+        fomo:{
+          hook:'75 000 Kundinnen haben bereits ihre Kombi. Weisst du noch nicht, was das ist?',
+          body:'Das mood-Klick-System ist DAS Schmuck-Erlebnis dieses Jahrzehnts.\n\nEine Fassung aus chirurgischem Schweizer Edelstahl. Innenringe, die in 2 Sekunden gewechselt werden.\n\nEntdecke das Konzept — und finde deine Signature-Kombi.',
+          cta:'Jetzt entdecken'
+        }
+      }
+    }
+  },
+  N1:{
+    label:'N1 — Curieuse (~25K)',color:'#6a9ecf',
+    klaviyo:'Segment Curieuses — email ouvert 1-2x, 1-2 visites site, jamais mis au panier',
+    metaObjective:{acquisition:'LINK_CLICKS / LANDING_PAGE_VIEWS',conversion:'LINK_CLICKS / LANDING_PAGE_VIEWS',traffic:'LINK_CLICKS'},
+    googleObjective:'Search "bague interchangeable" + Shopping retargeting',
+    budgetReco:50,cpaMeta:null,roasFR:null,roasDE:null,
+    copy:{
+      fr:{
+        doux:{
+          hook:'Elle a mis 3 minutes à créer sa première compo. Elle en est à sa 12e.',
+          body:'La bague mood, c\'est un système de composition : tu choisis une base, tu ajoutes des anneaux, tu cliques.\n\nVois comment d\'autres clientes ont composé — il y a peut-être ta future pépite préférée.',
+          cta:'Voir les compositions'
+        },
+        emotionnel:{
+          hook:'Ta compo signature t\'attend. Tu ne l\'as pas encore trouvée.',
+          body:'Chaque Mood Lover a sa combinaison signature.\nLa minimaliste avec deux anneaux dorés. La créative qui change chaque matin. Celle qui a tout le noir.\n\nQuelle serait la tienne ?',
+          cta:'Trouver ma compo'
+        },
+        fomo:{
+          hook:'Des centaines de nouvelles pépites créatives chaque saison. Tu rates les meilleures.',
+          body:'La collection mood évolue constamment.\n\nCes anneaux-là ? Ils ne repasseront peut-être pas en stock.\n\nDécouvre comment les clientes composent — et sauve tes coups de cœur avant qu\'ils partent.',
+          cta:'Voir la collection'
+        }
+      },
+      de:{
+        doux:{
+          hook:'Sie brauchte 3 Minuten für ihre erste Kombi. Jetzt ist sie bei der 12.',
+          body:'Der mood Ring ist ein Kompositionssystem: du wählst eine Fassung, fügst Innenringe hinzu, klickst.\n\nSieh, wie andere Kundinnen komponiert haben — vielleicht ist dein zukünftiges Lieblingspiece dabei.',
+          cta:'Kombis ansehen'
+        },
+        emotionnel:{
+          hook:'Deine Signature-Kombi wartet auf dich. Du hast sie noch nicht gefunden.',
+          body:'Jede Mood Lover hat ihre Signature-Kombination.\nDie Minimalistin mit zwei goldenen Innenringen. Die Kreative, die jeden Morgen wechselt. Diejenige mit allem in Schwarz.\n\nWelche wäre deine?',
+          cta:'Meine Kombi finden'
+        },
+        fomo:{
+          hook:'Hunderte neue Pépites créatives jede Saison. Du verpasst die besten.',
+          body:'Die mood Kollektion entwickelt sich ständig weiter.\n\nDiese Innenringe? Sie kommen vielleicht nicht mehr auf Lager.\n\nEntdecke, wie Kundinnen komponieren — und sichere deine Lieblinge bevor sie weg sind.',
+          cta:'Kollektion ansehen'
+        }
+      }
+    }
+  },
+  N2:{
+    label:'N2 — Intéressée (~20K)',color:'#c97d3b',
+    klaviyo:'Segment Intéressées — visites multiples sans panier, pages produit vues 3x+',
+    metaObjective:{acquisition:'CONVERSIONS (AddToCart)',conversion:'CONVERSIONS (AddToCart)',traffic:'LINK_CLICKS'},
+    googleObjective:'Search "bague mood taille" + Remarketing display',
+    budgetReco:60,cpaMeta:15,roasFR:5.0,roasDE:2.8,
+    copy:{
+      fr:{
+        doux:{
+          hook:'Tu te demandes si ça résiste vraiment ? 17 800 avis disent oui.',
+          body:'Acier chirurgical 316L. Garantie à vie. Fabrication à Orbe, Suisse.\n\nLa bague mood n\'est pas un bijou fantaisie — c\'est de la joaillerie contemporaine conçue pour durer.\n\nTa taille en 30 secondes → résultat personnalisé.',
+          cta:'Trouver ma taille'
+        },
+        emotionnel:{
+          hook:'La question que tout le monde se pose avant d\'acheter.',
+          body:'« Est-ce que j\'aurai le bon modèle ? »\n\nOui — parce qu\'on te guide. Tableau de taille gratuit. Échange si tu te trompes.\n\nTa compo t\'attend.',
+          cta:'Je commande ma taille'
+        },
+        fomo:{
+          hook:'La seule question qui t\'empêche d\'acheter ? On a la réponse.',
+          body:'Taille ? → Tableau inclus + échange gratuit.\nRésistance ? → Acier 316L + garantie à vie.\nPrix ? → À partir de 59 CHF.\n\n17 800 clientes. 4.8/5.\n\nIl ne manque que toi.',
+          cta:'Voir les prix'
+        }
+      },
+      de:{
+        doux:{
+          hook:'Du fragst dich, ob er wirklich hält? 17 800 Bewertungen sagen ja.',
+          body:'Chirurgischer Edelstahl 316L. Lebenslange Garantie. Herstellung in Orbe, Schweiz.\n\nDer mood Ring ist kein Modeschmuck — er ist Schweizer zeitgenössische Schmuckkunst, gemacht um zu halten.\n\nDeine Grösse in 30 Sekunden → personalisiertes Ergebnis.',
+          cta:'Meine Grösse finden'
+        },
+        emotionnel:{
+          hook:'Die Frage, die sich jeder vor dem Kauf stellt.',
+          body:'„Bekomme ich das richtige Modell?"\n\nJa — weil wir dich begleiten. Kostenlose Grössentabelle. Umtausch wenn du dich irrst.\n\nDeine Kombi wartet.',
+          cta:'Meine Grösse bestellen'
+        },
+        fomo:{
+          hook:'Die einzige Frage, die dich vom Kauf abhält? Wir haben die Antwort.',
+          body:'Grösse? → Tabelle inklusive + kostenloser Umtausch.\nHaltbarkeit? → Edelstahl 316L + lebenslange Garantie.\nPreis? → Ab 59 CHF.\n\n17 800 Kundinnen. 4.8/5.\n\nNur du fehlst noch.',
+          cta:'Preise ansehen'
+        }
+      }
+    }
+  },
+  N3:{
+    label:'N3 — Chaude (~12K)',color:'#b03030',
+    klaviyo:'Segment Chaudes — panier abandonné actif (7j), flow panier abandonné en parallèle',
+    metaObjective:{acquisition:'CONVERSIONS (Purchase)',conversion:'CONVERSIONS (Purchase)',traffic:'CONVERSIONS (Purchase)'},
+    googleObjective:'Search "bague mood" exact + RLSA (remarketing listes Search)',
+    budgetReco:80,cpaMeta:25,roasFR:7.5,roasDE:3.9,
+    copy:{
+      fr:{
+        doux:{
+          hook:'Elle avait la même bague mood dans son panier. Elle attend encore.',
+          body:'On sait que tu regardes. Et qu\'elle t\'attend.\n\nLa livraison est rapide. Le retour est gratuit si tu changes d\'avis. Garantie à vie.\n\nIl n\'y a pas de mauvaise décision ici.',
+          cta:'Revenir à mon panier'
+        },
+        emotionnel:{
+          hook:'Ce n\'est pas juste un bijou. C\'est le premier geste pour toi.',
+          body:'Combien de fois t\'es-tu dit « je m\'offrirai ça un jour » ?\n\nAujourd\'hui c\'est le jour. Ce modèle est encore disponible. La livraison arrive vite.\n\nTu mérites quelque chose de beau, maintenant.',
+          cta:'Je me l\'offre'
+        },
+        fomo:{
+          hook:'-10% pendant 5 jours. Après, le prix normal revient.',
+          body:'Tu l\'as regardée. Tu l\'as mise au panier. Tu as attendu.\n\nCe code est pour toi : MOOD10\nValable 5 jours seulement.\n\nAprès, il disparaît. La bague, elle, pourrait aussi.',
+          cta:'Utiliser mon code'
+        }
+      },
+      de:{
+        doux:{
+          hook:'Sie hatte denselben mood Ring im Warenkorb. Sie wartet noch.',
+          body:'Wir wissen, dass du schaust. Und dass er auf dich wartet.\n\nDie Lieferung ist schnell. Die Rückgabe ist kostenlos wenn du es dir anders überlegst. Lebenslange Garantie.\n\nEs gibt hier keine falsche Entscheidung.',
+          cta:'Zu meinem Warenkorb'
+        },
+        emotionnel:{
+          hook:'Das ist nicht nur ein Schmuckstück. Es ist der erste Schritt für dich.',
+          body:'Wie oft hast du dir gesagt „das gönne ich mir eines Tages"?\n\nHeute ist der Tag. Dieses Modell ist noch verfügbar. Die Lieferung kommt schnell.\n\nDu verdienst jetzt etwas Schönes.',
+          cta:'Ich gönne es mir'
+        },
+        fomo:{
+          hook:'-10% für 5 Tage. Danach kommt der normale Preis zurück.',
+          body:'Du hast ihn angeschaut. Du hast ihn in den Warenkorb gelegt. Du hast gewartet.\n\nDieser Code gehört dir: MOOD10\nNur 5 Tage gültig.\n\nDanach verschwindet er. Der Ring könnte es auch.',
+          cta:'Meinen Code verwenden'
+        }
+      }
+    }
+  },
+  occasional:{
+    label:'Clientes occasionnelles',color:'#5a8a5a',
+    klaviyo:'Segment Clientes — 1-2 achats, 6+ mois sans achat, exclure flow onboarding',
+    metaObjective:{acquisition:'CONVERSIONS (Purchase)',conversion:'CONVERSIONS (Purchase)',traffic:'LINK_CLICKS'},
+    googleObjective:'Shopping + Remarketing display — catalogue complet',
+    budgetReco:50,cpaMeta:20,roasFR:8.0,roasDE:4.2,
+    copy:{
+      fr:{
+        doux:{
+          hook:'Tu as déjà ton clic. Ces pépites t\'attendent.',
+          body:'Depuis ton dernier passage, la collection a bien évolué.\n\nDe nouvelles pépites créatives sont arrivées — des anneaux que tu n\'as pas encore.\n\nQuand tu reviens, c\'est toujours une surprise.',
+          cta:'Voir les nouveautés'
+        },
+        emotionnel:{
+          hook:'Ta bague mood mérite une nouvelle pépite.',
+          body:'La bague est là. Elle t\'attend sur ta table de nuit, dans ton tiroir à bijoux, sur ton doigt.\n\nEt si tu lui ajoutais quelque chose de nouveau ce mois-ci ?',
+          cta:'Ajouter à ma compo'
+        },
+        fomo:{
+          hook:'Ces pépites-là ne reviendront pas. Elles partent.',
+          body:'Certains anneaux sont en série limitée.\n\nTu le sais. Tu as déjà vécu la déception de voir ta pépite préférée partir.\n\nCette fois, tu es au courant avant.',
+          cta:'Voir avant qu\'elles partent'
+        }
+      },
+      de:{
+        doux:{
+          hook:'Du hast bereits deinen Klick. Diese Pépites warten auf dich.',
+          body:'Seit deinem letzten Besuch hat sich die Kollektion weiterentwickelt.\n\nNeue Pépites créatives sind eingetroffen — Innenringe, die du noch nicht hast.\n\nWenn du zurückkommst, ist es immer eine Überraschung.',
+          cta:'Neuheiten ansehen'
+        },
+        emotionnel:{
+          hook:'Dein mood Ring verdient eine neue Pépite.',
+          body:'Der Ring ist da. Er wartet auf dich — auf deinem Nachttisch, in deiner Schmuckschublade, an deinem Finger.\n\nWas wäre, wenn du ihm diesen Monat etwas Neues hinzufügst?',
+          cta:'Zu meiner Kombi hinzufügen'
+        },
+        fomo:{
+          hook:'Diese Pépites kommen nicht wieder. Sie gehen.',
+          body:'Einige Innenringe sind in limitierter Serie.\n\nDu weisst es. Du hast bereits die Enttäuschung erlebt, dein Lieblingspiece gehen zu sehen.\n\nDieses Mal bist du vorher informiert.',
+          cta:'Vor dem Ausverkauf ansehen'
+        }
+      }
+    }
+  },
+  loyal:{
+    label:'VIP / Clientes fidèles',color:'#c9a96e',
+    klaviyo:'Segment VIP — 3+ achats OU CA >300 CHF, exclure flow prospects',
+    metaObjective:{acquisition:'CONVERSIONS (Purchase)',conversion:'CONVERSIONS (Purchase)',traffic:'LINK_CLICKS'},
+    googleObjective:'Search "mood collection" brand + Shopping catalog exclusif',
+    budgetReco:40,cpaMeta:15,roasFR:12.0,roasDE:6.5,
+    copy:{
+      fr:{
+        doux:{
+          hook:'Pour celles qui sont là depuis le début.',
+          body:'Tu fais partie des Mood Lovers les plus fidèles.\n\nCette nouvelle pépite, on l\'a pensée pour toi. Avant qu\'elle soit visible pour tout le monde, tu la découvres en avant-première.',
+          cta:'Voir en avant-première'
+        },
+        emotionnel:{
+          hook:'Tu as été là depuis le début. Cette pépite aussi.',
+          body:'Certains anneaux sont conçus pour les clientes qui comprennent le système mood dans les détails.\n\nCelui-là, c\'est pour toi.',
+          cta:'Découvrir la pièce'
+        },
+        fomo:{
+          hook:'Accès VIP — avant les autres.',
+          body:'En tant que Mood Lover fidèle, tu as accès à cette pépite avant l\'ouverture officielle.\n\n48h d\'avance. Puis tout le monde peut la voir.',
+          cta:'Accès VIP →'
+        }
+      },
+      de:{
+        doux:{
+          hook:'Für diejenigen, die von Anfang an dabei waren.',
+          body:'Du gehörst zu den treuesten Mood Lovers.\n\nDiese neue Pépite haben wir für dich gedacht. Bevor sie für alle sichtbar ist, entdeckst du sie als Erste.',
+          cta:'Als Erste sehen'
+        },
+        emotionnel:{
+          hook:'Du warst von Anfang an dabei. Diese Pépite auch.',
+          body:'Einige Innenringe sind für Kundinnen gedacht, die das mood System in allen Details verstehen.\n\nDieser hier ist für dich.',
+          cta:'Das Piece entdecken'
+        },
+        fomo:{
+          hook:'VIP-Zugang — vor allen anderen.',
+          body:'Als treue Mood Lover hast du Zugang zu dieser Pépite vor der offiziellen Eröffnung.\n\n48 Stunden Vorsprung. Dann kann jeder sie sehen.',
+          cta:'VIP-Zugang →'
+        }
+      }
+    }
+  }
+};
+
+// ═══════════════════════════════════════════
+// GENERATE CAMPAIGN
+// ═══════════════════════════════════════════
+
+function generateCampaign(){
+  const aud=CAMP[campState.level];
+  const lang=campState.lang;
+  const goal=campState.goal;
+  const plat=campState.platform;
+  const landing=document.getElementById('camp-landing').value||'yourmood.net';
+  const offer=document.getElementById('camp-offer').value||'Collection Mood';
+  const budgetDay=parseFloat(document.getElementById('camp-budget').value)||aud.budgetReco;
+  const duration=parseInt(document.getElementById('camp-duration').value)||14;
+
+  const totalBudget=budgetDay*duration;
+  const roasEst=lang==='de'?(aud.roasDE||3.5):(aud.roasFR||7.0);
+  const hasRoas=aud.roasFR||aud.roasDE;
+  const cpaEst=aud.cpaMeta||(budgetDay/2.5);
+  const conversionsEst=hasRoas?Math.round(totalBudget/cpaEst):null;
+  const revenueEst=hasRoas?Math.round(totalBudget*roasEst):null;
+  const reachDay=Math.round(budgetDay*1000/8.5);
+
+  // Campaign type recommendation
+  const useBoost=plat==='meta'&&budgetDay<25&&goal==='traffic';
+  const campType=useBoost
+    ?'Boost de publication existante'
+    :plat==='meta'
+      ?goal==='acquisition'
+        ?'Advantage+ Shopping Campaign (ASC)'
+        :goal==='conversion'
+          ?'Campagne Conversions — CBO Manual'
+          :'Campagne Trafic — ABO'
+      :goal==='acquisition'
+        ?'Performance Max'
+        :'Search + Shopping';
+
+  const objective=plat==='meta'
+    ?(aud.metaObjective[goal]||'CONVERSIONS')
+    :aud.googleObjective;
+
+  // Copy variants
+  const copies=aud.copy[lang];
+  const tones=[
+    {key:'doux',label:'Doux / Organique',cls:'tone-doux'},
+    {key:'emotionnel',label:'Émotionnel',cls:'tone-emotionnel'},
+    {key:'fomo',label:'FOMO / Urgence',cls:'tone-fomo'}
+  ];
+
+  // Build output HTML
+  let html='';
+
+  // Block 1 — Structure
+  html+=`<div class="camp-block">
+  <div class="camp-block-title"><span>🏗</span> Structure recommandée</div>
+  <div class="rec-badge">📘 ${plat==='meta'?'Meta Ads':'Google Ads'} · ${useBoost?'Boost':'Nouvelle campagne'}</div>
+  <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+    <div class="aud-target-row"><div class="aud-target-icon">🎯</div><div><div class="aud-target-label">Type de campagne</div><div class="aud-target-detail">${campType}</div></div></div>
+    <div class="aud-target-row"><div class="aud-target-icon">📊</div><div><div class="aud-target-label">Objectif Meta</div><div class="aud-target-detail">${objective}</div></div></div>
+    <div class="aud-target-row"><div class="aud-target-icon">📅</div><div><div class="aud-target-label">Budget & durée</div><div class="aud-target-detail">${budgetDay} CHF/jour × ${duration} jours = <strong style="color:var(--gold)">${totalBudget} CHF</strong> total</div></div></div>
+    <div class="aud-target-row"><div class="aud-target-icon">🔗</div><div><div class="aud-target-label">Landing page</div><div class="aud-target-detail">${landing}</div></div></div>
+    ${offer?`<div class="aud-target-row"><div class="aud-target-icon">✨</div><div><div class="aud-target-label">Offre / Nouveauté</div><div class="aud-target-detail">${offer}</div></div></div>`:''}
+  </div>
+</div>`;
+
+  // Block 2 — Audience
+  html+=`<div class="camp-block">
+  <div class="camp-block-title"><span>👥</span> Ciblage audience</div>
+  <div class="aud-target-block">
+    <div class="aud-target-row"><div class="aud-target-icon" style="font-size:11px;font-weight:700;color:${aud.color};margin-top:2px">${campState.level}</div><div><div class="aud-target-label">${aud.label}</div><div class="aud-target-detail">${aud.klaviyo}</div></div></div>
+    <div class="aud-target-row"><div class="aud-target-icon">🚫</div><div><div class="aud-target-label">Exclusions recommandées</div><div class="aud-target-detail">${getExclusions(campState.level)}</div></div></div>
+    ${plat==='meta'?`<div class="aud-target-row"><div class="aud-target-icon">🔁</div><div><div class="aud-target-label">Audience lookalike (si disponible)</div><div class="aud-target-detail">${getLookalike(campState.level)}</div></div></div>`:''}
+    <div class="aud-target-row"><div class="aud-target-icon">📧</div><div><div class="aud-target-label">Segment Klaviyo à exporter</div><div class="aud-target-detail">${aud.klaviyo.split('—')[0].trim()}</div></div></div>
+  </div>
+</div>`;
+
+  // Block 3 — KPIs estimés
+  if(hasRoas){
+    html+=`<div class="camp-block">
+  <div class="camp-block-title"><span>📈</span> KPIs estimés <span style="font-size:9px;color:var(--muted);font-weight:400;letter-spacing:0;text-transform:none">— basé sur ROAS historique Mood ${lang==='de'?'DE (×'+roasEst+')':'FR (×'+roasEst+')'}</span></div>
+  <div class="kpi-grid">
+    <div class="kpi-box"><div class="kpi-val">${totalBudget} CHF</div><div class="kpi-label">Budget total</div></div>
+    <div class="kpi-box"><div class="kpi-val">${revenueEst ? revenueEst+' CHF' : '—'}</div><div class="kpi-label">Revenus estimés</div><div class="kpi-note">ROAS ×${roasEst}</div></div>
+    <div class="kpi-box"><div class="kpi-val">${cpaEst.toFixed(0)} CHF</div><div class="kpi-label">CPA cible</div></div>
+    <div class="kpi-box"><div class="kpi-val">${conversionsEst||'—'}</div><div class="kpi-label">Conversions est.</div></div>
+  </div>
+  <div class="rec-detail" style="margin-top:14px">📡 Reach estimé : ~${(reachDay*duration).toLocaleString('fr-FR')} impressions sur ${duration} jours · CPM cible ~8.50 CHF</div>
+</div>`;
+  }else{
+    html+=`<div class="camp-block">
+  <div class="camp-block-title"><span>📈</span> KPIs estimés</div>
+  <div class="kpi-grid">
+    <div class="kpi-box"><div class="kpi-val">${totalBudget} CHF</div><div class="kpi-label">Budget total</div></div>
+    <div class="kpi-box"><div class="kpi-val">~${(reachDay*duration).toLocaleString('fr-FR')}</div><div class="kpi-label">Impressions est.</div></div>
+    <div class="kpi-box"><div class="kpi-val">Awareness</div><div class="kpi-label">Objectif</div></div>
+    <div class="kpi-box"><div class="kpi-val">—</div><div class="kpi-label">ROAS (N/A)</div><div class="kpi-note">Audience froide</div></div>
+  </div>
+  <div class="rec-detail" style="margin-top:14px">ℹ️ N0 = sensibilisation. Pas de ROAS direct. Mesurer : vues vidéo >50%, clics landing page, quiz complétés.</div>
+</div>`;
+  }
+
+  // Block 4 — Copy variants
+  html+=`<div class="camp-block">
+  <div class="camp-block-title"><span>✍️</span> Textes publicitaires — ${lang==='de'?'DE 🇩🇪':'FR 🇫🇷'}</div>
+  <div class="copy-variants">`;
+  tones.forEach(({key,label,cls})=>{
+    const c=copies[key];
+    const fullCopy=`${c.hook}\n\n${c.body}\n\n${c.cta} →`;
+    html+=`<div class="copy-card">
+    <div class="copy-card-hdr">
+      <span class="copy-tone-badge ${cls}">${label}</span>
+      <button class="copy-copy-btn" onclick="navigator.clipboard.writeText(${JSON.stringify(fullCopy)}).then(()=>toast('Texte copié ✓'))">📋 Copier tout</button>
+    </div>
+    <div class="copy-hook">${c.hook}</div>
+    <div class="copy-body">${c.body}</div>
+    <div class="copy-cta-row">
+      <span class="copy-cta-pill">${c.cta} →</span>
+      <span style="font-size:10px;color:var(--muted)">CTA · ${plat==='meta'?'Bouton Meta':'Texte annonce'}</span>
+    </div>
+  </div>`;
+  });
+  html+=`</div></div>`;
+
+  // Block 5 — Budget allocation (multi ad sets)
+  html+=`<div class="camp-block">
+  <div class="camp-block-title"><span>💰</span> Répartition budget recommandée</div>
+  <div class="budget-bars">
+    ${getBudgetAllocation(campState.level,goal,plat,budgetDay).map(({label,pct})=>`
+    <div class="budget-row">
+      <div class="budget-row-label">${label}</div>
+      <div class="budget-bar-wrap"><div class="budget-bar-fill" style="width:${pct}%"></div></div>
+      <div class="budget-row-val">${Math.round(budgetDay*pct/100)} CHF/j</div>
+    </div>`).join('')}
+  </div>
+  <div class="rec-detail" style="margin-top:14px">${getCampAdvice(campState.level,goal,plat,budgetDay)}</div>
+</div>`;
+
+  document.getElementById('camp-empty').style.display='none';
+  const out=document.getElementById('camp-output');
+  out.style.display='flex';
+  out.innerHTML=html;
+}
+
+function getExclusions(level){
+  if(level==='N0') return 'Clientes existantes (purchasers 180j) · Emails Klaviyo importés';
+  if(level==='N1') return 'Purchasers 365j · Segment N0 si déjà exposé';
+  if(level==='N2') return 'Purchasers 365j · Segment N3 (géré séparément)';
+  if(level==='N3') return 'Purchasers 30j · Clientes onboarding actives';
+  if(level==='occasional') return 'Clientes actives (achat <90j) · VIP actifs';
+  if(level==='loyal') return 'Audiences froides · N0/N1/N2';
+  return '—';
+}
+function getLookalike(level){
+  if(level==='N0') return 'LAL 3-5% de la liste clientes totale — pour élargir la diffusion';
+  if(level==='N1') return 'LAL 1-3% des visiteuses site (Pixel) — plus qualifié que N0';
+  if(level==='N2') return 'LAL 1% Add-to-cart — audience très qualifiée';
+  if(level==='N3') return 'Pas de LAL — utiliser Custom Audience Pixel (visiteurs 7j)';
+  if(level==='occasional') return 'LAL 1% des clientes (Purchase) — trouver des profils similaires';
+  if(level==='loyal') return 'LAL 1% des VIP (Top spenders) — reach premium';
+  return '—';
+}
+function getBudgetAllocation(level,goal,plat,budget){
+  if(level==='N0') return [{label:'Sensibilisation vidéo / Reach',pct:70},{label:'Test hook statique',pct:30}];
+  if(level==='N1') return [{label:'Trafic landing page principal',pct:60},{label:'Retargeting visiteurs 3j',pct:40}];
+  if(level==='N2'){
+    if(budget>=60) return [{label:'Ad set lookalike 1% (scale)',pct:50},{label:'Custom audience visiteurs 14j',pct:35},{label:'Test nouveaux formats',pct:15}];
+    return [{label:'Custom audience visiteurs 14j',pct:70},{label:'Test format / hook',pct:30}];
+  }
+  if(level==='N3') return [{label:'Panier abandonné (7j)',pct:60},{label:'Visiteurs produit (3j)',pct:30},{label:'Code promo urgence',pct:10}];
+  if(level==='occasional') return [{label:'Nouveautés collection',pct:60},{label:'Best-sellers retargeting',pct:40}];
+  if(level==='loyal') return [{label:'Avant-première VIP',pct:70},{label:'Upsell sets / packs',pct:30}];
+  return [{label:'Campagne principale',pct:100}];
+}
+function getCampAdvice(level,goal,plat,budget){
+  if(level==='N0') return '💡 Audience froide : lancer 3 hooks vidéo différents. Couper sous 20% vue vidéo 3j. Ne pas envoyer vers catalogue.';
+  if(level==='N1') return '💡 Phase test : 2-3 visuels statiques + 1 vidéo. Couper CPC >2 CHF après 3 jours. Envoyer vers page collection filtrée par style.';
+  if(level==='N2') return '💡 Objectif AddToCart. Tester 2 angles : réassurance taille vs preuve sociale. Activer Advantage+ Creative si budget >60 CHF/j.';
+  if(level==='N3') return '⚡ Flow panier abandonné Klaviyo en parallèle obligatoire. Fréquence max 3 en 7j. Code promo à dévoiler J+3 si pas de conversion.';
+  if(level==='occasional') return '💡 Ne pas mentionner "tu n\'as pas acheté depuis". Angle nouveautés ou exclusivité. Exclure si achat dans les 90j.';
+  if(level==='loyal') return '💡 Budget réduit OK — ROAS très élevé sur ce segment. Contenu exclusif/VIP. Ne pas envoyer code promo générique.';
+  return '';
+}
+
+// ═══════════════════════════════════════════
+// MONITORING — DEMO DATA + CONNEXIONS
+// ═══════════════════════════════════════════
+
+const pilotConnections={meta:false,google:false,klaviyo:false,triplewhale:false};
+
+const DEMO_KPIS={
+  7:{spend:'3 480',revenue:'26 100',roas:'7.49',cpa:'38',orders:'92',ctr:'2.4%',deltaSpend:'+12%',deltaRoas:'+0.3',deltaCpa:'-8%',deltaOrders:'+15%'},
+  14:{spend:'7 200',revenue:'53 900',roas:'7.49',cpa:'38',orders:'190',ctr:'2.2%',deltaSpend:'+9%',deltaRoas:'+0.1',deltaCpa:'-5%',deltaOrders:'+11%'},
+  30:{spend:'30 000',revenue:'224 700',roas:'7.49',cpa:'38',orders:'790',ctr:'2.3%',deltaSpend:'+18%',deltaRoas:'+0.4',deltaCpa:'-3%',deltaOrders:'+22%'}
+};
+
+const DEMO_CAMPAIGNS=[
+  {name:'ASC — Acquisition FR — Aura',status:'active',spend:'420',revenue:'4 200',roas:'10.0',cpa:'32',orders:'13'},
+  {name:'Conversion — N3 Panier — FR',status:'active',spend:'280',revenue:'2 940',roas:'10.5',cpa:'21',orders:'13'},
+  {name:'Retargeting — N2 Intéressées',status:'active',spend:'180',revenue:'900',roas:'5.0',cpa:'45',orders:'4'},
+  {name:'ASC — Acquisition DE — Helvétique',status:'learning',spend:'200',revenue:'700',roas:'3.5',cpa:'67',orders:'3'},
+  {name:'Brand awareness — N0 FR',status:'active',spend:'100',revenue:'—',roas:'—',cpa:'—',orders:'—'},
+  {name:'Clientes fidèles — VIP avant-première',status:'paused',spend:'0',revenue:'—',roas:'—',cpa:'—',orders:'—'},
+];
+
+const DEMO_CREATIVES=[
+  {name:'Static sombre — Aura Or',roas:'17.2',ctr:'3.1%',spend:'480'},
+  {name:'Video clic — Promo -30%',roas:'8.9',ctr:'2.8%',spend:'320'},
+  {name:'Carousel compo bohème',roas:'7.4',ctr:'2.2%',spend:'210'},
+  {name:'Static — 1 produit + % promo',roas:'11.3',ctr:'2.9%',spend:'390'},
+  {name:'UGC — témoignage cliente',roas:'6.8',ctr:'1.9%',spend:'150'},
+];
+
+let currentPilotPeriod=30;
+
+function setPilotPeriod(days,el){
+  currentPilotPeriod=days;
+  document.querySelectorAll('.pilot-layout .pill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('pilot-period').textContent=days+' derniers jours';
+  renderPilotKPIs(days);
+}
+
+function renderPilotKPIs(days){
+  const d=DEMO_KPIS[days]||DEMO_KPIS[30];
+  const isLive=Object.values(pilotConnections).some(Boolean);
+  document.getElementById('pilot-data-src').textContent=isLive?'live':'demo';
+  document.getElementById('pilot-last-sync').textContent=isLive?(new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})+'  aujourd\'hui'):'données de démonstration';
+  const set=(id,val,delta,dir)=>{
+    document.getElementById(id).textContent=val;
+    const de=document.getElementById(id+'-d');
+    if(de){de.textContent=delta;de.className='pilot-kpi-delta '+(dir==='up'?'up':'down');}
+  };
+  set('pk-spend',d.spend+' CHF',d.deltaSpend,'up');
+  set('pk-revenue',d.revenue+' CHF',d.deltaRoas+' ROAS','up');
+  set('pk-roas','×'+d.roas,d.deltaRoas,'up');
+  set('pk-cpa',d.cpa+' CHF',d.deltaCpa,'up');
+  set('pk-orders',d.orders,d.deltaOrders,'up');
+  set('pk-ctr',d.ctr,'vs moy. 2.1%','up');
+}
+
+function renderPilotCampaigns(){
+  const wrap=document.getElementById('pilot-campaigns-wrap');
+  wrap.innerHTML=`<table class="pilot-table">
+  <thead><tr>
+    <th>Campagne</th><th>Statut</th><th>Dépensé</th><th>Revenus</th><th>ROAS</th><th>CPA</th><th>Commandes</th>
+  </tr></thead>
+  <tbody>
+  ${DEMO_CAMPAIGNS.map(c=>`<tr>
+    <td style="font-weight:600">${c.name}</td>
+    <td><span class="status-dot status-${c.status}"></span>${{active:'Actif',paused:'Pausé',learning:'Apprentissage'}[c.status]}</td>
+    <td>${c.spend} CHF</td><td>${c.revenue}</td>
+    <td class="pilot-roas">${c.roas}</td>
+    <td>${c.cpa}</td><td>${c.orders}</td>
+  </tr>`).join('')}
+  </tbody></table>`;
+}
+
+function renderPilotCreatives(){
+  const g=document.getElementById('pilot-creatives-grid');
+  g.innerHTML=DEMO_CREATIVES.map(c=>`<div class="pilot-creative-card">
+    <div class="pilot-creative-thumb">🖼️</div>
+    <div class="pilot-creative-meta">
+      <div class="pilot-creative-name">${c.name}</div>
+      <div class="pilot-creative-kpis">
+        <div class="pilot-creative-kpi">ROAS <strong>${c.roas}</strong></div>
+        <div class="pilot-creative-kpi">CTR <strong>${c.ctr}</strong></div>
+      </div>
+    </div>
+  </div>`).join('');
+}
+
+function connectPlatform(plat){
+  toast(`Connexion ${plat} — intégration API à configurer (MCP Meta Ads disponible)`);
+  // Future: call MCP Meta Ads API or OAuth flow
+}
+
+// Init pilotage data on load
+function initPilotage(){
+  renderPilotKPIs(30);
+  renderPilotCampaigns();
+  renderPilotCreatives();
+}
+
 // Init
 selAud('retargeting');
 document.querySelectorAll('.preset')[0].click();
+initPilotage();
 </script>
 </body>
 </html>
