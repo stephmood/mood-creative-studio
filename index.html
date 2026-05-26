@@ -287,8 +287,8 @@ input[type=file]{display:none}
   <div class="hdr-l">
     <div class="logo">m</div>
     <div>
-      <div class="hdr-title">mood Ads Studio</div>
-      <div class="hdr-sub">Créatifs · Campagnes · Pilotage</div>
+      <div class="hdr-title">Creative Studio mood</div>
+      <div class="hdr-sub">Créatifs</div>
     </div>
   </div>
   <div class="hdr-r" id="hdr-steps">
@@ -304,8 +304,6 @@ input[type=file]{display:none}
 
 <div class="tab-bar">
   <div class="tab-btn active" onclick="switchTab('creatives',this)">🎨 Créatifs</div>
-  <div class="tab-btn" onclick="switchTab('campaign',this)">🚀 Campagnes</div>
-  <div class="tab-btn" onclick="switchTab('pilotage',this)">📊 Pilotage</div>
 </div>
 
 <div id="tab-creatives" class="tab-content active">
@@ -505,178 +503,6 @@ input[type=file]{display:none}
   </main>
 </div><!-- end .layout -->
 </div><!-- end #tab-creatives -->
-
-<!-- ══════════════════════════════════════════
-     TAB 2 — CRÉATION DE CAMPAGNE
-══════════════════════════════════════════ -->
-<div id="tab-campaign" class="tab-content">
-<div class="camp-layout">
-
-  <!-- BRIEF GAUCHE -->
-  <aside class="camp-l">
-
-    <div class="sec">
-      <div class="sec-label">Plateforme</div>
-      <div class="pills" id="plat-pills">
-        <div class="pill on" data-plat="meta" onclick="setCampPlat(this)" style="flex:1;text-align:center">📘 Meta / Instagram</div>
-        <div class="pill" data-plat="google" onclick="setCampPlat(this)" style="flex:1;text-align:center">🔍 Google</div>
-      </div>
-    </div>
-
-    <div class="sec">
-      <div class="sec-label">Objectif campagne</div>
-      <div class="pills" id="goal-pills">
-        <div class="pill on" data-goal="acquisition" onclick="setCampGoal(this)">🆕 Acquisition</div>
-        <div class="pill" data-goal="conversion" onclick="setCampGoal(this)">💳 Conversion</div>
-        <div class="pill" data-goal="traffic" onclick="setCampGoal(this)">👀 Trafic</div>
-      </div>
-    </div>
-
-    <div class="sec">
-      <div class="sec-label">Niveau d'audience</div>
-      <div class="nlevel-grid" id="nlevel-grid">
-        <div class="nlevel-card sel" data-level="N0" onclick="setCampLevel(this)">
-          <div class="nlevel-tag" style="color:#3b6ea5">N0 — Froide</div>
-          <div class="nlevel-name">Inconsciente · ~30K<br>Ne connaît pas Mood</div>
-        </div>
-        <div class="nlevel-card" data-level="N1" onclick="setCampLevel(this)">
-          <div class="nlevel-tag" style="color:#6a9ecf">N1 — Curieuse</div>
-          <div class="nlevel-name">A découvert le concept · ~25K</div>
-        </div>
-        <div class="nlevel-card" data-level="N2" onclick="setCampLevel(this)">
-          <div class="nlevel-tag" style="color:#c97d3b">N2 — Intéressée</div>
-          <div class="nlevel-name">Visite mais pas de panier · ~20K</div>
-        </div>
-        <div class="nlevel-card" data-level="N3" onclick="setCampLevel(this)">
-          <div class="nlevel-tag" style="color:#b03030">N3 — Chaude</div>
-          <div class="nlevel-name">Panier abandonné · ~12K</div>
-        </div>
-        <div class="nlevel-card" data-level="occasional" onclick="setCampLevel(this)">
-          <div class="nlevel-tag" style="color:#5a8a5a">Clientes occ.</div>
-          <div class="nlevel-name">1-2 achats · inactives 6M+</div>
-        </div>
-        <div class="nlevel-card" data-level="loyal" onclick="setCampLevel(this)">
-          <div class="nlevel-tag" style="color:#c9a96e">VIP / Fidèles</div>
-          <div class="nlevel-name">3+ achats · CA >300 CHF</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sec">
-      <div class="sec-label">Langue</div>
-      <div class="pills" id="camp-lang-pills">
-        <div class="pill on" data-lang="fr" onclick="setCampLang(this)" style="flex:1;text-align:center">🇫🇷 FR</div>
-        <div class="pill" data-lang="de" onclick="setCampLang(this)" style="flex:1;text-align:center">🇩🇪 DE</div>
-      </div>
-    </div>
-
-    <div class="sec">
-      <div class="sec-label">Landing page</div>
-      <input class="camp-input" id="camp-landing" type="text" placeholder="ex : yourmood.net/aura ou /collection-ete" />
-    </div>
-
-    <div class="sec">
-      <div class="sec-label">Offre / Nouveauté à promouvoir</div>
-      <textarea class="camp-input" id="camp-offer" rows="3" placeholder="ex : Collection Caliente Day — 545 produits FR/DE, bague mood Aura, pépites été 2026, promo -10%…" style="resize:vertical"></textarea>
-    </div>
-
-    <div class="sec">
-      <div class="sec-label">Budget & durée</div>
-      <div class="camp-row">
-        <input class="camp-input" id="camp-budget" type="number" min="10" placeholder="Budget / jour (CHF)" />
-        <input class="camp-input" id="camp-duration" type="number" min="1" placeholder="Durée (jours)" />
-      </div>
-    </div>
-
-    <button class="btn-camp-gen" id="btn-camp-gen" onclick="generateCampaign()">
-      Générer le brief campagne →
-    </button>
-
-  </aside>
-
-  <!-- OUTPUT DROIT -->
-  <div class="camp-r" id="camp-r">
-    <div class="camp-empty" id="camp-empty">
-      <div class="camp-empty-icon">🚀</div>
-      <div class="camp-empty-title">Brief campagne prêt en 10 secondes</div>
-      <div class="camp-empty-sub">Remplis le brief à gauche — plateforme, audience, offre, budget — et je génère la structure, les textes et les KPIs estimés.</div>
-    </div>
-    <div class="camp-output" id="camp-output" style="display:none"></div>
-  </div>
-
-</div>
-</div><!-- end #tab-campaign -->
-
-<!-- ══════════════════════════════════════════
-     TAB 3 — PILOTAGE
-══════════════════════════════════════════ -->
-<div id="tab-pilotage" class="tab-content">
-<div class="pilot-layout">
-
-  <!-- CONNEXION -->
-  <div class="pilot-connect-bar">
-    <div class="pilot-connect-title">Connexions</div>
-    <div class="connect-btn" id="connect-meta" onclick="connectPlatform('meta')">
-      <div class="connect-dot"></div>📘 Meta Ads
-    </div>
-    <div class="connect-btn" id="connect-google" onclick="connectPlatform('google')">
-      <div class="connect-dot"></div>🔍 Google Ads
-    </div>
-    <div class="connect-btn" id="connect-klaviyo" onclick="connectPlatform('klaviyo')">
-      <div class="connect-dot"></div>📧 Klaviyo
-    </div>
-    <div class="connect-btn" id="connect-triplewhale" onclick="connectPlatform('triplewhale')">
-      <div class="connect-dot"></div>🐳 Triple Whale
-    </div>
-    <div style="flex:1"></div>
-    <div style="font-size:10px;color:var(--muted)">Données : <span id="pilot-data-src">demo</span> · <span id="pilot-last-sync">—</span></div>
-  </div>
-
-  <!-- KPIs OVERVIEW -->
-  <div>
-    <div class="pilot-section-title">Vue d'ensemble <span style="color:var(--gold);font-weight:800" id="pilot-period">7 derniers jours</span>
-      <div style="display:flex;gap:6px;margin-left:auto">
-        <div class="pill" style="font-size:9px;padding:3px 10px" onclick="setPilotPeriod(7,this)">7j</div>
-        <div class="pill" style="font-size:9px;padding:3px 10px" onclick="setPilotPeriod(14,this)">14j</div>
-        <div class="pill on" style="font-size:9px;padding:3px 10px" onclick="setPilotPeriod(30,this)">30j</div>
-      </div>
-    </div>
-    <div class="pilot-kpi-row" id="pilot-kpis">
-      <div class="pilot-kpi"><div class="pilot-kpi-val" id="pk-spend">—</div><div class="pilot-kpi-label">Dépensé</div><div class="pilot-kpi-delta" id="pk-spend-d"></div></div>
-      <div class="pilot-kpi"><div class="pilot-kpi-val" id="pk-revenue">—</div><div class="pilot-kpi-label">Revenus</div><div class="pilot-kpi-delta" id="pk-revenue-d"></div></div>
-      <div class="pilot-kpi"><div class="pilot-kpi-val" id="pk-roas" style="color:var(--gold)">—</div><div class="pilot-kpi-label">ROAS</div><div class="pilot-kpi-delta" id="pk-roas-d"></div></div>
-      <div class="pilot-kpi"><div class="pilot-kpi-val" id="pk-cpa">—</div><div class="pilot-kpi-label">CPA</div><div class="pilot-kpi-delta" id="pk-cpa-d"></div></div>
-      <div class="pilot-kpi"><div class="pilot-kpi-val" id="pk-orders">—</div><div class="pilot-kpi-label">Commandes</div><div class="pilot-kpi-delta" id="pk-orders-d"></div></div>
-      <div class="pilot-kpi"><div class="pilot-kpi-val" id="pk-ctr">—</div><div class="pilot-kpi-label">CTR moyen</div><div class="pilot-kpi-delta" id="pk-ctr-d"></div></div>
-    </div>
-  </div>
-
-  <!-- CAMPAGNES ACTIVES -->
-  <div>
-    <div class="pilot-section-title">Campagnes actives</div>
-    <div id="pilot-campaigns-wrap">
-      <div class="pilot-no-data"><div class="icon">📡</div>Connecte Meta Ads pour voir tes campagnes en live.</div>
-    </div>
-  </div>
-
-  <!-- TOP CRÉATIFS -->
-  <div>
-    <div class="pilot-section-title">Top créatifs (ROAS)</div>
-    <div class="pilot-creatives-grid" id="pilot-creatives-grid">
-      <div class="pilot-no-data" style="grid-column:1/-1"><div class="icon">🖼️</div>Connecte Meta Ads pour voir tes créatifs en performance.</div>
-    </div>
-  </div>
-
-  <!-- ALERTES -->
-  <div>
-    <div class="pilot-section-title">Alertes & recommandations</div>
-    <div id="pilot-alerts">
-      <div class="pilot-alert">⚡ Connecte tes comptes pour activer les alertes automatiques (ROAS en chute, créatif en fatigue, audience saturée).</div>
-    </div>
-  </div>
-
-</div>
-</div><!-- end #tab-pilotage -->
 
 <div class="toast" id="toast"></div>
 
@@ -3868,7 +3694,6 @@ function initPilotage(){
 // Init
 selAud('retargeting');
 document.querySelectorAll('.preset')[0].click();
-initPilotage();
 </script>
 </body>
 </html>
