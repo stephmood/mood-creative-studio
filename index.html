@@ -2308,7 +2308,7 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
     await document.fonts.load("400 48px 'Bebas Neue'").catch(()=>{});
 
     const ANIM_DUR=4.0, END_CARD_DUR=1.5, FADE_DUR=0.35, TOTAL=ANIM_DUR+END_CARD_DUR;
-    const FPS=15;
+    const FPS=8;
 
     const canvas=document.createElement('canvas');
     canvas.width=fmt.w; canvas.height=fmt.h;
@@ -2478,10 +2478,13 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
       ctx.globalAlpha=1;
     }
 
-    // ── Chemin rapide : WebCodecs VP9 + muxer inline (aucune dépendance externe) ──
+    // ── Chemin rapide : WebCodecs VP9 demi-résolution ──
     if(typeof VideoEncoder!=='undefined'){
       try{
-        const vp9cfg={codec:'vp09.00.10.08',width:fmt.w,height:fmt.h,framerate:FPS};
+        const EW=Math.round(fmt.w*0.5), EH=Math.round(fmt.h*0.5);
+        const encC=document.createElement('canvas'); encC.width=EW; encC.height=EH;
+        const encX=encC.getContext('2d');
+        const vp9cfg={codec:'vp09.00.10.08',width:EW,height:EH,framerate:FPS};
         const check=await VideoEncoder.isConfigSupported(vp9cfg);
         if(check.supported){
           const wcChunks=[];
@@ -2493,18 +2496,19 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
             },
             error:e=>console.warn('VideoEncoder:',e)
           });
-          encoder.configure({...vp9cfg,bitrate:3000000,latencyMode:'realtime'});
+          encoder.configure({...vp9cfg,bitrate:2000000,latencyMode:'realtime'});
           const TOTAL_FRAMES=Math.ceil(TOTAL*FPS);
           for(let f=0;f<TOTAL_FRAMES;f++){
             renderFrameAt(f/FPS);
-            const vf=new VideoFrame(canvas,{timestamp:Math.round(f*1000000/FPS),duration:Math.round(1000000/FPS)});
-            encoder.encode(vf,{keyFrame:f%15===0});
+            encX.drawImage(canvas,0,0,EW,EH);
+            const vf=new VideoFrame(encC,{timestamp:Math.round(f*1000000/FPS),duration:Math.round(1000000/FPS)});
+            encoder.encode(vf,{keyFrame:f%8===0});
             vf.close();
-            if(f%10===0) await new Promise(r=>setTimeout(r,0));
+            if(f%5===0) await new Promise(r=>setTimeout(r,0));
           }
           await encoder.flush();
           encoder.close();
-          const blob=new Blob([buildWebM(fmt.w,fmt.h,FPS,wcChunks)],{type:'video/webm'});
+          const blob=new Blob([buildWebM(EW,EH,FPS,wcChunks)],{type:'video/webm'});
           resolve({blob,url:URL.createObjectURL(blob),ext:'webm'});
           return;
         }
@@ -2551,7 +2555,7 @@ async function renderSlideshow(tone,lang,format){
     const N=photos.length;
     const SLIDES_TOTAL=N*PHOTO_DUR;
     const TOTAL=SLIDES_TOTAL+END_CARD_DUR;
-    const FPS=15;
+    const FPS=8;
 
     const canvas=document.createElement('canvas');
     canvas.width=fmt.w; canvas.height=fmt.h;
@@ -2746,10 +2750,13 @@ async function renderSlideshow(tone,lang,format){
       ctx.globalAlpha=1;
     }
 
-    // ── WebCodecs fast path ──
+    // ── WebCodecs fast path demi-résolution ──
     if(typeof VideoEncoder!=='undefined'){
       try{
-        const vp9cfg={codec:'vp09.00.10.08',width:fmt.w,height:fmt.h,framerate:FPS};
+        const EW=Math.round(fmt.w*0.5), EH=Math.round(fmt.h*0.5);
+        const encC=document.createElement('canvas'); encC.width=EW; encC.height=EH;
+        const encX=encC.getContext('2d');
+        const vp9cfg={codec:'vp09.00.10.08',width:EW,height:EH,framerate:FPS};
         const check=await VideoEncoder.isConfigSupported(vp9cfg);
         if(check.supported){
           const wcChunks=[];
@@ -2761,18 +2768,19 @@ async function renderSlideshow(tone,lang,format){
             },
             error:e=>console.warn('VideoEncoder:',e)
           });
-          encoder.configure({...vp9cfg,bitrate:3000000,latencyMode:'realtime'});
+          encoder.configure({...vp9cfg,bitrate:2000000,latencyMode:'realtime'});
           const TOTAL_FRAMES=Math.ceil(TOTAL*FPS);
           for(let f=0;f<TOTAL_FRAMES;f++){
             renderFrameAt(f/FPS);
-            const vf=new VideoFrame(canvas,{timestamp:Math.round(f*1000000/FPS),duration:Math.round(1000000/FPS)});
-            encoder.encode(vf,{keyFrame:f%15===0});
+            encX.drawImage(canvas,0,0,EW,EH);
+            const vf=new VideoFrame(encC,{timestamp:Math.round(f*1000000/FPS),duration:Math.round(1000000/FPS)});
+            encoder.encode(vf,{keyFrame:f%8===0});
             vf.close();
-            if(f%10===0) await new Promise(r=>setTimeout(r,0));
+            if(f%5===0) await new Promise(r=>setTimeout(r,0));
           }
           await encoder.flush();
           encoder.close();
-          const blob=new Blob([buildWebM(fmt.w,fmt.h,FPS,wcChunks)],{type:'video/webm'});
+          const blob=new Blob([buildWebM(EW,EH,FPS,wcChunks)],{type:'video/webm'});
           resolve({blob,url:URL.createObjectURL(blob),ext:'webm'});
           return;
         }
