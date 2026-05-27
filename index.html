@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>mood Creative Studio</title>
+<script src="https://cdn.jsdelivr.net/npm/mp4-muxer@4.4.1/build/mp4-muxer.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;600;700;800&family=Oswald:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -2050,10 +2051,12 @@ async function renderVideoCreative(photo,tone,lang,format){
     canvas.width=fmt.w; canvas.height=fmt.h;
     const ctx=canvas.getContext('2d');
 
-    // MediaRecorder
-    const mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9'
+    // MediaRecorder — MP4 en priorité
+    const mime=MediaRecorder.isTypeSupported('video/mp4;codecs=avc1')?'video/mp4;codecs=avc1'
+      :MediaRecorder.isTypeSupported('video/mp4')?'video/mp4'
+      :MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9'
       :MediaRecorder.isTypeSupported('video/webm')?'video/webm':'video/mp4';
-    const ext=mime.startsWith('video/mp4')?'mp4':'webm';
+    const ext=mime.includes('mp4')?'mp4':'webm';
 
     let recorder;
     try{
@@ -2478,22 +2481,48 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
       ctx.globalAlpha=1;
     }
 
-    // ── Chemin rapide : WebCodecs VP9 résolution réduite ──
+    // ── Chemin rapide : WebCodecs H.264 → MP4 (puis VP9 → WebM) ──
     if(typeof VideoEncoder!=='undefined'){
+      const EW=Math.round(fmt.w*0.3), EH=Math.round(fmt.h*0.3);
+      const encC=document.createElement('canvas'); encC.width=EW; encC.height=EH;
+      const encX=encC.getContext('2d');
+      // Essai H.264 → MP4
+      if(typeof Mp4Muxer!=='undefined'){
+        try{
+          const avcCfg={codec:'avc1.42001E',width:EW,height:EH,framerate:FPS,bitrate:2000000,latencyMode:'realtime'};
+          const chk=await VideoEncoder.isConfigSupported(avcCfg);
+          if(chk.supported){
+            const {Muxer,ArrayBufferTarget}=Mp4Muxer;
+            const target=new ArrayBufferTarget();
+            const muxer=new Muxer({target,video:{codec:'avc',width:EW,height:EH},fastStart:'in-memory'});
+            const encoder=new VideoEncoder({output:(chunk,meta)=>muxer.addVideoChunk(chunk,meta),error:e=>console.warn('VE H264:',e)});
+            encoder.configure(avcCfg);
+            const TOTAL_FRAMES=Math.ceil(TOTAL*FPS);
+            for(let f=0;f<TOTAL_FRAMES;f++){
+              renderFrameAt(f/FPS);
+              encX.drawImage(canvas,0,0,EW,EH);
+              const vf=new VideoFrame(encC,{timestamp:Math.round(f*1000000/FPS),duration:Math.round(1000000/FPS)});
+              encoder.encode(vf,{keyFrame:f%8===0});
+              vf.close();
+              if(f%5===0) await new Promise(r=>setTimeout(r,0));
+            }
+            await encoder.flush();
+            encoder.close();
+            muxer.finalize();
+            const blob=new Blob([target.buffer],{type:'video/mp4'});
+            resolve({blob,url:URL.createObjectURL(blob),ext:'mp4'});
+            return;
+          }
+        }catch(e){console.warn('H.264 MP4 non dispo, fallback VP9:',e);}
+      }
+      // Fallback VP9 → WebM
       try{
-        const EW=Math.round(fmt.w*0.3), EH=Math.round(fmt.h*0.3);
-        const encC=document.createElement('canvas'); encC.width=EW; encC.height=EH;
-        const encX=encC.getContext('2d');
         const vp9cfg={codec:'vp09.00.10.08',width:EW,height:EH,framerate:FPS};
         const check=await VideoEncoder.isConfigSupported(vp9cfg);
         if(check.supported){
           const wcChunks=[];
           const encoder=new VideoEncoder({
-            output:(chunk)=>{
-              const data=new Uint8Array(chunk.byteLength);
-              chunk.copyTo(data);
-              wcChunks.push({data:data.buffer,timestamp:chunk.timestamp,type:chunk.type});
-            },
+            output:(chunk)=>{const data=new Uint8Array(chunk.byteLength);chunk.copyTo(data);wcChunks.push({data:data.buffer,timestamp:chunk.timestamp,type:chunk.type});},
             error:e=>console.warn('VideoEncoder:',e)
           });
           encoder.configure({...vp9cfg,bitrate:2000000,latencyMode:'realtime'});
@@ -2750,13 +2779,66 @@ async function renderSlideshow(tone,lang,format){
       ctx.globalAlpha=1;
     }
 
-    // ── WebCodecs sparse frames (sections statiques = 1 frame tenu longtemps) ──
+    // ── WebCodecs sparse frames : H.264 → MP4 (puis VP9 → WebM) ──
     if(typeof VideoEncoder!=='undefined'){
+      const EW=Math.round(fmt.w*0.3), EH=Math.round(fmt.h*0.3);
+      const encC=document.createElement('canvas'); encC.width=EW; encC.height=EH;
+      const encX=encC.getContext('2d');
+      const TFPS=12, FADE_N=4;
+
+      function buildFramePlan(){
+        const fp=[];
+        for(let i=0;i<FADE_N;i++) fp.push({t:i*FADE_EDGE/FADE_N, dur:Math.round(FADE_EDGE/FADE_N*1000)});
+        for(let p=0;p<N;p++){
+          const t0=p*PHOTO_DUR;
+          const holdS=t0+(p===0?FADE_EDGE:TRANS_DUR*0.5);
+          const holdE=t0+PHOTO_DUR-(p===N-1?FADE_EDGE:TRANS_DUR*0.5);
+          if(holdE>holdS) fp.push({t:(holdS+holdE)*0.5, dur:Math.round((holdE-holdS)*1000)});
+          if(p<N-1){
+            const tS=t0+PHOTO_DUR-TRANS_DUR*0.5;
+            const tf=Math.max(3,Math.round(TRANS_DUR*TFPS));
+            for(let i=0;i<tf;i++) fp.push({t:tS+i*TRANS_DUR/tf, dur:Math.round(TRANS_DUR/tf*1000)});
+          }
+        }
+        for(let i=0;i<FADE_N;i++) fp.push({t:SLIDES_TOTAL-FADE_EDGE+i*FADE_EDGE/FADE_N, dur:Math.round(FADE_EDGE/FADE_N*1000)});
+        fp.push({t:SLIDES_TOTAL+END_CARD_DUR*0.3, dur:Math.round(END_CARD_DUR*1000)});
+        return fp;
+      }
+
+      // Essai H.264 → MP4
+      if(typeof Mp4Muxer!=='undefined'){
+        try{
+          const avcCfg={codec:'avc1.42001E',width:EW,height:EH,framerate:TFPS,bitrate:1500000,latencyMode:'realtime'};
+          const chk=await VideoEncoder.isConfigSupported(avcCfg);
+          if(chk.supported){
+            const {Muxer,ArrayBufferTarget}=Mp4Muxer;
+            const target=new ArrayBufferTarget();
+            const muxer=new Muxer({target,video:{codec:'avc',width:EW,height:EH},fastStart:'in-memory'});
+            const encoder=new VideoEncoder({output:(chunk,meta)=>muxer.addVideoChunk(chunk,meta),error:e=>console.warn('VE H264 diapo:',e)});
+            encoder.configure(avcCfg);
+            let tsUs=0;
+            for(const fp of buildFramePlan()){
+              renderFrameAt(Math.max(0,Math.min(TOTAL-0.01,fp.t)));
+              encX.drawImage(canvas,0,0,EW,EH);
+              const durUs=Math.max(33333,fp.dur*1000);
+              const vf=new VideoFrame(encC,{timestamp:tsUs,duration:durUs});
+              encoder.encode(vf,{keyFrame:true});
+              vf.close();
+              tsUs+=durUs;
+              await new Promise(r=>setTimeout(r,0));
+            }
+            await encoder.flush();
+            encoder.close();
+            muxer.finalize();
+            const blob=new Blob([target.buffer],{type:'video/mp4'});
+            resolve({blob,url:URL.createObjectURL(blob),ext:'mp4'});
+            return;
+          }
+        }catch(e){console.warn('H.264 MP4 diapo non dispo, fallback VP9:',e);}
+      }
+      // Fallback VP9 → WebM
       try{
-        const EW=Math.round(fmt.w*0.3), EH=Math.round(fmt.h*0.3);
-        const encC=document.createElement('canvas'); encC.width=EW; encC.height=EH;
-        const encX=encC.getContext('2d');
-        const vp9cfg={codec:'vp09.00.10.08',width:EW,height:EH,framerate:12};
+        const vp9cfg={codec:'vp09.00.10.08',width:EW,height:EH,framerate:TFPS};
         const check=await VideoEncoder.isConfigSupported(vp9cfg);
         if(check.supported){
           const wcChunks=[];
@@ -2765,31 +2847,8 @@ async function renderSlideshow(tone,lang,format){
             error:e=>console.warn('VideoEncoder:',e)
           });
           encoder.configure({...vp9cfg,bitrate:1500000,latencyMode:'realtime'});
-
-          // Sparse frames : section statique = 1 frame tenu, transition = frames à 12fps
-          const framePlan=[]; // [{t, dur_ms}]
-          const TFPS=12, FADE_N=4;
-
-          // Fade in
-          for(let i=0;i<FADE_N;i++) framePlan.push({t:i*FADE_EDGE/FADE_N, dur:Math.round(FADE_EDGE/FADE_N*1000)});
-
-          for(let p=0;p<N;p++){
-            const t0=p*PHOTO_DUR;
-            const holdS=t0+(p===0?FADE_EDGE:TRANS_DUR*0.5);
-            const holdE=t0+PHOTO_DUR-(p===N-1?FADE_EDGE:TRANS_DUR*0.5);
-            if(holdE>holdS) framePlan.push({t:(holdS+holdE)*0.5, dur:Math.round((holdE-holdS)*1000)});
-            if(p<N-1){
-              const tS=t0+PHOTO_DUR-TRANS_DUR*0.5;
-              const tf=Math.max(3,Math.round(TRANS_DUR*TFPS));
-              for(let i=0;i<tf;i++) framePlan.push({t:tS+i*TRANS_DUR/tf, dur:Math.round(TRANS_DUR/tf*1000)});
-            }
-          }
-          // Fade out + end card
-          for(let i=0;i<FADE_N;i++) framePlan.push({t:SLIDES_TOTAL-FADE_EDGE+i*FADE_EDGE/FADE_N, dur:Math.round(FADE_EDGE/FADE_N*1000)});
-          framePlan.push({t:SLIDES_TOTAL+END_CARD_DUR*0.3, dur:Math.round(END_CARD_DUR*1000)});
-
           let tsUs=0;
-          for(const fp of framePlan){
+          for(const fp of buildFramePlan()){
             renderFrameAt(Math.max(0,Math.min(TOTAL-0.01,fp.t)));
             encX.drawImage(canvas,0,0,EW,EH);
             const durUs=Math.max(33333,fp.dur*1000);
@@ -2801,7 +2860,7 @@ async function renderSlideshow(tone,lang,format){
           }
           await encoder.flush();
           encoder.close();
-          const blob=new Blob([buildWebM(EW,EH,12,wcChunks)],{type:'video/webm'});
+          const blob=new Blob([buildWebM(EW,EH,TFPS,wcChunks)],{type:'video/webm'});
           resolve({blob,url:URL.createObjectURL(blob),ext:'webm'});
           return;
         }
