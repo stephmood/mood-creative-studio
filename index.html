@@ -2478,10 +2478,10 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
       ctx.globalAlpha=1;
     }
 
-    // ── Chemin rapide : WebCodecs VP9 demi-résolution ──
+    // ── Chemin rapide : WebCodecs VP9 résolution réduite ──
     if(typeof VideoEncoder!=='undefined'){
       try{
-        const EW=Math.round(fmt.w*0.5), EH=Math.round(fmt.h*0.5);
+        const EW=Math.round(fmt.w*0.3), EH=Math.round(fmt.h*0.3);
         const encC=document.createElement('canvas'); encC.width=EW; encC.height=EH;
         const encX=encC.getContext('2d');
         const vp9cfg={codec:'vp09.00.10.08',width:EW,height:EH,framerate:FPS};
@@ -2750,44 +2750,65 @@ async function renderSlideshow(tone,lang,format){
       ctx.globalAlpha=1;
     }
 
-    // ── WebCodecs fast path demi-résolution ──
+    // ── WebCodecs sparse frames (sections statiques = 1 frame tenu longtemps) ──
     if(typeof VideoEncoder!=='undefined'){
       try{
-        const EW=Math.round(fmt.w*0.5), EH=Math.round(fmt.h*0.5);
+        const EW=Math.round(fmt.w*0.3), EH=Math.round(fmt.h*0.3);
         const encC=document.createElement('canvas'); encC.width=EW; encC.height=EH;
         const encX=encC.getContext('2d');
-        const vp9cfg={codec:'vp09.00.10.08',width:EW,height:EH,framerate:FPS};
+        const vp9cfg={codec:'vp09.00.10.08',width:EW,height:EH,framerate:12};
         const check=await VideoEncoder.isConfigSupported(vp9cfg);
         if(check.supported){
           const wcChunks=[];
           const encoder=new VideoEncoder({
-            output:(chunk)=>{
-              const data=new Uint8Array(chunk.byteLength);
-              chunk.copyTo(data);
-              wcChunks.push({data:data.buffer,timestamp:chunk.timestamp,type:chunk.type});
-            },
+            output:(chunk)=>{const data=new Uint8Array(chunk.byteLength);chunk.copyTo(data);wcChunks.push({data:data.buffer,timestamp:chunk.timestamp,type:chunk.type});},
             error:e=>console.warn('VideoEncoder:',e)
           });
-          encoder.configure({...vp9cfg,bitrate:2000000,latencyMode:'realtime'});
-          const TOTAL_FRAMES=Math.ceil(TOTAL*FPS);
-          for(let f=0;f<TOTAL_FRAMES;f++){
-            renderFrameAt(f/FPS);
+          encoder.configure({...vp9cfg,bitrate:1500000,latencyMode:'realtime'});
+
+          // Sparse frames : section statique = 1 frame tenu, transition = frames à 12fps
+          const framePlan=[]; // [{t, dur_ms}]
+          const TFPS=12, FADE_N=4;
+
+          // Fade in
+          for(let i=0;i<FADE_N;i++) framePlan.push({t:i*FADE_EDGE/FADE_N, dur:Math.round(FADE_EDGE/FADE_N*1000)});
+
+          for(let p=0;p<N;p++){
+            const t0=p*PHOTO_DUR;
+            const holdS=t0+(p===0?FADE_EDGE:TRANS_DUR*0.5);
+            const holdE=t0+PHOTO_DUR-(p===N-1?FADE_EDGE:TRANS_DUR*0.5);
+            if(holdE>holdS) framePlan.push({t:(holdS+holdE)*0.5, dur:Math.round((holdE-holdS)*1000)});
+            if(p<N-1){
+              const tS=t0+PHOTO_DUR-TRANS_DUR*0.5;
+              const tf=Math.max(3,Math.round(TRANS_DUR*TFPS));
+              for(let i=0;i<tf;i++) framePlan.push({t:tS+i*TRANS_DUR/tf, dur:Math.round(TRANS_DUR/tf*1000)});
+            }
+          }
+          // Fade out + end card
+          for(let i=0;i<FADE_N;i++) framePlan.push({t:SLIDES_TOTAL-FADE_EDGE+i*FADE_EDGE/FADE_N, dur:Math.round(FADE_EDGE/FADE_N*1000)});
+          framePlan.push({t:SLIDES_TOTAL+END_CARD_DUR*0.3, dur:Math.round(END_CARD_DUR*1000)});
+
+          let tsUs=0;
+          for(const fp of framePlan){
+            renderFrameAt(Math.max(0,Math.min(TOTAL-0.01,fp.t)));
             encX.drawImage(canvas,0,0,EW,EH);
-            const vf=new VideoFrame(encC,{timestamp:Math.round(f*1000000/FPS),duration:Math.round(1000000/FPS)});
-            encoder.encode(vf,{keyFrame:f%8===0});
+            const durUs=Math.max(33333,fp.dur*1000);
+            const vf=new VideoFrame(encC,{timestamp:tsUs,duration:durUs});
+            encoder.encode(vf,{keyFrame:true});
             vf.close();
-            if(f%5===0) await new Promise(r=>setTimeout(r,0));
+            tsUs+=durUs;
+            await new Promise(r=>setTimeout(r,0));
           }
           await encoder.flush();
           encoder.close();
-          const blob=new Blob([buildWebM(EW,EH,FPS,wcChunks)],{type:'video/webm'});
+          const blob=new Blob([buildWebM(EW,EH,12,wcChunks)],{type:'video/webm'});
           resolve({blob,url:URL.createObjectURL(blob),ext:'webm'});
           return;
         }
-      }catch(e){console.warn('WebCodecs VP9 diapo non dispo, fallback RT:',e);}
+      }catch(e){console.warn('WebCodecs VP9 diapo non dispo:',e);}
     }
 
-    // ── Fallback MediaRecorder temps réel ──
+    // ── Fallback : résolution ultra-réduite temps réel ──
     let startTs=null;
     function drawFrame(ts){
       if(!startTs) startTs=ts;
