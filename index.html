@@ -3033,7 +3033,8 @@ function downloadCreative(i){
   const a=document.createElement('a');
   const ext=c.isVideo?(c.ext||'webm'):'png';
   a.download=`mood_${state.concept}_${state.audience}_${c.tone}_${c.lang}_${c.format}.${ext}`;
-  a.href=c.dataUrl; a.click();
+  a.href=getDataUrl(c);
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   toast(`${c.isVideo?'Vidéo':'PNG'} téléchargé ✓`);
 }
 
@@ -3052,7 +3053,8 @@ function exportAll(){
       const a=document.createElement('a');
       const ext=c.isVideo?(c.ext||'webm'):'png';
       a.download=`mood_${state.concept}_${state.audience}_${c.tone}_${c.lang}_${c.format}.${ext}`;
-      a.href=c.dataUrl; a.click();
+      a.href=getDataUrl(c);
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
     },i*150);
   });
   toast(`${filtered.length} fichiers en téléchargement…`);
@@ -3128,7 +3130,7 @@ function downloadByGlobalIdx(gIdx){
   const ext=c.isVideo?(c.ext||'webm'):'png';
   a.download=`mood_${state.concept}_${state.audience}_${c.tone}_${c.lang}_${c.format}.${ext}`;
   a.href=getDataUrl(c);
-  a.click();
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   toast(`${c.isVideo?'Vidéo':'PNG'} téléchargé ✓`);
 }
 
