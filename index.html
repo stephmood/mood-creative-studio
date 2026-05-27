@@ -2308,7 +2308,7 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
     await document.fonts.load("400 48px 'Bebas Neue'").catch(()=>{});
 
     const ANIM_DUR=4.0, END_CARD_DUR=1.5, FADE_DUR=0.35, TOTAL=ANIM_DUR+END_CARD_DUR;
-    const FPS=25;
+    const FPS=15;
 
     const canvas=document.createElement('canvas');
     canvas.width=fmt.w; canvas.height=fmt.h;
@@ -2493,14 +2493,14 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
             },
             error:e=>console.warn('VideoEncoder:',e)
           });
-          encoder.configure({...vp9cfg,bitrate:6000000,latencyMode:'quality'});
+          encoder.configure({...vp9cfg,bitrate:3000000,latencyMode:'realtime'});
           const TOTAL_FRAMES=Math.ceil(TOTAL*FPS);
           for(let f=0;f<TOTAL_FRAMES;f++){
             renderFrameAt(f/FPS);
             const vf=new VideoFrame(canvas,{timestamp:Math.round(f*1000000/FPS),duration:Math.round(1000000/FPS)});
-            encoder.encode(vf,{keyFrame:f%30===0});
+            encoder.encode(vf,{keyFrame:f%15===0});
             vf.close();
-            if(f%20===0) await new Promise(r=>setTimeout(r,0));
+            if(f%10===0) await new Promise(r=>setTimeout(r,0));
           }
           await encoder.flush();
           encoder.close();
@@ -2551,7 +2551,7 @@ async function renderSlideshow(tone,lang,format){
     const N=photos.length;
     const SLIDES_TOTAL=N*PHOTO_DUR;
     const TOTAL=SLIDES_TOTAL+END_CARD_DUR;
-    const FPS=25;
+    const FPS=15;
 
     const canvas=document.createElement('canvas');
     canvas.width=fmt.w; canvas.height=fmt.h;
@@ -2761,14 +2761,14 @@ async function renderSlideshow(tone,lang,format){
             },
             error:e=>console.warn('VideoEncoder:',e)
           });
-          encoder.configure({...vp9cfg,bitrate:6000000,latencyMode:'quality'});
+          encoder.configure({...vp9cfg,bitrate:3000000,latencyMode:'realtime'});
           const TOTAL_FRAMES=Math.ceil(TOTAL*FPS);
           for(let f=0;f<TOTAL_FRAMES;f++){
             renderFrameAt(f/FPS);
             const vf=new VideoFrame(canvas,{timestamp:Math.round(f*1000000/FPS),duration:Math.round(1000000/FPS)});
-            encoder.encode(vf,{keyFrame:f%30===0});
+            encoder.encode(vf,{keyFrame:f%15===0});
             vf.close();
-            if(f%20===0) await new Promise(r=>setTimeout(r,0));
+            if(f%10===0) await new Promise(r=>setTimeout(r,0));
           }
           await encoder.flush();
           encoder.close();
