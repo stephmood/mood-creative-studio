@@ -2109,7 +2109,7 @@ async function renderVideoCreative(photo,tone,lang,format){
     // Bouton : jamais au-dessus de la fin du texte
     const textEndVY=descY+dH+accentExV;
     const minBtnFloor=textEndVY+Math.round(gapDBV*.35);
-    const btnY=Math.max(Math.min(textEndVY+gapDBV, safeBot-btnH-pad), minBtnFloor);
+    const btnY=Math.min(Math.max(textEndVY+gapDBV, minBtnFloor), safeBot-btnH-pad);
     ctx.font=`${style.btnFontWeight||'700'} ${Math.round(dSize*1.0)}px 'Inter', sans-serif`;
     const ctaArrow=copyData.cta+'  →';
     const ctaWv=ctx.measureText(ctaArrow).width+btnPadX*2.2;
@@ -2351,7 +2351,7 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
     const accentExV=style.accentLine?dSize*1.2:0;
     const textEndVY=descY+dH+accentExV;
     const minBtnFloor=textEndVY+Math.round(gapDBV*.35);
-    const btnY=Math.max(Math.min(textEndVY+gapDBV,safeBot-btnH-pad),minBtnFloor);
+    const btnY=Math.min(Math.max(textEndVY+gapDBV,minBtnFloor),safeBot-btnH-pad);
     ctx.font=`${style.btnFontWeight||'700'} ${Math.round(dSize*1.0)}px 'Inter', sans-serif`;
     const ctaArrow=copyData.cta+'  →';
     const ctaWv=ctx.measureText(ctaArrow).width+btnPadX*2.2;
@@ -2608,7 +2608,7 @@ async function renderSlideshow(tone,lang,format){
     const accentExV=style.accentLine?dSize*1.2:0;
     const textEndVY=descY+dH+accentExV;
     const minBtnFloor=textEndVY+Math.round(gapDBV*.35);
-    const btnY=Math.max(Math.min(textEndVY+gapDBV,safeBot-btnH-pad),minBtnFloor);
+    const btnY=Math.min(Math.max(textEndVY+gapDBV,minBtnFloor),safeBot-btnH-pad);
     ctx.font=`${style.btnFontWeight||'700'} ${Math.round(dSize*1.0)}px 'Inter', sans-serif`;
     const ctaArrow=copyData.cta+'  →';
     const ctaWv=ctx.measureText(ctaArrow).width+btnPadX*2.2;
