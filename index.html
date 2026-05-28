@@ -2144,7 +2144,7 @@ async function renderVideoCreative(photo,tone,lang,format){
 
     let recorder;
     try{
-      recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:1000000});
+      recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:Math.min(12000000,Math.max(3000000,Math.round(83886080/TOTAL)))});
     }catch(e){resolve(null);return;}
 
     const chunks=[];
@@ -2406,7 +2406,7 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
       :MediaRecorder.isTypeSupported('video/webm')?'video/webm':'video/mp4';
     const extRT=mime.startsWith('video/mp4')?'mp4':'webm';
     let recorder, chunks=[];
-    try{const stream=canvas.captureStream(FPS);recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:1000000});}
+    try{const stream=canvas.captureStream(FPS);recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:Math.min(12000000,Math.max(3000000,Math.round(83886080/TOTAL)))});}
     catch(e){resolve(null);return;}
     recorder.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
 
@@ -2569,7 +2569,7 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
     const mp4Mime=['video/mp4;codecs=avc1','video/mp4'].find(m=>MediaRecorder.isTypeSupported(m));
     if(mp4Mime){
       const stream=canvas.captureStream(FPS);
-      const rec=new MediaRecorder(stream,{mimeType:mp4Mime,videoBitsPerSecond:1000000});
+      const rec=new MediaRecorder(stream,{mimeType:mp4Mime,videoBitsPerSecond:Math.min(12000000,Math.max(3000000,Math.round(83886080/TOTAL)))});
       const ch=[];
       rec.ondataavailable=e=>{if(e.data.size>0)ch.push(e.data);};
       rec.onstop=()=>{const blob=new Blob(ch,{type:mp4Mime});resolve({blob,url:URL.createObjectURL(blob),ext:'mp4'});};
@@ -2593,7 +2593,7 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
             output:(chunk)=>{const data=new Uint8Array(chunk.byteLength);chunk.copyTo(data);wcChunks.push({data:data.buffer,timestamp:chunk.timestamp,type:chunk.type});},
             error:e=>console.warn('VideoEncoder:',e)
           });
-          encoder.configure({...vp9cfg,bitrate:800000,latencyMode:'realtime'});
+          encoder.configure({...vp9cfg,bitrate:Math.min(12000000,Math.max(3000000,Math.round(83886080/TOTAL))),latencyMode:'realtime'});
           const TOTAL_FRAMES=Math.ceil(TOTAL*FPS);
           for(let f=0;f<TOTAL_FRAMES;f++){
             renderFrameAt(f/FPS);
@@ -2663,7 +2663,7 @@ async function renderSlideshow(tone,lang,format){
       :MediaRecorder.isTypeSupported('video/webm')?'video/webm':'video/mp4';
     const extRT=mime.startsWith('video/mp4')?'mp4':'webm';
     let recorder,chunks=[];
-    try{const stream=canvas.captureStream(FPS);recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:1000000});}
+    try{const stream=canvas.captureStream(FPS);recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:Math.min(12000000,Math.max(3000000,Math.round(83886080/TOTAL)))});}
     catch(e){resolve(null);return;}
     recorder.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
 
@@ -2851,7 +2851,7 @@ async function renderSlideshow(tone,lang,format){
     const mp4MimeS=['video/mp4;codecs=avc1','video/mp4'].find(m=>MediaRecorder.isTypeSupported(m));
     if(mp4MimeS){
       const stream=canvas.captureStream(FPS);
-      const rec=new MediaRecorder(stream,{mimeType:mp4MimeS,videoBitsPerSecond:1000000});
+      const rec=new MediaRecorder(stream,{mimeType:mp4MimeS,videoBitsPerSecond:Math.min(12000000,Math.max(3000000,Math.round(83886080/TOTAL)))});
       const ch=[];
       rec.ondataavailable=e=>{if(e.data.size>0)ch.push(e.data);};
       rec.onstop=()=>{const blob=new Blob(ch,{type:mp4MimeS});resolve({blob,url:URL.createObjectURL(blob),ext:'mp4'});};
@@ -2890,7 +2890,7 @@ async function renderSlideshow(tone,lang,format){
       // Essai H.264 → MP4
       if(typeof Mp4Muxer!=='undefined'){
         try{
-          const avcCfg={codec:'avc1.42001E',width:EW,height:EH,framerate:TFPS,bitrate:800000,latencyMode:'realtime'};
+          const avcCfg={codec:'avc1.42001E',width:EW,height:EH,framerate:TFPS,bitrate:Math.min(12000000,Math.max(3000000,Math.round(83886080/TOTAL))),latencyMode:'realtime'};
           const chk=await VideoEncoder.isConfigSupported(avcCfg);
           if(chk.supported){
             const {Muxer,ArrayBufferTarget}=Mp4Muxer;
@@ -2928,7 +2928,7 @@ async function renderSlideshow(tone,lang,format){
             output:(chunk)=>{const data=new Uint8Array(chunk.byteLength);chunk.copyTo(data);wcChunks.push({data:data.buffer,timestamp:chunk.timestamp,type:chunk.type});},
             error:e=>console.warn('VideoEncoder:',e)
           });
-          encoder.configure({...vp9cfg,bitrate:800000,latencyMode:'realtime'});
+          encoder.configure({...vp9cfg,bitrate:Math.min(12000000,Math.max(3000000,Math.round(83886080/TOTAL))),latencyMode:'realtime'});
           let tsUs=0;
           for(const fp of buildFramePlan()){
             renderFrameAt(Math.max(0,Math.min(TOTAL-0.01,fp.t)));
@@ -3122,7 +3122,7 @@ async function renderMontage(tone,lang,format){
     const vidStream=canvas.captureStream(15);
     const combinedTracks=[...vidStream.getTracks(),...(audioObj?audioObj.stream.getTracks():[])];
     const stream=new MediaStream(combinedTracks);
-    const recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:1000000});
+    const recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:Math.min(12000000,Math.max(3000000,Math.round(83886080/TOTAL)))});
     const chunks=[];
     recorder.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
 
