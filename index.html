@@ -3142,59 +3142,57 @@ async function renderMontage(tone,lang,format){
         g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.5,`rgba(0,0,0,${a(style.overlayAlpha*.6)})`);g.addColorStop(1,`rgba(0,0,0,${a(style.overlayAlpha)})`);
         ctx.fillStyle=g;ctx.fillRect(0,0,fmt.w,fmt.h);
       }
-      // Texte + CTA sur le dernier clip uniquement
-      if(ci===vids.length-1){
-        const pad=fmt.w*.055,fontScale=fbp.fontScale;
-        const safeBot=fmt.h*(1-fbp.safeBottom);
-        const maxW=fmt.w-pad*2;
-        const italic=style.headlineItalic?'italic ':'';
-        let hSz=Math.round(fmt.w*style.headlineSize*fontScale);
-        ctx.font=`${italic}${style.headlineWeight} ${hSz}px '${style.font}',serif`;
-        let hLn=measureWrap(ctx,copyData.h,maxW,1);
-        while(hLn>2&&hSz>Math.round(fmt.w*.050)){hSz=Math.round(hSz*.88);ctx.font=`${italic}${style.headlineWeight} ${hSz}px '${style.font}',serif`;hLn=measureWrap(ctx,copyData.h,maxW,1);}
-        const dSz=Math.max(28,Math.round(fmt.w*style.descSize*fontScale));
-        const btnH=Math.max(60,Math.round(fmt.w*.07*fontScale));
-        const btnPadX=Math.round(fmt.w*.055);
-        const lineHH=hSz*1.40,lineHD=dSz*1.48,gapHD=dSz*1.15,gapDB=dSz*1.70;
-        ctx.font=`300 ${dSz}px '${style.font}',sans-serif`;
-        const hH=measureWrap(ctx,copyData.h,maxW,lineHH);
-        const dH=measureWrap(ctx,copyData.d,maxW,lineHD);
-        const estBlock=hH+gapHD+dH+gapDB+btnH;
-        const baseY=Math.max(fmt.h*0.58,safeBot-estBlock-pad);
-        const tAlign=style.textAlign||'left';
-        const textX=tAlign==='center'?fmt.w/2:tAlign==='right'?fmt.w-pad:pad;
-        ctx.font=`${italic}${style.headlineWeight} ${hSz}px '${style.font}',serif`;
-        ctx.fillStyle=style.headlineColor;ctx.textAlign=tAlign;
-        ctx.shadowColor='rgba(0,0,0,.30)';ctx.shadowBlur=8;
-        wrapText(ctx,copyData.h,textX,baseY,maxW,lineHH);
-        ctx.font=`300 ${dSz}px '${style.font}',sans-serif`;
-        ctx.fillStyle=style.descColor;ctx.textAlign=tAlign;ctx.shadowBlur=4;
-        const descY=baseY+hH+gapHD;
-        wrapText(ctx,copyData.d,textX,descY,maxW,lineHD);
-        const textEndY=descY+dH;
-        const btnY=Math.min(Math.max(textEndY+gapDB,textEndY+20),safeBot-btnH-pad);
-        const ctaArrow=copyData.cta+'  →';
+      // Texte + CTA + logo sur tous les clips
+      const pad=fmt.w*.055,fontScale=fbp.fontScale;
+      const safeBot=fmt.h*(1-fbp.safeBottom);
+      const maxW=fmt.w-pad*2;
+      const italic=style.headlineItalic?'italic ':'';
+      let hSz=Math.round(fmt.w*style.headlineSize*fontScale);
+      ctx.font=`${italic}${style.headlineWeight} ${hSz}px '${style.font}',serif`;
+      let hLn=measureWrap(ctx,copyData.h,maxW,1);
+      while(hLn>2&&hSz>Math.round(fmt.w*.050)){hSz=Math.round(hSz*.88);ctx.font=`${italic}${style.headlineWeight} ${hSz}px '${style.font}',serif`;hLn=measureWrap(ctx,copyData.h,maxW,1);}
+      const dSz=Math.max(28,Math.round(fmt.w*style.descSize*fontScale));
+      const btnH=Math.max(60,Math.round(fmt.w*.07*fontScale));
+      const btnPadX=Math.round(fmt.w*.055);
+      const lineHH=hSz*1.40,lineHD=dSz*1.48,gapHD=dSz*1.15,gapDB=dSz*1.70;
+      ctx.font=`300 ${dSz}px '${style.font}',sans-serif`;
+      const hH=measureWrap(ctx,copyData.h,maxW,lineHH);
+      const dH=measureWrap(ctx,copyData.d,maxW,lineHD);
+      const estBlock=hH+gapHD+dH+gapDB+btnH;
+      const baseY=Math.max(fmt.h*0.58,safeBot-estBlock-pad);
+      const tAlign=style.textAlign||'left';
+      const textX=tAlign==='center'?fmt.w/2:tAlign==='right'?fmt.w-pad:pad;
+      ctx.font=`${italic}${style.headlineWeight} ${hSz}px '${style.font}',serif`;
+      ctx.fillStyle=style.headlineColor;ctx.textAlign=tAlign;
+      ctx.shadowColor='rgba(0,0,0,.30)';ctx.shadowBlur=8;
+      wrapText(ctx,copyData.h,textX,baseY,maxW,lineHH);
+      ctx.font=`300 ${dSz}px '${style.font}',sans-serif`;
+      ctx.fillStyle=style.descColor;ctx.textAlign=tAlign;ctx.shadowBlur=4;
+      const descY=baseY+hH+gapHD;
+      wrapText(ctx,copyData.d,textX,descY,maxW,lineHD);
+      const textEndY=descY+dH;
+      const btnY=Math.min(Math.max(textEndY+gapDB,textEndY+20),safeBot-btnH-pad);
+      const ctaArrow=copyData.cta+'  →';
+      ctx.font=`${style.btnFontWeight||'700'} ${Math.round(dSz*1.0)}px 'Inter',sans-serif`;
+      const ctaWv=ctx.measureText(ctaArrow).width+btnPadX*2.2;
+      const btnXv=tAlign==='center'?Math.round((fmt.w-ctaWv)/2):tAlign==='right'?Math.round(fmt.w-pad-ctaWv):Math.round(pad);
+      ctx.shadowBlur=0;
+      if(style.ctaStyle==='text-arrow'){
+        ctx.font=`${style.btnFontWeight||'400'} ${Math.round(dSz*.92)}px 'Inter',sans-serif`;
+        ctx.fillStyle=style.btnTextColor;ctx.textAlign=tAlign;
+        ctx.fillText(ctaArrow,textX,btnY+btnH*.38);
+        const tw=ctx.measureText(ctaArrow).width;
+        const ulX=tAlign==='right'?textX-tw:tAlign==='center'?textX-tw/2:textX;
+        ctx.strokeStyle='rgba(255,255,255,.28)';ctx.lineWidth=Math.max(1,fmt.w*.0012);
+        ctx.beginPath();ctx.moveTo(ulX,btnY+btnH*.62);ctx.lineTo(ulX+tw,btnY+btnH*.62);ctx.stroke();
+      }else{
+        ctx.fillStyle=style.btnColor;ctx.strokeStyle=style.btnBorder;ctx.lineWidth=Math.max(1.5,fmt.w*.0018);
+        ctx.beginPath();ctx.roundRect(btnXv,btnY,ctaWv,btnH,8);ctx.fill();ctx.stroke();
+        ctx.fillStyle=style.btnTextColor;ctx.textAlign='center';
         ctx.font=`${style.btnFontWeight||'700'} ${Math.round(dSz*1.0)}px 'Inter',sans-serif`;
-        const ctaWv=ctx.measureText(ctaArrow).width+btnPadX*2.2;
-        const btnXv=tAlign==='center'?Math.round((fmt.w-ctaWv)/2):tAlign==='right'?Math.round(fmt.w-pad-ctaWv):Math.round(pad);
-        ctx.shadowBlur=0;
-        if(style.ctaStyle==='text-arrow'){
-          ctx.font=`${style.btnFontWeight||'400'} ${Math.round(dSz*.92)}px 'Inter',sans-serif`;
-          ctx.fillStyle=style.btnTextColor;ctx.textAlign=tAlign;
-          ctx.fillText(ctaArrow,textX,btnY+btnH*.38);
-          const tw=ctx.measureText(ctaArrow).width;
-          const ulX=tAlign==='right'?textX-tw:tAlign==='center'?textX-tw/2:textX;
-          ctx.strokeStyle='rgba(255,255,255,.28)';ctx.lineWidth=Math.max(1,fmt.w*.0012);
-          ctx.beginPath();ctx.moveTo(ulX,btnY+btnH*.62);ctx.lineTo(ulX+tw,btnY+btnH*.62);ctx.stroke();
-        }else{
-          ctx.fillStyle=style.btnColor;ctx.strokeStyle=style.btnBorder;ctx.lineWidth=Math.max(1.5,fmt.w*.0018);
-          ctx.beginPath();ctx.roundRect(btnXv,btnY,ctaWv,btnH,8);ctx.fill();ctx.stroke();
-          ctx.fillStyle=style.btnTextColor;ctx.textAlign='center';
-          ctx.font=`${style.btnFontWeight||'700'} ${Math.round(dSz*1.0)}px 'Inter',sans-serif`;
-          ctx.fillText(ctaArrow,btnXv+ctaWv/2,btnY+btnH*.62);
-        }
-        drawMoodLogo(ctx,fmt,style.logoPos);
+        ctx.fillText(ctaArrow,btnXv+ctaWv/2,btnY+btnH*.62);
       }
+      drawMoodLogo(ctx,fmt,style.logoPos);
     }
 
     // Préparer les vidéos (pause initiale)
