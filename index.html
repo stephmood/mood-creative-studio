@@ -373,6 +373,58 @@ input[type=file]{display:none}
     </div>
 
     <div class="sec">
+      <div class="sec-label">Police</div>
+      <div class="pills" id="font-pills">
+        <div class="pill on" data-font="" onclick="setFont(this)">Auto</div>
+        <div class="pill" data-font="Cormorant Garamond" onclick="setFont(this)">Garamond</div>
+        <div class="pill" data-font="Playfair Display" onclick="setFont(this)">Playfair</div>
+        <div class="pill" data-font="Inter" onclick="setFont(this)">Inter</div>
+        <div class="pill" data-font="Bebas Neue" onclick="setFont(this)">Bebas</div>
+        <div class="pill" data-font="Space Grotesk" onclick="setFont(this)">Grotesk</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-label">Bouton CTA</div>
+      <div class="pills" id="cta-style-pills" style="margin-bottom:5px">
+        <div class="pill on" data-ctastyle="" onclick="setCtaStyle(this)">Auto</div>
+        <div class="pill" data-ctastyle="text-arrow" onclick="setCtaStyle(this)">→ Texte</div>
+        <div class="pill" data-ctastyle="button" onclick="setCtaStyle(this)">◼ Plein</div>
+        <div class="pill" data-ctastyle="button-outline" onclick="setCtaStyle(this)">◻ Contour</div>
+      </div>
+      <div class="pills" id="cta-align-pills" style="margin-bottom:6px">
+        <div class="pill on" data-ctaalign="" onclick="setCtaAlign(this)">Auto</div>
+        <div class="pill" data-ctaalign="left" onclick="setCtaAlign(this)">← Gauche</div>
+        <div class="pill" data-ctaalign="center" onclick="setCtaAlign(this)">☰ Centre</div>
+        <div class="pill" data-ctaalign="right" onclick="setCtaAlign(this)">Droite →</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <label style="font-size:10px;color:var(--muted);min-width:30px">Fond</label>
+        <input type="color" id="cta-bg-color" value="#c9a96e" oninput="state.ctaBgColor=this.value" style="width:32px;height:22px;border:1px solid var(--b1);border-radius:4px;cursor:pointer;padding:1px">
+        <label style="font-size:10px;color:var(--muted);min-width:30px">Texte</label>
+        <input type="color" id="cta-text-color" value="#111111" oninput="state.ctaTextColor=this.value" style="width:32px;height:22px;border:1px solid var(--b1);border-radius:4px;cursor:pointer;padding:1px">
+      </div>
+    </div>
+
+    <div class="sec" id="cta-variants-sec" style="display:none">
+      <div class="sec-label">Message — variante</div>
+      <div class="pills" id="cta-variant-pills"></div>
+    </div>
+
+    <div class="sec" id="music-sec">
+      <div class="sec-label">🎵 Musique (vidéos)</div>
+      <div class="upload-zone" id="music-zone" onclick="document.getElementById('music-input').click()" style="padding:12px 14px">
+        <div class="upload-text"><strong id="music-label">Ajouter une musique de fond</strong><br>MP3, AAC, M4A — pour les vidéos uniquement</div>
+      </div>
+      <input type="file" id="music-input" accept="audio/*" onchange="loadMusicFile(this.files[0])">
+      <div id="music-volume-row" style="display:none;flex-direction:row;align-items:center;gap:8px;margin-top:6px">
+        <label style="font-size:10px;color:var(--muted);min-width:40px">Volume</label>
+        <input type="range" min="0" max="1" step="0.05" value="0.4" id="music-volume" oninput="state.musicVolume=parseFloat(this.value)" style="flex:1;accent-color:var(--gold)">
+        <button onclick="clearMusic()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;line-height:1" title="Supprimer la musique">✕</button>
+      </div>
+    </div>
+
+    <div class="sec">
       <div class="sec-label">Insights Meta Ads · 50 créatifs analysés</div>
       <div class="insights-panel">
         <div class="insight-row"><span class="insight-ico">🖤</span><span><strong>Fond sombre = ROAS ×2</strong> — Dark ou neutre : ROAS 8-17. Fond blanc : ROAS 3-5.</span></div>
@@ -403,11 +455,12 @@ input[type=file]{display:none}
       </div>
     </div>
 
-    <div style="display:flex;gap:6px;margin-bottom:8px">
-      <div id="mode-img" class="pill on" onclick="setMode('img')" style="flex:1;text-align:center;font-size:11px">⚡ Images</div>
-      <div id="mode-anim" class="pill" onclick="setMode('anim')" style="flex:1;text-align:center;font-size:11px">✨ Animée</div>
-      <div id="mode-vid" class="pill" onclick="setMode('vid')" style="flex:1;text-align:center;font-size:11px">🎬 Vidéo</div>
-      <div id="mode-slide" class="pill" onclick="setMode('slide')" style="flex:1;text-align:center;font-size:11px">📽 Diaporama</div>
+    <div style="display:flex;gap:5px;margin-bottom:5px;flex-wrap:wrap">
+      <div id="mode-img" class="pill on" onclick="setMode('img')" style="flex:1;text-align:center;font-size:10px;min-width:55px">⚡ Images</div>
+      <div id="mode-anim" class="pill" onclick="setMode('anim')" style="flex:1;text-align:center;font-size:10px;min-width:55px">✨ Animée</div>
+      <div id="mode-vid" class="pill" onclick="setMode('vid')" style="flex:1;text-align:center;font-size:10px;min-width:55px">🎬 Vidéo</div>
+      <div id="mode-slide" class="pill" onclick="setMode('slide')" style="flex:1;text-align:center;font-size:10px;min-width:55px">📽 Diapo</div>
+      <div id="mode-montage" class="pill" onclick="setMode('montage')" style="flex:1;text-align:center;font-size:10px;min-width:55px">🎞 Montage</div>
     </div>
 
     <div id="anim-opts-sec" style="display:none;margin-bottom:12px;flex-direction:column;gap:10px">
@@ -464,6 +517,19 @@ input[type=file]{display:none}
           <div class="pill" data-crop="top" onclick="setCrop(this)">⬆ Haut</div>
           <div class="pill" data-crop="bottom" onclick="setCrop(this)">⬇ Bas</div>
           <div class="pill" data-crop="zoom" onclick="setCrop(this)">🔍 Zoom</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="montage-opts-sec" style="display:none;margin-bottom:12px;flex-direction:column;gap:8px">
+      <div class="sec-label">Montage vidéo</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.5">Jusqu'à 5 vidéos chaînées dans l'ordre d'upload. Le texte s'affiche sur la dernière clip.</div>
+      <div>
+        <div class="sec-label" style="margin-bottom:4px">Durée par clip</div>
+        <div class="pills" id="montage-dur-pills">
+          <div class="pill" data-mdur="3" onclick="setMontageDur(this)">⚡ 3s</div>
+          <div class="pill on" data-mdur="5" onclick="setMontageDur(this)">▶ 5s</div>
+          <div class="pill" data-mdur="8" onclick="setMontageDur(this)">🕐 8s</div>
         </div>
       </div>
     </div>
@@ -1401,20 +1467,33 @@ let state = {
   animType:'kenburns-in',
   videoSpeed:1.0,
   videoCrop:'center',
-  photoLayout:'single'
+  photoLayout:'single',
+  fontOverride:null,
+  ctaStyleOverride:null,
+  ctaAlignOverride:null,
+  ctaBgColor:'#c9a96e',
+  ctaTextColor:'#111111',
+  ctaVariantIdx:0,
+  montageMode:false,
+  montageClipDur:5,
+  musicFile:null,
+  musicVolume:0.4
 };
 
 function setMode(m){
   state.videoMode=m==='vid';
   state.animMode=m==='anim';
   state.slideshowMode=m==='slide';
+  state.montageMode=m==='montage';
   document.getElementById('mode-img').classList.toggle('on',m==='img');
   document.getElementById('mode-anim').classList.toggle('on',m==='anim');
   document.getElementById('mode-vid').classList.toggle('on',m==='vid');
   document.getElementById('mode-slide').classList.toggle('on',m==='slide');
+  document.getElementById('mode-montage').classList.toggle('on',m==='montage');
   document.getElementById('video-opts-sec').style.display=m==='vid'?'flex':'none';
   document.getElementById('anim-opts-sec').style.display=m==='anim'?'flex':'none';
   document.getElementById('slide-opts-sec').style.display=m==='slide'?'flex':'none';
+  document.getElementById('montage-opts-sec').style.display=m==='montage'?'flex':'none';
 }
 function setSlideTransition(el){
   state.slideshowTransition=el.dataset.trans;
@@ -1453,7 +1532,7 @@ function selAud(id){
     const mp = {acquisition:'cold',trafic:'warm',retargeting:'hot',remarketing:'loyal'};
     if(c.id==='aud-'+id) c.classList.add('sel-'+mp[id]);
   });
-  checkReady();
+  checkReady(); updateVariantPills();
 }
 
 function selConcept(id,el){
@@ -1462,7 +1541,7 @@ function selConcept(id,el){
   el.classList.add('active');
   const labels={pepites:"Pépites qui s'en iront — certaines pièces quittent bientôt la collection pour toujours.",ete:"Été 2026 — nouvelles compositions pour la belle saison.",aura:"Collection Aura — une lumière propre à chaque peau, finitions rares.",custom:''};
   if(id!=='custom') document.getElementById('brief-text').value=labels[id]||'';
-  checkReady();
+  checkReady(); updateVariantPills();
 }
 
 function toggleTone(el){
@@ -1470,7 +1549,7 @@ function toggleTone(el){
   el.classList.toggle('on');
   if(el.classList.contains('on')) { if(!state.tones.includes(t)) state.tones.push(t); }
   else { state.tones=state.tones.filter(x=>x!==t); }
-  checkReady();
+  checkReady(); updateVariantPills();
 }
 
 function toggleLang(el){
@@ -1478,7 +1557,7 @@ function toggleLang(el){
   el.classList.toggle('on');
   if(el.classList.contains('on')) { if(!state.langs.includes(l)) state.langs.push(l); }
   else { state.langs=state.langs.filter(x=>x!==l); }
-  checkReady();
+  checkReady(); updateVariantPills();
 }
 
 function toggleFmt(el){
@@ -1761,7 +1840,7 @@ function drawPhotosLayout(ctx,photos,fmt,layout){
 
 function renderCanvas(photo, tone, lang, format){
   const fmt=FORMATS[format];
-  const style=TONE_STYLES[tone];
+  const style=effStyle(TONE_STYLES[tone]);
   const fbp=FORMAT_BP[format];
   const audBoost=AUD_OVERLAY[state.audience]||1;
 
@@ -1962,7 +2041,7 @@ function getCopy(tone,lang){
     }
     const entry=COPY[state.concept]?.[state.audience]?.[tone]?.[lang];
     if(!entry) return null;
-    if(Array.isArray(entry)) return entry[Math.floor(Math.random()*entry.length)];
+    if(Array.isArray(entry)) return entry[state.ctaVariantIdx % entry.length];
     return entry;
   }catch{return null;}
 }
@@ -2022,7 +2101,7 @@ async function renderVideoCreative(photo,tone,lang,format){
   return new Promise(async(resolve)=>{
     const fmt=FORMATS[format];
     const fbp=FORMAT_BP[format];
-    const style=TONE_STYLES[tone];
+    const style=effStyle(TONE_STYLES[tone]);
     const audBoost=AUD_OVERLAY[state.audience]||1;
     const rawCopy=getCopy(tone,lang);
     if(!rawCopy){resolve(null);return;}
@@ -2038,11 +2117,11 @@ async function renderVideoCreative(photo,tone,lang,format){
     if(!loaded){URL.revokeObjectURL(objUrl);resolve(null);return;}
     await document.fonts.load("300 48px 'Cormorant Garamond'").catch(()=>{});
 
-    // Durée : vidéo + plan blanc final, minimum 10s
-    const VID_CONTENT=Math.min(vid.duration||6,8);
+    // Durée : vidéo + plan blanc final (durée réduite pour génération rapide)
+    const VID_CONTENT=Math.min(vid.duration||5,6);
     const FADE_DUR=0.35;
-    const VID_ACTUAL=VID_CONTENT/state.videoSpeed; // durée réelle selon vitesse
-    const END_CARD_DUR=Math.max(2.0, 10-VID_ACTUAL);
+    const VID_ACTUAL=VID_CONTENT/state.videoSpeed;
+    const END_CARD_DUR=1.5;
     const TOTAL=VID_ACTUAL+END_CARD_DUR;
 
     // Canvas
@@ -2057,10 +2136,15 @@ async function renderVideoCreative(photo,tone,lang,format){
       :MediaRecorder.isTypeSupported('video/webm')?'video/webm':'video/mp4';
     const ext=mime.includes('mp4')?'mp4':'webm';
 
+    // Créer le stream vidéo (+ audio si musique chargée)
+    const vidStream=canvas.captureStream(15);
+    const audioObj=await createAudioStream();
+    const combinedTracks=[...vidStream.getTracks(),...(audioObj?audioObj.stream.getTracks():[])];
+    const stream=new MediaStream(combinedTracks);
+
     let recorder;
     try{
-      const stream=canvas.captureStream(25);
-      recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:5000000});
+      recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:2000000});
     }catch(e){resolve(null);return;}
 
     const chunks=[];
@@ -2230,6 +2314,7 @@ async function renderVideoCreative(photo,tone,lang,format){
     requestAnimationFrame(drawFrame);
 
     recorder.onstop=()=>{
+      if(audioObj) audioObj.cleanup();
       const blob=new Blob(chunks,{type:mime});
       resolve({blob,url:URL.createObjectURL(blob),ext});
     };
@@ -2300,7 +2385,7 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
   return new Promise(async(resolve)=>{
     const fmt=FORMATS[format];
     const fbp=FORMAT_BP[format];
-    const style=TONE_STYLES[tone];
+    const style=effStyle(TONE_STYLES[tone]);
     const audBoost=AUD_OVERLAY[state.audience]||1;
     const rawCopy=getCopy(tone,lang);
     if(!rawCopy){resolve(null);return;}
@@ -2552,7 +2637,7 @@ async function renderSlideshow(tone,lang,format){
     if(!photos.length){resolve(null);return;}
     const fmt=FORMATS[format];
     const fbp=FORMAT_BP[format];
-    const style=TONE_STYLES[tone];
+    const style=effStyle(TONE_STYLES[tone]);
     const audBoost=AUD_OVERLAY[state.audience]||1;
     const rawCopy=getCopy(tone,lang);
     if(!rawCopy){resolve(null);return;}
@@ -2880,6 +2965,281 @@ async function renderSlideshow(tone,lang,format){
 }
 
 // ═══════════════════════
+// HELPERS — FONT / CTA / VARIANTS / MUSIC / MONTAGE
+// ═══════════════════════
+
+// Style effectif : fusionne les overrides utilisateur avec le style du ton
+function effStyle(style){
+  const cs=state.ctaStyleOverride;
+  // button-outline = contour coloré, fond transparent
+  const bg = cs==='button-outline' ? 'transparent' : cs ? state.ctaBgColor : style.btnColor;
+  const border = cs ? state.ctaBgColor : style.btnBorder;
+  // Pour button-outline, couleur texte = couleur du fond choisi
+  const fg = cs==='button-outline' ? state.ctaBgColor : cs ? state.ctaTextColor : style.btnTextColor;
+  return {
+    ...style,
+    font: state.fontOverride || style.font,
+    ctaStyle: cs==='button-outline' ? 'button' : cs || style.ctaStyle,
+    textAlign: state.ctaAlignOverride || style.textAlign,
+    btnColor: bg,
+    btnTextColor: fg,
+    btnBorder: border,
+  };
+}
+
+// Police
+function setFont(el){
+  state.fontOverride=el.dataset.font||null;
+  document.querySelectorAll('#font-pills .pill').forEach(p=>p.classList.toggle('on',p===el));
+}
+
+// Style CTA
+function setCtaStyle(el){
+  state.ctaStyleOverride=el.dataset.ctastyle||null;
+  document.querySelectorAll('#cta-style-pills .pill').forEach(p=>p.classList.toggle('on',p===el));
+}
+
+// Alignement CTA
+function setCtaAlign(el){
+  state.ctaAlignOverride=el.dataset.ctaalign||null;
+  document.querySelectorAll('#cta-align-pills .pill').forEach(p=>p.classList.toggle('on',p===el));
+}
+
+// Variante de message
+function setCtaVariant(idx){
+  state.ctaVariantIdx=idx;
+  document.querySelectorAll('#cta-variant-pills .pill').forEach((p,i)=>p.classList.toggle('on',i===idx));
+}
+
+function updateVariantPills(){
+  const container=document.getElementById('cta-variant-pills');
+  const sec=document.getElementById('cta-variants-sec');
+  if(!container||!sec) return;
+  container.innerHTML='';
+  if(!state.tones.length||!state.langs.length||state.concept==='custom'){sec.style.display='none';return;}
+  const tone=state.tones[0];
+  const lang=state.langs[0];
+  let entry;
+  try{ entry=COPY[state.concept]?.[state.audience]?.[tone]?.[lang]; }catch{ entry=null; }
+  if(!Array.isArray(entry)||entry.length<=1){sec.style.display='none';return;}
+  sec.style.display='flex';
+  if(state.ctaVariantIdx>=entry.length) state.ctaVariantIdx=0;
+  entry.forEach((v,i)=>{
+    const p=document.createElement('div');
+    p.className='pill'+(i===state.ctaVariantIdx?' on':'');
+    p.title=v.h;
+    p.style.cssText='font-size:10px;white-space:normal;line-height:1.3;text-align:left';
+    p.textContent=(i+1)+' · '+v.h.substring(0,22)+(v.h.length>22?'…':'');
+    p.onclick=()=>setCtaVariant(i);
+    container.appendChild(p);
+  });
+}
+
+// Durée montage
+function setMontageDur(el){
+  state.montageClipDur=parseFloat(el.dataset.mdur);
+  document.querySelectorAll('#montage-dur-pills .pill').forEach(p=>p.classList.toggle('on',p===el));
+}
+
+// Musique
+function loadMusicFile(file){
+  if(!file) return;
+  state.musicFile={file,name:file.name};
+  document.getElementById('music-label').textContent='🎵 '+file.name;
+  document.getElementById('music-zone').style.borderStyle='solid';
+  document.getElementById('music-volume-row').style.display='flex';
+}
+function clearMusic(){
+  state.musicFile=null;
+  document.getElementById('music-label').textContent='Ajouter une musique de fond';
+  document.getElementById('music-zone').style.borderStyle='dashed';
+  document.getElementById('music-volume-row').style.display='none';
+  document.getElementById('music-input').value='';
+}
+
+// Stream audio à mixer dans la vidéo
+async function createAudioStream(){
+  if(!state.musicFile) return null;
+  try{
+    const audioCtx=new AudioContext();
+    const audioEl=document.createElement('audio');
+    audioEl.src=URL.createObjectURL(state.musicFile.file);
+    audioEl.loop=true;
+    audioEl.volume=state.musicVolume||0.4;
+    const src=audioCtx.createMediaElementSource(audioEl);
+    const dest=audioCtx.createMediaStreamDestination();
+    src.connect(dest);
+    await audioEl.play().catch(()=>{});
+    return {
+      stream:dest.stream,
+      cleanup:()=>{audioEl.pause();audioCtx.close().catch(()=>{});URL.revokeObjectURL(audioEl.src);}
+    };
+  }catch(e){console.warn('Audio mix non disponible:',e);return null;}
+}
+
+// ── Rendu montage (jusqu'à 5 vidéos chaînées) ──
+async function renderMontage(tone,lang,format){
+  const clips=state.photos.filter(p=>p.isVideo).slice(0,5);
+  if(!clips.length) return null;
+  return new Promise(async(resolve)=>{
+    const fmt=FORMATS[format];
+    const fbp=FORMAT_BP[format];
+    const style=effStyle(TONE_STYLES[tone]);
+    const audBoost=AUD_OVERLAY[state.audience]||1;
+    const rawCopy=getCopy(tone,lang);
+    if(!rawCopy){resolve(null);return;}
+    const bestCta=(AUD_CTA_VERBS[lang]?.[state.audience]?.[tone])||rawCopy.cta;
+    const copyData={...rawCopy,cta:bestCta};
+    await document.fonts.load(`300 48px '${style.font}'`).catch(()=>{});
+
+    // Charger les vidéos
+    const vids=[];
+    for(const p of clips){
+      const v=document.createElement('video');
+      const u=URL.createObjectURL(p.file);
+      v.src=u; v.muted=true; v.playsInline=true;
+      const ok=await new Promise(r=>{v.onloadedmetadata=()=>r(true);v.onerror=()=>r(false);v.load();});
+      if(ok) vids.push({v,u});
+    }
+    if(!vids.length){resolve(null);return;}
+
+    const canvas=document.createElement('canvas');
+    canvas.width=fmt.w; canvas.height=fmt.h;
+    const ctx=canvas.getContext('2d');
+
+    const CLIP_DUR=state.montageClipDur||5;
+    const END_CARD=1.5;
+    const TOTAL_CONTENT=vids.length*CLIP_DUR;
+    const TOTAL=TOTAL_CONTENT+END_CARD;
+
+    const mime=MediaRecorder.isTypeSupported('video/mp4;codecs=avc1')?'video/mp4;codecs=avc1'
+      :MediaRecorder.isTypeSupported('video/mp4')?'video/mp4'
+      :'video/webm;codecs=vp9';
+    const ext=mime.includes('mp4')?'mp4':'webm';
+
+    const audioObj=await createAudioStream();
+    const vidStream=canvas.captureStream(15);
+    const combinedTracks=[...vidStream.getTracks(),...(audioObj?audioObj.stream.getTracks():[])];
+    const stream=new MediaStream(combinedTracks);
+    const recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:2000000});
+    const chunks=[];
+    recorder.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
+
+    let curIdx=-1;
+
+    function drawClipOverlay(ci){
+      const a=v=>v*audBoost;
+      if(style.overlay==='feather-bottom'){
+        const g=ctx.createLinearGradient(0,fmt.h*.50,0,fmt.h);
+        g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.55,`rgba(0,0,0,${a(style.overlayAlpha*.50)})`);g.addColorStop(1,`rgba(0,0,0,${a(style.overlayAlpha)})`);
+        ctx.fillStyle=g;ctx.fillRect(0,0,fmt.w,fmt.h);
+      }else if(style.overlay==='band-bottom'){
+        const g=ctx.createLinearGradient(0,fmt.h*.72,0,fmt.h);
+        g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.10,`rgba(0,0,0,${a(style.overlayAlpha)})`);g.addColorStop(1,`rgba(0,0,0,${a(style.overlayAlpha)})`);
+        ctx.fillStyle=g;ctx.fillRect(0,fmt.h*.72,fmt.w,fmt.h*.28);
+      }else{
+        const g=ctx.createLinearGradient(0,fmt.h*.36,0,fmt.h);
+        g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.5,`rgba(0,0,0,${a(style.overlayAlpha*.6)})`);g.addColorStop(1,`rgba(0,0,0,${a(style.overlayAlpha)})`);
+        ctx.fillStyle=g;ctx.fillRect(0,0,fmt.w,fmt.h);
+      }
+      // Texte + CTA sur le dernier clip uniquement
+      if(ci===vids.length-1){
+        const pad=fmt.w*.055,fontScale=fbp.fontScale;
+        const safeBot=fmt.h*(1-fbp.safeBottom);
+        const maxW=fmt.w-pad*2;
+        const italic=style.headlineItalic?'italic ':'';
+        let hSz=Math.round(fmt.w*style.headlineSize*fontScale);
+        ctx.font=`${italic}${style.headlineWeight} ${hSz}px '${style.font}',serif`;
+        let hLn=measureWrap(ctx,copyData.h,maxW,1);
+        while(hLn>2&&hSz>Math.round(fmt.w*.050)){hSz=Math.round(hSz*.88);ctx.font=`${italic}${style.headlineWeight} ${hSz}px '${style.font}',serif`;hLn=measureWrap(ctx,copyData.h,maxW,1);}
+        const dSz=Math.max(28,Math.round(fmt.w*style.descSize*fontScale));
+        const btnH=Math.max(60,Math.round(fmt.w*.07*fontScale));
+        const btnPadX=Math.round(fmt.w*.055);
+        const lineHH=hSz*1.40,lineHD=dSz*1.48,gapHD=dSz*1.15,gapDB=dSz*1.70;
+        ctx.font=`300 ${dSz}px '${style.font}',sans-serif`;
+        const hH=measureWrap(ctx,copyData.h,maxW,lineHH);
+        const dH=measureWrap(ctx,copyData.d,maxW,lineHD);
+        const estBlock=hH+gapHD+dH+gapDB+btnH;
+        const baseY=Math.max(fmt.h*0.58,safeBot-estBlock-pad);
+        const tAlign=style.textAlign||'left';
+        const textX=tAlign==='center'?fmt.w/2:tAlign==='right'?fmt.w-pad:pad;
+        ctx.font=`${italic}${style.headlineWeight} ${hSz}px '${style.font}',serif`;
+        ctx.fillStyle=style.headlineColor;ctx.textAlign=tAlign;
+        ctx.shadowColor='rgba(0,0,0,.30)';ctx.shadowBlur=8;
+        wrapText(ctx,copyData.h,textX,baseY,maxW,lineHH);
+        ctx.font=`300 ${dSz}px '${style.font}',sans-serif`;
+        ctx.fillStyle=style.descColor;ctx.textAlign=tAlign;ctx.shadowBlur=4;
+        const descY=baseY+hH+gapHD;
+        wrapText(ctx,copyData.d,textX,descY,maxW,lineHD);
+        const textEndY=descY+dH;
+        const btnY=Math.min(Math.max(textEndY+gapDB,textEndY+20),safeBot-btnH-pad);
+        const ctaArrow=copyData.cta+'  →';
+        ctx.font=`${style.btnFontWeight||'700'} ${Math.round(dSz*1.0)}px 'Inter',sans-serif`;
+        const ctaWv=ctx.measureText(ctaArrow).width+btnPadX*2.2;
+        const btnXv=tAlign==='center'?Math.round((fmt.w-ctaWv)/2):tAlign==='right'?Math.round(fmt.w-pad-ctaWv):Math.round(pad);
+        ctx.shadowBlur=0;
+        if(style.ctaStyle==='text-arrow'){
+          ctx.font=`${style.btnFontWeight||'400'} ${Math.round(dSz*.92)}px 'Inter',sans-serif`;
+          ctx.fillStyle=style.btnTextColor;ctx.textAlign=tAlign;
+          ctx.fillText(ctaArrow,textX,btnY+btnH*.38);
+          const tw=ctx.measureText(ctaArrow).width;
+          const ulX=tAlign==='right'?textX-tw:tAlign==='center'?textX-tw/2:textX;
+          ctx.strokeStyle='rgba(255,255,255,.28)';ctx.lineWidth=Math.max(1,fmt.w*.0012);
+          ctx.beginPath();ctx.moveTo(ulX,btnY+btnH*.62);ctx.lineTo(ulX+tw,btnY+btnH*.62);ctx.stroke();
+        }else{
+          ctx.fillStyle=style.btnColor;ctx.strokeStyle=style.btnBorder;ctx.lineWidth=Math.max(1.5,fmt.w*.0018);
+          ctx.beginPath();ctx.roundRect(btnXv,btnY,ctaWv,btnH,8);ctx.fill();ctx.stroke();
+          ctx.fillStyle=style.btnTextColor;ctx.textAlign='center';
+          ctx.font=`${style.btnFontWeight||'700'} ${Math.round(dSz*1.0)}px 'Inter',sans-serif`;
+          ctx.fillText(ctaArrow,btnXv+ctaWv/2,btnY+btnH*.62);
+        }
+        drawMoodLogo(ctx,fmt,style.logoPos);
+      }
+    }
+
+    // Préparer les vidéos (pause initiale)
+    for(const {v} of vids){v.currentTime=0;}
+
+    let startTs=null;
+    function drawFrame(ts){
+      if(!startTs) startTs=ts;
+      const elapsed=(ts-startTs)/1000;
+      if(elapsed>=TOTAL){
+        recorder.stop();
+        vids.forEach(({v,u})=>{v.pause();URL.revokeObjectURL(u);});
+        if(audioObj) audioObj.cleanup();
+        return;
+      }
+      if(elapsed>=TOTAL_CONTENT){
+        drawEndCard(ctx,fmt);
+      }else{
+        const ci=Math.min(Math.floor(elapsed/CLIP_DUR),vids.length-1);
+        if(ci!==curIdx){
+          if(curIdx>=0&&curIdx<vids.length) vids[curIdx].v.pause();
+          curIdx=ci;
+          vids[curIdx].v.currentTime=0;
+          vids[curIdx].v.play().catch(()=>{});
+        }
+        const {v}=vids[ci];
+        const vw=v.videoWidth||fmt.w,vh=v.videoHeight||fmt.h;
+        const sr=vw/vh,cr=fmt.w/fmt.h;
+        let sx=0,sy=0,sw=vw,sh=vh;
+        if(sr>cr){sw=vh*cr;sx=(vw-sw)/2;}else{sh=vw/cr;sy=(vh-sh)/2;}
+        ctx.drawImage(v,sx,sy,sw,sh,0,0,fmt.w,fmt.h);
+        drawClipOverlay(ci);
+      }
+      requestAnimationFrame(drawFrame);
+    }
+    recorder.start(100);
+    requestAnimationFrame(drawFrame);
+    recorder.onstop=()=>{
+      const blob=new Blob(chunks,{type:mime});
+      resolve({blob,url:URL.createObjectURL(blob),ext});
+    };
+  });
+}
+
+// ═══════════════════════
 // GENERATE
 // ═══════════════════════
 
@@ -2892,20 +3252,34 @@ async function generate(){
   pw.classList.add('show');
   // Charger toutes les polices canvas avant tout rendu
   await document.fonts.ready;
-  await Promise.all([
+  const fontLoads=[
     document.fonts.load("300 48px 'Cormorant Garamond'"),
     document.fonts.load("400 48px 'Inter'"),
-  ]).catch(()=>{});
+    document.fonts.load("400 48px 'Playfair Display'"),
+    document.fonts.load("400 48px 'Bebas Neue'"),
+    document.fonts.load("400 48px 'Space Grotesk'"),
+  ];
+  if(state.fontOverride) fontLoads.push(document.fonts.load(`400 48px '${state.fontOverride}'`));
+  await Promise.all(fontLoads).catch(()=>{});
 
   state.creatives=[];
   const all=[];
 
-  if(state.slideshowMode){
+  if(state.montageMode){
+    // Montage : une vidéo par (tone × lang × format), toutes les vidéos chaînées
+    state.tones.forEach(tone=>{
+      state.langs.forEach(lang=>{
+        state.formats.forEach(fmt=>{
+          all.push({photo:state.photos[0],tone,lang,format:fmt,isMontage:true,isSlideshow:false});
+        });
+      });
+    });
+  }else if(state.slideshowMode){
     // Diaporama : une vidéo par (tone × lang × format), toutes les photos dedans
     state.tones.forEach(tone=>{
       state.langs.forEach(lang=>{
         state.formats.forEach(fmt=>{
-          all.push({photo:state.photos[0],tone,lang,format:fmt,isSlideshow:true});
+          all.push({photo:state.photos[0],tone,lang,format:fmt,isSlideshow:true,isMontage:false});
         });
       });
     });
@@ -2914,7 +3288,7 @@ async function generate(){
       state.tones.forEach(tone=>{
         state.langs.forEach(lang=>{
           state.formats.forEach(fmt=>{
-            all.push({photo,tone,lang,format:fmt,isSlideshow:false});
+            all.push({photo,tone,lang,format:fmt,isSlideshow:false,isMontage:false});
           });
         });
       });
@@ -2925,19 +3299,25 @@ async function generate(){
   for(let i=0;i<all.length;i++){
     const item=all[i];
     const isSlide=item.isSlideshow;
-    const isAnimMode=!isSlide&&!item.photo.isVideo&&state.animMode;
-    const isVidMode=!isSlide&&item.photo.isVideo&&state.videoMode;
+    const isMontage=item.isMontage;
+    const nVids=state.photos.filter(p=>p.isVideo).length;
+    const isAnimMode=!isSlide&&!isMontage&&!item.photo.isVideo&&state.animMode;
+    const isVidMode=!isSlide&&!isMontage&&item.photo.isVideo&&state.videoMode;
     const nPhotos=state.photos.filter(p=>!p.isVideo).length;
     const slideDur=(nPhotos*state.slideshowPhotoDur+1.5).toFixed(0);
-    const icon=isSlide?'📽':isVidMode?'🎬':isAnimMode?'✨':'🖼';
-    const label=isSlide?`Diaporama ${nPhotos} photos (~${slideDur}s)…`:isVidMode?'Vidéo en cours (8s…)':isAnimMode?'Photo animée en cours (8s…)':'Image';
+    const icon=isMontage?'🎞':isSlide?'📽':isVidMode?'🎬':isAnimMode?'✨':'🖼';
+    const clipDurLabel=(state.montageClipDur||5)*nVids;
+    const label=isMontage?`Montage ${nVids} vidéos (~${clipDurLabel}s)…`:isSlide?`Diaporama ${nPhotos} photos (~${slideDur}s)…`:isVidMode?'Vidéo en cours…':isAnimMode?'Photo animée en cours…':'Image';
     document.getElementById('progress-label').textContent=`${icon} ${i+1}/${total} — ${label}`;
     document.getElementById('progress-fill').style.width=`${Math.round((i/total)*100)}%`;
     await new Promise(r=>setTimeout(r,10));
 
     let creative=null;
     try{
-      if(isSlide){
+      if(isMontage){
+        const res=await renderMontage(item.tone,item.lang,item.format);
+        if(res) creative={...item,isVideo:true,dataUrl:res.url,blob:res.blob,ext:res.ext};
+      }else if(isSlide){
         const res=await renderSlideshow(item.tone,item.lang,item.format);
         if(res) creative={...item,isVideo:true,dataUrl:res.url,blob:res.blob,ext:res.ext};
       }else if(isVidMode){
