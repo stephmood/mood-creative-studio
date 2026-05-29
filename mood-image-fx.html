@@ -385,6 +385,12 @@ input[type=range]::-moz-range-thumb {
 
     <div class="divider"></div>
 
+    <!-- Preset rapide -->
+    <div class="sec">
+      <div class="sec-label">Preset</div>
+      <button class="btn" id="btn-preset-ete" disabled style="width:100%;background:linear-gradient(135deg,#c9a96e,#e8c98a);color:#000;font-weight:700;border:none;margin-bottom:6px">🌴 Été Luxe — Palmiers + Lumière + Vignette</button>
+    </div>
+
     <!-- Actions -->
     <div class="sec">
       <div class="btn-row">
@@ -434,58 +440,60 @@ const EFFECTS = {
   'palmiers': {
     cat: 'ombres', emoji: '🌴', name: 'Ombres palmiers',
     apply(ctx, w, h, t) {
-      // Multiple palm fronds fanning from top-left corner
+      // Ombres larges et élégantes — non détaillées feuille par feuille
+      // Lumière haut-gauche → ombres projetées en diagonale vers bas-droite
+      // Opacité 20-35%, bords flous, traversent toute l'image
       const fronds = [
-        { angle: 15,  len: 0.85, sweep: 55, baseW: 18 },
-        { angle: 30,  len: 0.80, sweep: 50, baseW: 22 },
-        { angle: 48,  len: 0.75, sweep: 45, baseW: 20 },
-        { angle: 62,  len: 0.72, sweep: 40, baseW: 16 },
-        { angle: 78,  len: 0.68, sweep: 38, baseW: 15 },
-        { angle: 95,  len: 0.65, sweep: 35, baseW: 14 },
-        { angle: 112, len: 0.60, sweep: 32, baseW: 13 },
+        { angle: 22,  len: 1.30, wBase: 0.055, wTip: 0.008, curve: 0.12 },
+        { angle: 38,  len: 1.25, wBase: 0.065, wTip: 0.010, curve: 0.10 },
+        { angle: 52,  len: 1.20, wBase: 0.070, wTip: 0.012, curve: 0.08 },
+        { angle: 65,  len: 1.15, wBase: 0.060, wTip: 0.009, curve: 0.09 },
+        { angle: 78,  len: 1.10, wBase: 0.058, wTip: 0.008, curve: 0.11 },
+        { angle: 92,  len: 1.08, wBase: 0.052, wTip: 0.007, curve: 0.10 },
       ];
-      const ox = w * -0.04, oy = h * -0.04; // origin slightly off-canvas top-left
+      // Origine hors-canvas en haut à gauche
+      const ox = w * -0.10, oy = h * -0.08;
       ctx.save();
+      // Flou des bords via shadowBlur
+      ctx.shadowColor = 'rgba(0,0,0,0.18)';
+      ctx.shadowBlur = Math.round(w * 0.018);
+
       fronds.forEach((f, i) => {
         const rad = f.angle * Math.PI / 180;
+        // Point d'arrivée — toujours au-delà du canvas
         const tipX = ox + Math.cos(rad) * w * f.len;
-        const tipY = oy + Math.sin(rad) * h * f.len * 0.9;
-        // Offset each frond slightly for a staggered look
-        const mX = ox + Math.cos(rad - 0.18) * w * f.len * 0.55 + Math.cos(rad + Math.PI/2) * w * 0.03;
-        const mY = oy + Math.sin(rad - 0.18) * h * f.len * 0.55 * 0.9 + Math.sin(rad + Math.PI/2) * h * 0.03;
+        const tipY = oy + Math.sin(rad) * h * f.len;
+        // Courbure légère du palmier
+        const midRad = rad - f.curve;
+        const midDist = f.len * 0.52;
+        const mX = ox + Math.cos(midRad) * w * midDist + Math.cos(rad + Math.PI/2) * w * 0.02;
+        const mY = oy + Math.sin(midRad) * h * midDist + Math.sin(rad + Math.PI/2) * h * 0.02;
 
-        // Build thick frond shape
+        // Largeur qui effile de la base vers la pointe
         const perp = rad + Math.PI / 2;
-        const bw = f.baseW + 4;
+        const bwStart = w * f.wBase;
+        const bwEnd   = w * f.wTip;
+        const bwMid   = (bwStart + bwEnd) / 2;
+
         ctx.beginPath();
-        ctx.moveTo(ox + Math.cos(perp) * bw, oy + Math.sin(perp) * bw);
-        ctx.quadraticCurveTo(mX + Math.cos(perp) * (bw * 0.5), mY + Math.sin(perp) * (bw * 0.5), tipX, tipY);
-        ctx.quadraticCurveTo(mX - Math.cos(perp) * (bw * 0.5), mY - Math.sin(perp) * (bw * 0.5), ox - Math.cos(perp) * bw, oy - Math.sin(perp) * bw);
+        ctx.moveTo(ox + Math.cos(perp) * bwStart, oy + Math.sin(perp) * bwStart);
+        ctx.quadraticCurveTo(
+          mX + Math.cos(perp) * bwMid, mY + Math.sin(perp) * bwMid,
+          tipX + Math.cos(perp) * bwEnd, tipY + Math.sin(perp) * bwEnd
+        );
+        ctx.lineTo(tipX - Math.cos(perp) * bwEnd, tipY - Math.sin(perp) * bwEnd);
+        ctx.quadraticCurveTo(
+          mX - Math.cos(perp) * bwMid, mY - Math.sin(perp) * bwMid,
+          ox - Math.cos(perp) * bwStart, oy - Math.sin(perp) * bwStart
+        );
         ctx.closePath();
 
-        const alpha = (0.25 + (i % 3) * 0.04) * t;
-        ctx.fillStyle = `rgba(0,0,0,${alpha.toFixed(3)})`;
+        // Opacité entre 0.20 et 0.32 selon la fronde, modulée par t
+        const alpha = (0.20 + (i % 3) * 0.04) * t;
+        ctx.fillStyle = `rgba(15,10,5,${alpha.toFixed(3)})`;
         ctx.fill();
-
-        // Add leaflets — small diagonal strokes along the spine
-        const leafCount = 7;
-        for (let j = 1; j <= leafCount; j++) {
-          const prog = j / (leafCount + 1);
-          const spineX = ox + (mX - ox) * prog * 2 > tipX ? tipX * prog : ox + (tipX - ox) * prog;
-          const spineY = oy + (tipY - oy) * prog;
-          const leafLen = bw * (1 - prog * 0.7) * 0.8;
-          const leafAlpha = alpha * 0.7;
-          [-1, 1].forEach(side => {
-            ctx.beginPath();
-            ctx.moveTo(spineX, spineY);
-            ctx.lineTo(spineX + Math.cos(perp * side + rad * 0.3) * leafLen,
-                       spineY + Math.sin(perp * side + rad * 0.3) * leafLen);
-            ctx.strokeStyle = `rgba(0,0,0,${leafAlpha.toFixed(3)})`;
-            ctx.lineWidth = 1.2;
-            ctx.stroke();
-          });
-        }
       });
+      ctx.shadowBlur = 0;
       ctx.restore();
     }
   },
@@ -783,6 +791,40 @@ const EFFECTS = {
     }
   },
 
+  'lumiere-ete': {
+    cat: 'color', emoji: '☀️', name: 'Lumière été',
+    apply(ctx, w, h, t) {
+      // 4800-5500K : soleil fin d'après-midi, reflets dorés, contraste doux
+      shiftPixels(ctx, w, h, (r, g, b) => {
+        // Température chaude (R+, G légèrement +, B--)
+        let nr = clamp(r + Math.round(22 * t));
+        let ng = clamp(g + Math.round(8 * t));
+        let nb = clamp(b - Math.round(18 * t));
+        // Hautes lumières légèrement dorées : boost R+G dans les hauts
+        const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        const hiW = Math.max(0, (lum - 160) / 95); // 0→1 au-dessus de 160
+        nr = clamp(Math.round(nr + hiW * 12 * t));
+        ng = clamp(Math.round(ng + hiW * 7 * t));
+        // Contraste doux : compression légère des hauts et des bas
+        const contrast = 0.92 + 0.08 * (1 - t * 0.3);
+        nr = clamp(Math.round((nr - 128) * contrast + 128));
+        ng = clamp(Math.round((ng - 128) * contrast + 128));
+        nb = clamp(Math.round((nb - 128) * contrast + 128));
+        return [nr, ng, nb];
+      });
+      // Overlay doré dans les hautes lumières (laisse les bijoux)
+      ctx.save();
+      const gHl = ctx.createRadialGradient(w * 0.25, 0, 0, w * 0.25, 0, w * 0.7);
+      gHl.addColorStop(0, `rgba(255,210,120,${(0.10 * t).toFixed(3)})`);
+      gHl.addColorStop(1, 'rgba(255,210,120,0)');
+      ctx.globalCompositeOperation = 'screen';
+      ctx.fillStyle = gHl;
+      ctx.fillRect(0, 0, w, h);
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.restore();
+    }
+  },
+
   'douceur': {
     cat: 'blur', emoji: '🌸', name: 'Douceur',
     apply(ctx, w, h, t) {
@@ -836,7 +878,7 @@ const CATS = {
   ombres:  { label: 'Ombres',         keys: ['palmiers', 'geometrique', 'douces'] },
   lumiere: { label: 'Lumière',        keys: ['doree', 'flare', 'fuite'] },
   grain:   { label: 'Grain & Texture',keys: ['grain-cinema', 'grain-fin', 'vignette'] },
-  color:   { label: 'Color Grading',  keys: ['chaud', 'froid', 'cinematique', 'vintage', 'nb'] },
+  color:   { label: 'Color Grading',  keys: ['lumiere-ete', 'chaud', 'froid', 'cinematique', 'vintage', 'nb'] },
   blur:    { label: 'Blur & Focus',   keys: ['tiltshift', 'douceur'] },
 };
 
@@ -904,6 +946,7 @@ function updateButtons() {
   const hasImg = !!originalImage;
   document.getElementById('btn-reset').disabled = !hasImg;
   document.getElementById('btn-dl').disabled = !hasImg;
+  document.getElementById('btn-preset-ete').disabled = !hasImg;
 }
 
 // ══════════════════════════════════════════════════════
@@ -993,6 +1036,18 @@ slider.addEventListener('input', () => {
 // Reset
 document.getElementById('btn-reset').addEventListener('click', () => {
   activeEffects = [];
+  renderFxGrid();
+  renderActiveList();
+  redraw();
+});
+
+// Preset — Été Luxe
+document.getElementById('btn-preset-ete').addEventListener('click', () => {
+  activeEffects = ['palmiers', 'lumiere-ete', 'vignette'];
+  intensity = 0.70;
+  const slider = document.getElementById('intensity-slider');
+  slider.value = 70;
+  document.getElementById('slider-val').textContent = '70%';
   renderFxGrid();
   renderActiveList();
   redraw();
