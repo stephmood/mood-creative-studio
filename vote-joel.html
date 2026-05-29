@@ -3,313 +3,336 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Joel Mattli — Let's Dance Finale | Mood Collection</title>
+  <title>Joel Mattli — Let's Dance Finale · Tente ta chance !</title>
 
-  <meta property="og:title" content="Je vote pour Joel ❤️">
-  <meta property="og:description" content="Joel est en finale de Let's Dance ce soir. Rejoins les Mood Lovers et envoie-lui ton soutien avant 20h !">
-  <meta property="og:image" content="https://cdn.shopify.com/s/files/1/0798/2303/files/joel15.web.jpg?v=1617960316">
+  <meta property="og:title" content="🎡 Tourne la roue & soutiens Joel en finale !">
+  <meta property="og:description" content="Joel Mattli est en finale de Let's Dance ce soir. Fais tourner la roue, gagne un cadeau Mood, et envoie-lui ton soutien avant 20h !">
+  <meta property="og:image" content="https://cdn.shopify.com/s/files/1/0798/2303/files/joel2.web.jpg?v=1617962296">
   <meta property="og:url" content="https://stephmood.github.io/mood-creative-studio/vote-joel.html">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Je vote pour Joel ❤️">
-  <meta name="twitter:description" content="Joel est en finale de Let's Dance ce soir. Rejoins les Mood Lovers !">
-  <meta name="twitter:image" content="https://cdn.shopify.com/s/files/1/0798/2303/files/joel15.web.jpg?v=1617960316">
+  <meta name="twitter:title" content="🎡 Tourne la roue & soutiens Joel en finale !">
+  <meta name="twitter:description" content="Joel Mattli est en finale de Let's Dance ce soir. Fais tourner la roue, gagne un cadeau Mood !">
+  <meta name="twitter:image" content="https://cdn.shopify.com/s/files/1/0798/2303/files/joel2.web.jpg?v=1617962296">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black: #111;
-      --white: #fff;
-      --grey: #666;
-      --light: #f5f4f2;
-      --accent: #c8102e;
+      --black: #0e0e0e;
+      --white: #ffffff;
+      --cream: #f7f3ee;
+      --gold: #c9a84c;
+      --red: #c8102e;
+      --grey: #888;
+      --light-grey: #e8e4e0;
     }
 
-    html, body {
-      height: 100%;
+    html { scroll-behavior: smooth; }
+
+    body {
       font-family: 'Inter', sans-serif;
-      background: var(--white);
-      color: var(--black);
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* HEADER */
-    .header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 10;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 24px;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-    .header a {
-      text-decoration: none;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 15px;
-      letter-spacing: 0.12em;
-      color: var(--black);
-      text-transform: uppercase;
-    }
-    .badge-letsdance {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    /* HERO */
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 55vh;
-      min-height: 300px;
-      max-height: 480px;
-      overflow: hidden;
-      margin-top: 56px;
-    }
-    .hero img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%;
-      display: block;
-    }
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(0,0,0,0.45) 100%);
-    }
-    .hero-label {
-      position: absolute;
-      bottom: 20px;
-      left: 24px;
-      right: 24px;
-      color: #fff;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 13px;
-      font-weight: 300;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      opacity: 0.85;
-    }
-
-    /* MAIN */
-    .main {
-      padding: 36px 24px 80px;
-      max-width: 480px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .eyebrow {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--grey);
-      margin-bottom: 14px;
-    }
-
-    .title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 42px;
-      font-weight: 300;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-      margin-bottom: 8px;
-    }
-
-    .subtitle {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--grey);
-      margin-bottom: 40px;
-    }
-
-    /* COUNTER */
-    .counter-section {
-      background: var(--light);
-      border-radius: 16px;
-      padding: 28px 20px;
-      margin-bottom: 32px;
-    }
-    .counter-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 72px;
-      font-weight: 400;
-      line-height: 1;
-      letter-spacing: -0.03em;
-      color: var(--black);
-      margin-bottom: 8px;
-      transition: transform 0.15s ease;
-    }
-    .counter-number.bump {
-      transform: scale(1.08);
-    }
-    .counter-label {
-      font-size: 13px;
-      color: var(--grey);
-      letter-spacing: 0.04em;
-    }
-
-    /* PULSE DOT */
-    .pulse-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-    .pulse-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #2ecc71;
-      animation: pulse 2s infinite;
-    }
-    .pulse-live {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #2ecc71;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.85); }
-    }
-
-    /* VOTE BUTTON */
-    .btn-vote {
-      width: 100%;
-      padding: 20px 24px;
       background: var(--black);
       color: var(--white);
-      border: none;
-      border-radius: 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      margin-bottom: 16px;
-      transition: transform 0.1s, opacity 0.2s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .btn-vote:active { transform: scale(0.97); }
-    .btn-vote:disabled {
-      background: #ddd;
-      color: #999;
-      cursor: default;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* VOTED STATE */
-    .voted-block {
-      display: none;
-      background: #f0faf4;
-      border: 1px solid #b2dfcc;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
+    /* ── HEADER ── */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 20px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
     }
-    .voted-block.show { display: block; }
-    .voted-check {
-      font-size: 32px;
-      margin-bottom: 8px;
+    .header a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
     }
-    .voted-text {
-      font-size: 15px;
-      color: #1a7a4a;
-      font-weight: 500;
-      margin-bottom: 4px;
+    .pill-live {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.12); border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--white);
     }
-    .voted-sub {
-      font-size: 13px;
-      color: var(--grey);
+    .dot-live {
+      width: 7px; height: 7px; border-radius: 50%; background: #2ecc71;
+      animation: blink 1.5s infinite;
     }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-    /* SHARE BUTTON */
-    .btn-share {
-      width: 100%;
-      padding: 16px 24px;
-      background: transparent;
-      color: var(--black);
-      border: 1.5px solid var(--black);
-      border-radius: 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      font-weight: 400;
-      cursor: pointer;
-      margin-bottom: 40px;
-      transition: background 0.15s, color 0.15s;
-      -webkit-tap-highlight-color: transparent;
+    /* ── HERO ── */
+    .hero {
+      position: relative; width: 100%; height: 100svh; min-height: 580px;
+      overflow: hidden;
     }
-    .btn-share:hover { background: var(--black); color: var(--white); }
-
-    /* DIVIDER */
-    .divider {
-      width: 40px;
-      height: 1px;
-      background: #ddd;
-      margin: 0 auto 32px;
+    .hero-slides { position: absolute; inset: 0; }
+    .hero-slide {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center 15%;
+      opacity: 0; transition: opacity 1.2s ease;
     }
-
-    /* COLLECTION LINK */
-    .collection-block {
+    .hero-slide.active { opacity: 1; }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.2) 0%,
+        rgba(0,0,0,0.1) 40%,
+        rgba(0,0,0,0.75) 80%,
+        rgba(0,0,0,0.92) 100%
+      );
+    }
+    .hero-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0 24px 40px;
       text-align: center;
     }
-    .collection-label {
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--grey);
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 12vw, 80px); font-weight: 300; line-height: 1.0;
+      margin-bottom: 10px;
+    }
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 4vw, 24px); font-weight: 300; font-style: italic;
+      color: rgba(255,255,255,0.7); margin-bottom: 28px;
+    }
+    .btn-video {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50px; padding: 12px 22px;
+      color: var(--white); font-size: 13px; font-weight: 500; letter-spacing: 0.06em;
+      cursor: pointer; backdrop-filter: blur(6px);
+      transition: background 0.2s, border-color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-video:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.4); }
+    .btn-video svg { width: 18px; height: 18px; }
+    .scroll-hint {
+      position: absolute; bottom: -36px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.4); font-size: 11px; letter-spacing: 0.1em;
+      text-transform: uppercase; display: flex; flex-direction: column;
+      align-items: center; gap: 6px;
+    }
+    .scroll-hint span { animation: scrolldown 2s infinite; }
+    @keyframes scrolldown { 0%,100%{transform:translateY(0);opacity:.4} 50%{transform:translateY(5px);opacity:.8} }
+
+    /* ── VIDEO OVERLAY ── */
+    .video-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .video-overlay.show { display: flex; }
+    .video-wrap {
+      position: relative; width: 100%; max-width: 800px;
+      aspect-ratio: 16/9; border-radius: 12px; overflow: hidden;
+    }
+    .video-wrap iframe { width: 100%; height: 100%; border: none; }
+    .video-close {
+      position: absolute; top: -44px; right: 0;
+      background: none; border: none; color: var(--white);
+      font-size: 24px; cursor: pointer; padding: 8px;
+    }
+
+    /* ── COUNTER BAR ── */
+    .counter-bar {
+      background: var(--black);
+      padding: 28px 20px 0;
+      text-align: center;
+    }
+    .counter-inner {
+      display: inline-flex; align-items: center; gap: 16px;
+      background: rgba(255,255,255,0.06); border-radius: 100px;
+      padding: 10px 24px;
+    }
+    .counter-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px; font-weight: 400; line-height: 1;
+      transition: transform 0.15s;
+    }
+    .counter-num.bump { transform: scale(1.15); }
+    .counter-text { font-size: 13px; color: rgba(255,255,255,0.6); }
+
+    /* ── WHEEL SECTION ── */
+    .wheel-section {
+      background: var(--black);
+      padding: 40px 20px 50px;
+      text-align: center;
+    }
+    .section-eyebrow {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 8vw, 52px); font-weight: 300;
+      line-height: 1.1; margin-bottom: 8px;
+    }
+    .section-sub {
+      font-size: 14px; color: rgba(255,255,255,0.55);
+      margin-bottom: 36px; line-height: 1.5;
+    }
+
+    /* Wheel wrapper */
+    .wheel-wrap {
+      position: relative;
+      display: inline-block;
+      width: min(340px, 88vw);
+      height: min(340px, 88vw);
       margin-bottom: 12px;
     }
-    .collection-link {
-      display: inline-block;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px;
-      font-weight: 300;
+    #wheel-canvas {
+      display: block;
+      width: 100%; height: 100%;
+      filter: drop-shadow(0 8px 32px rgba(0,0,0,0.6));
+    }
+    .wheel-pointer {
+      position: absolute;
+      top: -18px; left: 50%;
+      transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 28px solid var(--gold);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+      z-index: 5;
+    }
+    .wheel-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--black);
+      border: 4px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; z-index: 6;
+      box-shadow: 0 0 0 4px var(--black);
+    }
+
+    /* SPIN BUTTON */
+    .btn-spin {
+      display: block; width: 100%; max-width: 340px; margin: 24px auto 0;
+      padding: 20px;
+      background: var(--gold);
       color: var(--black);
-      text-decoration: underline;
-      text-underline-offset: 4px;
+      border: none; border-radius: 12px;
+      font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600;
+      letter-spacing: 0.04em; cursor: pointer;
+      transition: transform 0.1s, opacity 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 4px 24px rgba(201,168,76,0.35);
     }
+    .btn-spin:active { transform: scale(0.97); }
+    .btn-spin:disabled { background: #333; color: #666; cursor: default; box-shadow: none; }
 
-    /* DEADLINE */
-    .deadline {
-      font-size: 12px;
-      color: var(--grey);
-      margin-top: 12px;
-      letter-spacing: 0.04em;
+    /* PRIZES PREVIEW */
+    .prizes-preview {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 10px; max-width: 400px; margin: 32px auto 0;
     }
-    .deadline strong {
-      color: var(--accent);
-      font-weight: 500;
+    .prize-chip {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px; padding: 7px 14px;
+      font-size: 12px; color: rgba(255,255,255,0.65);
+      display: flex; align-items: center; gap: 6px;
     }
+    .prize-chip.grand { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+    .prize-chip span { font-size: 14px; }
 
-    /* CONFETTI canvas */
+    /* ── PRIZE MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 300;
+      background: rgba(0,0,0,0.9); align-items: flex-end; justify-content: center;
+      padding: 0;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal-sheet {
+      background: #1a1a1a; border-radius: 24px 24px 0 0;
+      padding: 32px 24px 48px; width: 100%; max-width: 480px;
+      text-align: center;
+      animation: slideUp 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    @keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+    .modal-handle {
+      width: 36px; height: 4px; background: rgba(255,255,255,0.2);
+      border-radius: 2px; margin: 0 auto 28px;
+    }
+    .prize-icon-big { font-size: 56px; margin-bottom: 12px; }
+    .prize-label-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; font-weight: 400; margin-bottom: 8px; line-height: 1.1;
+    }
+    .prize-desc {
+      font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 28px; line-height: 1.5;
+    }
+    .modal-divider { height: 1px; background: rgba(255,255,255,0.1); margin-bottom: 24px; }
+    .claim-title { font-size: 15px; font-weight: 500; margin-bottom: 16px; }
+    .claim-form { display: flex; flex-direction: column; gap: 12px; }
+    .claim-input {
+      width: 100%; padding: 15px 16px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px; color: var(--white); font-size: 15px;
+      outline: none; transition: border-color 0.2s;
+    }
+    .claim-input:focus { border-color: var(--gold); }
+    .claim-input::placeholder { color: rgba(255,255,255,0.3); }
+    .btn-claim {
+      padding: 16px; background: var(--white); color: var(--black);
+      border: none; border-radius: 10px; font-size: 15px; font-weight: 600;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn-claim:hover { opacity: 0.9; }
+    .claim-success {
+      display: none; padding: 20px;
+      background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.3);
+      border-radius: 12px; color: #2ecc71; font-size: 14px; line-height: 1.5;
+    }
+    .claim-success.show { display: block; }
+    .modal-share-btn {
+      width: 100%; margin-top: 14px; padding: 14px;
+      background: transparent; border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px; color: var(--white); font-size: 14px;
+      cursor: pointer; transition: border-color 0.2s;
+    }
+    .modal-share-btn:hover { border-color: rgba(255,255,255,0.5); }
+
+    /* ── CONFETTI ── */
     #confetti-canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 999;
+      position: fixed; inset: 0; pointer-events: none; z-index: 400;
     }
 
-    @media (min-width: 600px) {
-      .hero { height: 60vh; max-height: 580px; }
-      .title { font-size: 54px; }
-      .counter-number { font-size: 88px; }
+    /* ── FOOTER ── */
+    .footer-band {
+      background: #0a0a0a; padding: 40px 20px;
+      text-align: center; border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-label {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 14px;
+    }
+    .footer-link {
+      font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300;
+      color: var(--white); text-decoration: underline; text-underline-offset: 5px;
+      text-decoration-color: rgba(255,255,255,0.25);
+    }
+    .footer-link:hover { text-decoration-color: var(--gold); color: var(--gold); }
+
+    @media (min-width: 480px) {
+      .modal-overlay { align-items: center; }
+      .modal-sheet { border-radius: 24px; margin: 20px; }
     }
   </style>
 </head>
@@ -317,200 +340,474 @@
 
 <canvas id="confetti-canvas"></canvas>
 
-<header class="header">
-  <a href="https://www.yourmood.net" target="_blank">Mood Collection</a>
-  <span class="badge-letsdance">Let's Dance RTL — Finale</span>
-</header>
-
-<div class="hero">
-  <img src="https://cdn.shopify.com/s/files/1/0798/2303/files/joel15.web.jpg?v=1617960316"
-       alt="Joel Mattli — Let's Dance">
-  <div class="hero-overlay"></div>
-  <div class="hero-label">Joel Mattli · Ambassadeur Mood Collection</div>
+<!-- Video Overlay -->
+<div class="video-overlay" id="video-overlay" onclick="closeVideo(event)">
+  <div class="video-wrap">
+    <button class="video-close" onclick="closeVideo()">✕</button>
+    <iframe id="yt-frame" src="" allowfullscreen
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+    </iframe>
+  </div>
 </div>
 
-<main class="main">
-
-  <p class="eyebrow">Ce soir — Finale</p>
-  <h1 class="title">Joel est<br>en finale</h1>
-  <p class="subtitle">Let's Dance 2026 — RTL</p>
-
-  <div class="counter-section">
-    <div class="pulse-row">
-      <div class="pulse-dot"></div>
-      <span class="pulse-live">En direct</span>
+<!-- Prize Modal -->
+<div class="modal-overlay" id="prize-modal">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="prize-icon-big" id="modal-icon">🎁</div>
+    <div class="prize-label-big" id="modal-label">Bon cadeau CHF 20</div>
+    <div class="prize-desc" id="modal-desc">Un bon cadeau à utiliser sur toute la boutique Mood.</div>
+    <div class="modal-divider"></div>
+    <div class="claim-title">Entre ton email pour recevoir ton cadeau 🎁</div>
+    <div class="claim-form" id="claim-form">
+      <input class="claim-input" id="claim-name" type="text" placeholder="Ton prénom" autocomplete="given-name">
+      <input class="claim-input" id="claim-email" type="email" placeholder="Ton email" autocomplete="email">
+      <button class="btn-claim" onclick="claimPrize()">Recevoir mon cadeau →</button>
     </div>
-    <div class="counter-number" id="counter">—</div>
-    <div class="counter-label">Mood Lovers soutiennent Joel ❤️</div>
+    <div class="claim-success" id="claim-success">
+      ✓ Parfait ! Tu recevras ton cadeau par email dans les 24h.<br>
+      <span style="opacity:0.7">Pense à vérifier tes spams.</span>
+    </div>
+    <button class="modal-share-btn" onclick="share()">Partager cette page avec tes amies →</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <a href="https://www.yourmood.net" target="_blank">Mood Collection</a>
+  <div class="pill-live">
+    <div class="dot-live"></div>
+    Finale ce soir
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-slides" id="hero-slides"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Let's Dance 2026 · RTL · Finale</p>
+    <h1 class="hero-title">Joel Mattli</h1>
+    <p class="hero-subtitle">est en finale ce soir</p>
+    <button class="btn-video" onclick="openVideo()">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      Voir la vidéo No Limits
+    </button>
+  </div>
+</section>
+
+<!-- COUNTER -->
+<div class="counter-bar">
+  <div class="counter-inner">
+    <div class="dot-live"></div>
+    <span class="counter-num" id="counter">—</span>
+    <span class="counter-text">Mood Lovers soutiennent Joel</span>
+  </div>
+</div>
+
+<!-- WHEEL SECTION -->
+<section class="wheel-section">
+  <p class="section-eyebrow">Tente ta chance</p>
+  <h2 class="section-title">Tourne la roue,<br>gagne un cadeau Mood</h2>
+  <p class="section-sub">Chaque tour = un soutien pour Joel.<br>On lui annonce le total avant qu'il entre sur scène.</p>
+
+  <div class="wheel-wrap">
+    <div class="wheel-pointer"></div>
+    <canvas id="wheel-canvas" width="600" height="600"></canvas>
+    <div class="wheel-center">❤️</div>
   </div>
 
-  <div class="voted-block" id="voted-block">
-    <div class="voted-check">✓</div>
-    <div class="voted-text">Ton soutien est compté !</div>
-    <div class="voted-sub">Joel reçoit votre message avant d'entrer sur scène.</div>
-  </div>
-
-  <button class="btn-vote" id="btn-vote" onclick="vote()">
-    Je soutiens Joel ❤️
+  <button class="btn-spin" id="btn-spin" onclick="spinWheel()">
+    Faire tourner la roue ✦
   </button>
 
-  <button class="btn-share" id="btn-share" onclick="share()" style="display:none">
-    Partager cette page →
-  </button>
-
-  <p class="deadline">Votez avant <strong>20h</strong> — on lui annonce le chiffre avant la finale</p>
-
-  <div class="divider" style="margin-top:40px"></div>
-
-  <div class="collection-block">
-    <p class="collection-label">La collection de Joel</p>
-    <a class="collection-link" href="https://www.yourmood.net/collections/joel-mattli-ambassadeur-mood" target="_blank">
-      Découvrir ses bagues mood →
-    </a>
+  <div class="prizes-preview">
+    <div class="prize-chip"><span>🎁</span> Bon cadeau CHF 10</div>
+    <div class="prize-chip"><span>🎁</span> Bon cadeau CHF 20</div>
+    <div class="prize-chip"><span>📦</span> Boîte de rangement</div>
+    <div class="prize-chip"><span>✨</span> Bon cadeau CHF 50</div>
+    <div class="prize-chip grand"><span>👑</span> Grand Prix — Compo offerte</div>
   </div>
+</section>
 
-</main>
+<!-- FOOTER -->
+<footer class="footer-band">
+  <p class="footer-label">La collection de Joel</p>
+  <a class="footer-link" href="https://www.yourmood.net/collections/joel-mattli-ambassadeur-mood" target="_blank">
+    Découvrir ses bagues mood →
+  </a>
+</footer>
 
 <script>
-const COUNTER_KEY = 'joel-letsdance-finale-2026';
-const COUNTER_URL = `https://api.counterapi.dev/v1/yourmood/${COUNTER_KEY}`;
-const LS_KEY = 'mood_joel_voted';
+/* ────────────────────────────────────────
+   CONFIG
+──────────────────────────────────────── */
+const COUNTER_URL = 'https://api.counterapi.dev/v1/yourmood/joel-letsdance-finale-2026';
+const LS_SPIN = 'mood_joel_spun_2026';
 
-const counterEl = document.getElementById('counter');
-const btnVote = document.getElementById('btn-vote');
-const votedBlock = document.getElementById('voted-block');
-const btnShare = document.getElementById('btn-share');
+const HERO_PHOTOS = [
+  'https://cdn.shopify.com/s/files/1/0798/2303/files/joel2.web.jpg?v=1617962296',
+  'https://cdn.shopify.com/s/files/1/0798/2303/files/joel.web.jpg?v=1617960808',
+  'https://cdn.shopify.com/s/files/1/0798/2303/files/joel3.web.jpg?v=1617962309',
+  'https://cdn.shopify.com/s/files/1/0798/2303/files/joel9.web.jpg?v=1617961115',
+];
 
-// Animate number count-up
-function animateCount(from, to, duration = 800) {
-  const start = performance.now();
-  const range = to - from;
-  function step(now) {
-    const progress = Math.min((now - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    counterEl.textContent = Math.round(from + range * eased).toLocaleString('fr-CH');
-    if (progress < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
+/* ────────────────────────────────────────
+   PRIZES (ordered = wheel segments, clockwise from top)
+──────────────────────────────────────── */
+const PRIZES = [
+  { label: 'Bon cadeau\nCHF 10',     icon: '🎁', color: '#1e1e1e', textColor: '#f5f0e8', prob: 0.28 },
+  { label: 'Boîte de\nrangement',    icon: '📦', color: '#f5f0e8', textColor: '#111',    prob: 0.22 },
+  { label: 'Bon cadeau\nCHF 20',     icon: '🎁', color: '#2a1f0a', textColor: '#c9a84c', prob: 0.20 },
+  { label: 'Bon cadeau\nCHF 10',     icon: '🎁', color: '#2e2e2e', textColor: '#f5f0e8', prob: 0.14 },
+  { label: 'Boîte de\nrangement',    icon: '📦', color: '#e8e0d0', textColor: '#333',    prob: 0.08 },
+  { label: 'Bon cadeau\nCHF 50',     icon: '✨', color: '#111',    textColor: '#c9a84c', prob: 0.05 },
+  { label: 'Bon cadeau\nCHF 20',     icon: '🎁', color: '#1a1204', textColor: '#c9a84c', prob: 0.02 },
+  { label: 'Grand Prix\nCompo Mood', icon: '👑', color: '#c8102e', textColor: '#fff',    prob: 0.01 },
+];
+
+const PRIZE_DESC = {
+  'Bon cadeau\nCHF 10':     'Un bon cadeau de CHF 10 à utiliser sur tout le site yourmood.net.',
+  'Boîte de\nrangement':    'Une élégante boîte Mood pour ranger et exposer tes bagues.',
+  'Bon cadeau\nCHF 20':     'Un bon cadeau de CHF 20 à utiliser sur tout le site yourmood.net.',
+  'Bon cadeau\nCHF 50':     'Un bon cadeau de CHF 50 à utiliser sur tout le site yourmood.net.',
+  'Grand Prix\nCompo Mood': 'Une compo Mood complète, sélectionnée par Stéphanie. Valeur jusqu\'à CHF 200 !\nNous te contacterons personnellement. 🎉',
+};
+
+/* ────────────────────────────────────────
+   HERO SLIDESHOW
+──────────────────────────────────────── */
+(function initHero() {
+  const container = document.getElementById('hero-slides');
+  HERO_PHOTOS.forEach((url, i) => {
+    const div = document.createElement('div');
+    div.className = 'hero-slide' + (i === 0 ? ' active' : '');
+    div.style.backgroundImage = `url(${url})`;
+    container.appendChild(div);
+  });
+  let cur = 0;
+  setInterval(() => {
+    const slides = container.querySelectorAll('.hero-slide');
+    slides[cur].classList.remove('active');
+    cur = (cur + 1) % slides.length;
+    slides[cur].classList.add('active');
+  }, 4000);
+})();
+
+/* ────────────────────────────────────────
+   VIDEO
+──────────────────────────────────────── */
+function openVideo() {
+  document.getElementById('yt-frame').src = 'https://www.youtube.com/embed/1dB50Q9uJY0?autoplay=1&rel=0&modestbranding=1';
+  document.getElementById('video-overlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
 }
+function closeVideo(e) {
+  if (e && e.target !== document.getElementById('video-overlay')) return;
+  document.getElementById('yt-frame').src = '';
+  document.getElementById('video-overlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo({ target: document.getElementById('video-overlay') }); });
 
-// Load current count
+/* ────────────────────────────────────────
+   COUNTER
+──────────────────────────────────────── */
+const counterEl = document.getElementById('counter');
 async function loadCount() {
   try {
-    const res = await fetch(COUNTER_URL);
-    const data = await res.json();
-    const count = data.count || 0;
-    animateCount(0, count, 1200);
-  } catch {
-    counterEl.textContent = '—';
+    const r = await fetch(COUNTER_URL);
+    const d = await r.json();
+    animateCount(0, d.count || 0, 1400);
+  } catch { counterEl.textContent = '0'; }
+}
+function animateCount(from, to, dur = 700) {
+  const t0 = performance.now();
+  function tick(now) {
+    const p = Math.min((now - t0) / dur, 1);
+    const e = 1 - Math.pow(1 - p, 3);
+    counterEl.textContent = Math.round(from + (to - from) * e).toLocaleString('fr-CH');
+    if (p < 1) requestAnimationFrame(tick);
   }
+  requestAnimationFrame(tick);
 }
 
-// Vote
-async function vote() {
-  if (localStorage.getItem(LS_KEY)) return;
+/* ────────────────────────────────────────
+   WHEEL DRAWING
+──────────────────────────────────────── */
+const canvas = document.getElementById('wheel-canvas');
+const ctx = canvas.getContext('2d');
+const N = PRIZES.length;
+const SEG = (2 * Math.PI) / N;
 
-  btnVote.disabled = true;
-  btnVote.textContent = '…';
+let wheelAngle = 0;
 
+function drawWheel(angle) {
+  ctx.clearRect(0, 0, 600, 600);
+  const cx = 300, cy = 300, R = 280;
+
+  for (let i = 0; i < N; i++) {
+    const p = PRIZES[i];
+    const start = angle + i * SEG - Math.PI / 2;
+    const end = start + SEG;
+
+    // Segment
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, R, start, end);
+    ctx.closePath();
+    ctx.fillStyle = p.color;
+    ctx.fill();
+
+    // Border
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, R, start, end);
+    ctx.closePath();
+    ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Text
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(start + SEG / 2);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = p.textColor;
+
+    // Icon
+    ctx.font = '28px serif';
+    ctx.fillText(p.icon, R - 16, 10);
+
+    // Label
+    const lines = p.label.split('\n');
+    const fontSize = N > 8 ? 16 : 18;
+    ctx.font = `500 ${fontSize}px Inter, sans-serif`;
+    ctx.fillStyle = p.textColor;
+    lines.forEach((line, li) => {
+      const y = lines.length === 1 ? -10 : li === 0 ? -20 : -2;
+      ctx.fillText(line, R - 52, y);
+    });
+
+    ctx.restore();
+  }
+
+  // Outer ring
+  ctx.beginPath();
+  ctx.arc(cx, cy, R, 0, 2 * Math.PI);
+  ctx.strokeStyle = '#c9a84c';
+  ctx.lineWidth = 5;
+  ctx.stroke();
+
+  // Inner ring
+  ctx.beginPath();
+  ctx.arc(cx, cy, R * 0.18, 0, 2 * Math.PI);
+  ctx.fillStyle = '#0e0e0e';
+  ctx.fill();
+  ctx.strokeStyle = '#c9a84c';
+  ctx.lineWidth = 4;
+  ctx.stroke();
+}
+
+drawWheel(0);
+
+/* ────────────────────────────────────────
+   SPIN LOGIC
+──────────────────────────────────────── */
+let spinning = false;
+
+function pickWinner() {
+  const r = Math.random();
+  let acc = 0;
+  for (let i = 0; i < PRIZES.length; i++) {
+    acc += PRIZES[i].prob;
+    if (r < acc) return i;
+  }
+  return 0;
+}
+
+async function spinWheel() {
+  if (spinning || localStorage.getItem(LS_SPIN)) return;
+  spinning = true;
+
+  const btn = document.getElementById('btn-spin');
+  btn.disabled = true;
+  btn.textContent = '…';
+
+  // Increment counter
   try {
-    const res = await fetch(`${COUNTER_URL}/up`);
-    const data = await res.json();
-    const newCount = data.count || 0;
-
-    // Bump animation
-    const prev = parseInt(counterEl.textContent.replace(/\s/g, '') || '0');
+    const r = await fetch(`${COUNTER_URL}/up`);
+    const d = await r.json();
+    const prev = parseInt(counterEl.textContent.replace(/[^\d]/g, '') || '0');
     counterEl.classList.add('bump');
     setTimeout(() => counterEl.classList.remove('bump'), 200);
-    animateCount(prev, newCount, 600);
+    animateCount(prev, d.count || prev + 1, 500);
+  } catch { /* silent */ }
 
-    // Mark voted
-    localStorage.setItem(LS_KEY, '1');
-    showVoted();
-    launchConfetti();
+  // Pick winner
+  const winIdx = pickWinner();
 
-  } catch {
-    btnVote.disabled = false;
-    btnVote.textContent = 'Réessayer';
+  // Calculate final rotation angle to land on winIdx
+  // Segment i center is at: i * SEG + SEG/2 from top (offset by -π/2)
+  // We want winIdx's center to face the pointer (top = 0 after rotation)
+  const targetAngle = (2 * Math.PI * 6) + // 6 full spins
+    (2 * Math.PI - (winIdx * SEG + SEG / 2)); // land on winner
+
+  const startAngle = wheelAngle;
+  const totalDelta = targetAngle - (startAngle % (2 * Math.PI));
+  const finalAngle = startAngle + totalDelta + 2 * Math.PI; // ensure forward spin
+
+  const DURATION = 5000;
+  const t0 = performance.now();
+
+  function frame(now) {
+    const elapsed = now - t0;
+    const progress = Math.min(elapsed / DURATION, 1);
+
+    // Ease-out cubic + extra bounce
+    const eased = progress < 1
+      ? 1 - Math.pow(1 - progress, 4)
+      : 1;
+
+    wheelAngle = startAngle + (finalAngle - startAngle) * eased;
+    drawWheel(wheelAngle);
+
+    if (progress < 1) {
+      requestAnimationFrame(frame);
+    } else {
+      wheelAngle = finalAngle % (2 * Math.PI);
+      spinning = false;
+      localStorage.setItem(LS_SPIN, JSON.stringify({ idx: winIdx, ts: Date.now() }));
+      setTimeout(() => showPrize(winIdx), 400);
+    }
   }
+  requestAnimationFrame(frame);
 }
 
-function showVoted() {
-  btnVote.style.display = 'none';
-  votedBlock.classList.add('show');
-  btnShare.style.display = 'block';
+/* ────────────────────────────────────────
+   PRIZE MODAL
+──────────────────────────────────────── */
+function showPrize(idx) {
+  const p = PRIZES[idx];
+  document.getElementById('modal-icon').textContent = p.icon;
+  document.getElementById('modal-label').textContent = p.label.replace('\n', ' ');
+  document.getElementById('modal-desc').textContent = PRIZE_DESC[p.label] || 'Un cadeau Mood t\'attend !';
+
+  const modal = document.getElementById('prize-modal');
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+
+  launchConfetti();
 }
 
+function claimPrize() {
+  const name = document.getElementById('claim-name').value.trim();
+  const email = document.getElementById('claim-email').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('claim-email').focus();
+    return;
+  }
+
+  // Track with Klaviyo if available
+  if (window._learnq) {
+    const stored = JSON.parse(localStorage.getItem(LS_SPIN) || '{}');
+    const prize = PRIZES[stored.idx || 0];
+    window._learnq.push(['identify', { '$email': email, '$first_name': name }]);
+    window._learnq.push(['track', 'Joel Roue Cadeau', {
+      prize: prize.label.replace('\n', ' '),
+      icon: prize.icon,
+      campaign: 'joel-letsdance-finale-2026',
+    }]);
+  }
+
+  document.getElementById('claim-form').style.display = 'none';
+  document.getElementById('claim-success').classList.add('show');
+}
+
+/* ────────────────────────────────────────
+   SHARE
+──────────────────────────────────────── */
 function share() {
-  const url = window.location.href;
-  const text = '❤️ Joel Mattli est en finale de Let\'s Dance ce soir — rejoins les Mood Lovers et soutiens-le !';
+  const url = 'https://stephmood.github.io/mood-creative-studio/vote-joel.html';
+  const text = '🎡 Joel est en finale de Let\'s Dance ce soir ! Tourne la roue Mood pour le soutenir et gagner un cadeau !';
   if (navigator.share) {
-    navigator.share({ title: 'Je vote pour Joel !', text, url }).catch(() => {});
+    navigator.share({ title: 'Soutiens Joel — Tourne la roue Mood !', text, url }).catch(() => {});
   } else {
     navigator.clipboard?.writeText(url);
-    btnShare.textContent = 'Lien copié ✓';
-    setTimeout(() => btnShare.textContent = 'Partager cette page →', 2000);
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = 'Lien copié ✓';
+    setTimeout(() => btn.textContent = orig, 2000);
   }
 }
 
-// Confetti
+/* ────────────────────────────────────────
+   CONFETTI
+──────────────────────────────────────── */
 function launchConfetti() {
-  const canvas = document.getElementById('confetti-canvas');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const colors = ['#c8102e','#111','#f0c040','#2ecc71','#3498db'];
-  const pieces = Array.from({length: 80}, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * -100,
-    r: Math.random() * 6 + 3,
-    color: colors[Math.floor(Math.random() * colors.length)],
-    speed: Math.random() * 4 + 2,
-    swing: Math.random() * 2 - 1,
+  const c = document.getElementById('confetti-canvas');
+  const x = c.getContext('2d');
+  c.width = window.innerWidth; c.height = window.innerHeight;
+  const cols = ['#c9a84c','#ffffff','#c8102e','#f5f0e8','#2ecc71','#3498db','#9b59b6'];
+  const pieces = Array.from({ length: 120 }, () => ({
+    x: Math.random() * c.width,
+    y: Math.random() * -200 - 10,
+    r: Math.random() * 7 + 3,
+    color: cols[Math.floor(Math.random() * cols.length)],
+    speed: Math.random() * 5 + 2,
+    drift: (Math.random() - 0.5) * 2,
     angle: Math.random() * Math.PI * 2,
-    spin: (Math.random() - 0.5) * 0.2,
+    spin: (Math.random() - 0.5) * 0.15,
+    shape: Math.random() > 0.5 ? 'rect' : 'circle',
   }));
-
-  let frame = 0;
+  let f = 0;
   function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    x.clearRect(0, 0, c.width, c.height);
     pieces.forEach(p => {
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.angle);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.r, -p.r/2, p.r*2, p.r);
-      ctx.restore();
-      p.y += p.speed;
-      p.x += p.swing;
-      p.angle += p.spin;
+      x.save(); x.translate(p.x, p.y); x.rotate(p.angle);
+      x.fillStyle = p.color;
+      if (p.shape === 'rect') x.fillRect(-p.r, -p.r/2, p.r * 2, p.r);
+      else { x.beginPath(); x.arc(0, 0, p.r/2, 0, 2*Math.PI); x.fill(); }
+      x.restore();
+      p.y += p.speed; p.x += p.drift; p.angle += p.spin;
     });
-    frame++;
-    if (frame < 120) requestAnimationFrame(draw);
-    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    f++;
+    if (f < 180) requestAnimationFrame(draw);
+    else x.clearRect(0, 0, c.width, c.height);
   }
   draw();
 }
 
-// Init
+/* ────────────────────────────────────────
+   INIT
+──────────────────────────────────────── */
 window.addEventListener('DOMContentLoaded', () => {
   loadCount();
-  if (localStorage.getItem(LS_KEY)) {
-    showVoted();
+
+  // Already spun?
+  if (localStorage.getItem(LS_SPIN)) {
+    const btn = document.getElementById('btn-spin');
+    btn.textContent = 'Tu as déjà tourné la roue ✓';
+    btn.disabled = true;
+    // Optional: show prize again
+    const stored = JSON.parse(localStorage.getItem(LS_SPIN));
+    if (stored?.idx !== undefined) {
+      setTimeout(() => showPrize(stored.idx), 800);
+    }
   }
 });
 
-// Refresh count every 15s
+// Refresh counter every 20s
 setInterval(async () => {
-  if (!localStorage.getItem(LS_KEY)) return;
   try {
-    const res = await fetch(COUNTER_URL);
-    const data = await res.json();
-    const current = parseInt(counterEl.textContent.replace(/[\s',]/g, '') || '0');
-    if (data.count > current) animateCount(current, data.count, 600);
+    const r = await fetch(COUNTER_URL);
+    const d = await r.json();
+    const cur = parseInt(counterEl.textContent.replace(/[^\d]/g,'') || '0');
+    if ((d.count||0) > cur) animateCount(cur, d.count, 500);
   } catch {}
-}, 15000);
+}, 20000);
 </script>
 
 </body>
