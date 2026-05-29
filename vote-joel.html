@@ -111,6 +111,15 @@
     .m-ok.show { display: block; }
     .btn-share { width: 100%; margin-top: 11px; padding: 13px; background: transparent; border: 1px solid rgba(255,255,255,.14); border-radius: 10px; color: rgba(255,255,255,.6); font-size: 14px; cursor: pointer; }
     .btn-share:hover { border-color: rgba(255,255,255,.35); }
+    .btn-collection { display: block; width: 100%; margin-top: 9px; padding: 13px; background: rgba(201,168,76,.07); border: 1px solid rgba(201,168,76,.3); border-radius: 10px; color: var(--gold); font-size: 14px; font-weight: 500; text-decoration: none; text-align: center; letter-spacing: .02em; transition: background .2s; }
+    .btn-collection:hover { background: rgba(201,168,76,.16); }
+
+    /* CTA BANNER — Willows Auras */
+    .cta-banner { padding: 36px 20px 48px; max-width: 480px; margin: 0 auto; text-align: center; border-top: 1px solid rgba(201,168,76,.12); }
+    .cta-banner-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .cta-banner-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px,7vw,38px); font-weight: 300; line-height: 1.15; margin-bottom: 20px; }
+    .cta-banner-link { display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--black); border-radius: 12px; font-size: 15px; font-weight: 600; text-decoration: none; letter-spacing: .02em; box-shadow: 0 4px 22px rgba(201,168,76,.35); }
+    .cta-banner-link:hover { opacity: .9; }
 
     #confetti { position: fixed; inset: 0; pointer-events: none; z-index: 300; }
 
@@ -141,6 +150,7 @@
     </div>
     <div class="m-ok" id="m-ok">✓ Ton cadeau arrive par email dans les 24h !</div>
     <button class="btn-share" onclick="doShare()">Partager cette page avec tes amies →</button>
+    <a class="btn-collection" href="https://www.yourmood.net/collections/willows-auras?utm_source=joel-finale&utm_medium=social&utm_campaign=50pct-soleil" target="_blank">☀️ Découvrir la collection Willows Auras →</a>
   </div>
 </div>
 
@@ -212,6 +222,13 @@
       allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
     </iframe>
   </div>
+</section>
+
+<!-- CTA BANNER — Willows Auras -->
+<section class="cta-banner">
+  <p class="cta-banner-eyebrow">Campagne 50% de soleil ☀️</p>
+  <h2 class="cta-banner-title">La collection du moment.<br>Willows Auras.</h2>
+  <a class="cta-banner-link" href="https://www.yourmood.net/collections/willows-auras?utm_source=joel-finale&utm_medium=social&utm_campaign=50pct-soleil" target="_blank">Découvrir la collection →</a>
 </section>
 
 <!-- FOOTER -->
