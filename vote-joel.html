@@ -413,8 +413,6 @@ window.addEventListener('DOMContentLoaded',()=>{
   if (stored) {
     const btn=document.getElementById('btn-spin');
     btn.disabled=true; btn.textContent='Tu as déjà participé ✓ Merci !';
-    const d=JSON.parse(stored);
-    if (d.winIdx!==undefined) setTimeout(()=>openModal(d.winIdx),600);
   }
 });
 
