@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joel Mattli — Let's Dance Finale | Mood Collection</title>
+
+  <meta property="og:title" content="Je vote pour Joel ❤️">
+  <meta property="og:description" content="Joel est en finale de Let's Dance ce soir. Rejoins les Mood Lovers et envoie-lui ton soutien avant 20h !">
+  <meta property="og:image" content="https://cdn.shopify.com/s/files/1/0798/2303/files/joel15.web.jpg?v=1617960316">
+  <meta property="og:url" content="https://stephmood.github.io/mood-creative-studio/vote-joel.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Je vote pour Joel ❤️">
+  <meta name="twitter:description" content="Joel est en finale de Let's Dance ce soir. Rejoins les Mood Lovers !">
+  <meta name="twitter:image" content="https://cdn.shopify.com/s/files/1/0798/2303/files/joel15.web.jpg?v=1617960316">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #111;
+      --white: #fff;
+      --grey: #666;
+      --light: #f5f4f2;
+      --accent: #c8102e;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* HEADER */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .header a {
+      text-decoration: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      color: var(--black);
+      text-transform: uppercase;
+    }
+    .badge-letsdance {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 55vh;
+      min-height: 300px;
+      max-height: 480px;
+      overflow: hidden;
+      margin-top: 56px;
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(0,0,0,0.45) 100%);
+    }
+    .hero-label {
+      position: absolute;
+      bottom: 20px;
+      left: 24px;
+      right: 24px;
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    /* MAIN */
+    .main {
+      padding: 36px 24px 80px;
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 14px;
+    }
+
+    .title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--grey);
+      margin-bottom: 40px;
+    }
+
+    /* COUNTER */
+    .counter-section {
+      background: var(--light);
+      border-radius: 16px;
+      padding: 28px 20px;
+      margin-bottom: 32px;
+    }
+    .counter-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 72px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--black);
+      margin-bottom: 8px;
+      transition: transform 0.15s ease;
+    }
+    .counter-number.bump {
+      transform: scale(1.08);
+    }
+    .counter-label {
+      font-size: 13px;
+      color: var(--grey);
+      letter-spacing: 0.04em;
+    }
+
+    /* PULSE DOT */
+    .pulse-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .pulse-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #2ecc71;
+      animation: pulse 2s infinite;
+    }
+    .pulse-live {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #2ecc71;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* VOTE BUTTON */
+    .btn-vote {
+      width: 100%;
+      padding: 20px 24px;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      margin-bottom: 16px;
+      transition: transform 0.1s, opacity 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-vote:active { transform: scale(0.97); }
+    .btn-vote:disabled {
+      background: #ddd;
+      color: #999;
+      cursor: default;
+    }
+
+    /* VOTED STATE */
+    .voted-block {
+      display: none;
+      background: #f0faf4;
+      border: 1px solid #b2dfcc;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .voted-block.show { display: block; }
+    .voted-check {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .voted-text {
+      font-size: 15px;
+      color: #1a7a4a;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .voted-sub {
+      font-size: 13px;
+      color: var(--grey);
+    }
+
+    /* SHARE BUTTON */
+    .btn-share {
+      width: 100%;
+      padding: 16px 24px;
+      background: transparent;
+      color: var(--black);
+      border: 1.5px solid var(--black);
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      cursor: pointer;
+      margin-bottom: 40px;
+      transition: background 0.15s, color 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-share:hover { background: var(--black); color: var(--white); }
+
+    /* DIVIDER */
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: #ddd;
+      margin: 0 auto 32px;
+    }
+
+    /* COLLECTION LINK */
+    .collection-block {
+      text-align: center;
+    }
+    .collection-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 12px;
+    }
+    .collection-link {
+      display: inline-block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--black);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /* DEADLINE */
+    .deadline {
+      font-size: 12px;
+      color: var(--grey);
+      margin-top: 12px;
+      letter-spacing: 0.04em;
+    }
+    .deadline strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* CONFETTI canvas */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    @media (min-width: 600px) {
+      .hero { height: 60vh; max-height: 580px; }
+      .title { font-size: 54px; }
+      .counter-number { font-size: 88px; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<header class="header">
+  <a href="https://www.yourmood.net" target="_blank">Mood Collection</a>
+  <span class="badge-letsdance">Let's Dance RTL — Finale</span>
+</header>
+
+<div class="hero">
+  <img src="https://cdn.shopify.com/s/files/1/0798/2303/files/joel15.web.jpg?v=1617960316"
+       alt="Joel Mattli — Let's Dance">
+  <div class="hero-overlay"></div>
+  <div class="hero-label">Joel Mattli · Ambassadeur Mood Collection</div>
+</div>
+
+<main class="main">
+
+  <p class="eyebrow">Ce soir — Finale</p>
+  <h1 class="title">Joel est<br>en finale</h1>
+  <p class="subtitle">Let's Dance 2026 — RTL</p>
+
+  <div class="counter-section">
+    <div class="pulse-row">
+      <div class="pulse-dot"></div>
+      <span class="pulse-live">En direct</span>
+    </div>
+    <div class="counter-number" id="counter">—</div>
+    <div class="counter-label">Mood Lovers soutiennent Joel ❤️</div>
+  </div>
+
+  <div class="voted-block" id="voted-block">
+    <div class="voted-check">✓</div>
+    <div class="voted-text">Ton soutien est compté !</div>
+    <div class="voted-sub">Joel reçoit votre message avant d'entrer sur scène.</div>
+  </div>
+
+  <button class="btn-vote" id="btn-vote" onclick="vote()">
+    Je soutiens Joel ❤️
+  </button>
+
+  <button class="btn-share" id="btn-share" onclick="share()" style="display:none">
+    Partager cette page →
+  </button>
+
+  <p class="deadline">Votez avant <strong>20h</strong> — on lui annonce le chiffre avant la finale</p>
+
+  <div class="divider" style="margin-top:40px"></div>
+
+  <div class="collection-block">
+    <p class="collection-label">La collection de Joel</p>
+    <a class="collection-link" href="https://www.yourmood.net/collections/joel-mattli-ambassadeur-mood" target="_blank">
+      Découvrir ses bagues mood →
+    </a>
+  </div>
+
+</main>
+
+<script>
+const COUNTER_KEY = 'joel-letsdance-finale-2026';
+const COUNTER_URL = `https://api.counterapi.dev/v1/yourmood/${COUNTER_KEY}`;
+const LS_KEY = 'mood_joel_voted';
+
+const counterEl = document.getElementById('counter');
+const btnVote = document.getElementById('btn-vote');
+const votedBlock = document.getElementById('voted-block');
+const btnShare = document.getElementById('btn-share');
+
+// Animate number count-up
+function animateCount(from, to, duration = 800) {
+  const start = performance.now();
+  const range = to - from;
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    counterEl.textContent = Math.round(from + range * eased).toLocaleString('fr-CH');
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// Load current count
+async function loadCount() {
+  try {
+    const res = await fetch(COUNTER_URL);
+    const data = await res.json();
+    const count = data.count || 0;
+    animateCount(0, count, 1200);
+  } catch {
+    counterEl.textContent = '—';
+  }
+}
+
+// Vote
+async function vote() {
+  if (localStorage.getItem(LS_KEY)) return;
+
+  btnVote.disabled = true;
+  btnVote.textContent = '…';
+
+  try {
+    const res = await fetch(`${COUNTER_URL}/up`);
+    const data = await res.json();
+    const newCount = data.count || 0;
+
+    // Bump animation
+    const prev = parseInt(counterEl.textContent.replace(/\s/g, '') || '0');
+    counterEl.classList.add('bump');
+    setTimeout(() => counterEl.classList.remove('bump'), 200);
+    animateCount(prev, newCount, 600);
+
+    // Mark voted
+    localStorage.setItem(LS_KEY, '1');
+    showVoted();
+    launchConfetti();
+
+  } catch {
+    btnVote.disabled = false;
+    btnVote.textContent = 'Réessayer';
+  }
+}
+
+function showVoted() {
+  btnVote.style.display = 'none';
+  votedBlock.classList.add('show');
+  btnShare.style.display = 'block';
+}
+
+function share() {
+  const url = window.location.href;
+  const text = '❤️ Joel Mattli est en finale de Let\'s Dance ce soir — rejoins les Mood Lovers et soutiens-le !';
+  if (navigator.share) {
+    navigator.share({ title: 'Je vote pour Joel !', text, url }).catch(() => {});
+  } else {
+    navigator.clipboard?.writeText(url);
+    btnShare.textContent = 'Lien copié ✓';
+    setTimeout(() => btnShare.textContent = 'Partager cette page →', 2000);
+  }
+}
+
+// Confetti
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const colors = ['#c8102e','#111','#f0c040','#2ecc71','#3498db'];
+  const pieces = Array.from({length: 80}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * -100,
+    r: Math.random() * 6 + 3,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    speed: Math.random() * 4 + 2,
+    swing: Math.random() * 2 - 1,
+    angle: Math.random() * Math.PI * 2,
+    spin: (Math.random() - 0.5) * 0.2,
+  }));
+
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach(p => {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.r, -p.r/2, p.r*2, p.r);
+      ctx.restore();
+      p.y += p.speed;
+      p.x += p.swing;
+      p.angle += p.spin;
+    });
+    frame++;
+    if (frame < 120) requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  draw();
+}
+
+// Init
+window.addEventListener('DOMContentLoaded', () => {
+  loadCount();
+  if (localStorage.getItem(LS_KEY)) {
+    showVoted();
+  }
+});
+
+// Refresh count every 15s
+setInterval(async () => {
+  if (!localStorage.getItem(LS_KEY)) return;
+  try {
+    const res = await fetch(COUNTER_URL);
+    const data = await res.json();
+    const current = parseInt(counterEl.textContent.replace(/[\s',]/g, '') || '0');
+    if (data.count > current) animateCount(current, data.count, 600);
+  } catch {}
+}, 15000);
+</script>
+
+</body>
+</html>
