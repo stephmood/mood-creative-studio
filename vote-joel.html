@@ -6,7 +6,7 @@
   <title>Encourage Joel — Let's Dance Finale | Mood Collection</title>
   <meta property="og:title" content="Encourage Joel avant la finale ❤️">
   <meta property="og:description" content="Joel Mattli est en finale de Let's Dance ce soir ! Clique, laisse-lui un mot, tourne la roue et gagne un cadeau Mood.">
-  <meta property="og:image" content="https://cdn.shopify.com/s/files/1/0798/2303/files/joel2.web.jpg?v=1617962296">
+  <meta property="og:image" content="https://joelmattli.ch/images/2026/03/04/joel-lets-dance.jpg">
   <meta property="og:url" content="https://stephmood.github.io/mood-creative-studio/vote-joel.html">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -39,8 +39,8 @@
 
     /* JOEL HEADER PHOTO */
     .joel-header { width: 100%; max-width: 480px; margin: 0 auto; padding: 24px 24px 0; }
-    .joel-img-wrap { position: relative; width: 100%; height: 220px; border-radius: 14px; overflow: hidden; background: var(--surface); }
-    .joel-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center 12%; display: block; transition: opacity .6s; }
+    .joel-img-wrap { position: relative; width: 100%; height: 260px; border-radius: 14px; overflow: hidden; background: var(--surface); }
+    .joel-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transition: opacity .6s; }
     .joel-badge { position: absolute; bottom: 12px; left: 12px; background: rgba(250,248,244,.92); backdrop-filter: blur(8px); border-radius: 8px; padding: 8px 12px; }
     .joel-badge-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; line-height: 1; color: var(--text); }
     .joel-badge-sub { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--text2); margin-top: 2px; }
@@ -52,12 +52,12 @@
 
     /* WHEEL */
     .wheel-section { padding: 4px 24px 28px; text-align: center; max-width: 480px; margin: 0 auto; }
-    .wheel-wrap { position: relative; display: inline-block; width: min(300px, 82vw); height: min(300px, 82vw); margin-bottom: 6px; }
+    .wheel-wrap { position: relative; display: inline-block; width: min(370px, 92vw); height: min(370px, 92vw); margin-top: 20px; }
     #wc { display: block; width: 100%; height: 100%; filter: drop-shadow(0 4px 18px rgba(0,0,0,.1)); }
     .w-ptr { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 24px solid var(--gold-btn); filter: drop-shadow(0 2px 4px rgba(201,168,76,.4)); z-index: 5; }
     .w-hub { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 44px; height: 44px; border-radius: 50%; background: var(--bg); border: 3px solid var(--gold-btn); display: flex; align-items: center; justify-content: center; font-size: 20px; z-index: 6; box-shadow: 0 0 0 4px var(--bg); }
 
-    .btn-spin { display: block; width: 100%; padding: 17px; background: var(--text); color: var(--bg); border: none; border-radius: 12px; font-size: 15px; font-weight: 500; cursor: pointer; transition: opacity .15s; letter-spacing: .03em; margin-top: 16px; -webkit-tap-highlight-color: transparent; }
+    .btn-spin { display: block; width: 100%; padding: 17px; background: var(--text); color: var(--bg); border: none; border-radius: 12px; font-size: 15px; font-weight: 500; cursor: pointer; transition: opacity .15s; letter-spacing: .03em; -webkit-tap-highlight-color: transparent; }
     .btn-spin:hover { opacity: .85; }
     .btn-spin:active { opacity: .75; }
     .btn-spin:disabled { background: var(--surface2); color: var(--text3); cursor: default; opacity: 1; }
@@ -171,7 +171,7 @@
 <div class="joel-header">
   <div class="joel-img-wrap">
     <img id="joel-img"
-      src="https://cdn.shopify.com/s/files/1/0798/2303/files/joel2.web.jpg?v=1617962296"
+      src="https://joelmattli.ch/images/2026/03/04/joel-lets-dance.jpg"
       alt="Joel Mattli">
     <div class="joel-badge">
       <div class="joel-badge-name">Joel Mattli</div>
@@ -188,15 +188,15 @@
 
 <!-- WHEEL -->
 <section class="wheel-section">
+  <button class="btn-spin" id="btn-spin" onclick="go()">
+    Encourager Joel &amp; Tourner la roue ❤️
+  </button>
+
   <div class="wheel-wrap">
     <div class="w-ptr"></div>
     <canvas id="wc" width="560" height="560"></canvas>
     <div class="w-hub">❤️</div>
   </div>
-
-  <button class="btn-spin" id="btn-spin" onclick="go()">
-    Encourager Joel &amp; Tourner la roue ❤️
-  </button>
 
   <div class="prizes-chips">
     <div class="chip"><span>🥰</span>Bon CHF 10</div>
@@ -280,9 +280,9 @@ function anim(el, a, b, dur) {
 
 /* ── Joel photo cycle ── */
 const PHOTOS = [
-  'https://cdn.shopify.com/s/files/1/0798/2303/files/joel2.web.jpg?v=1617962296',
-  'https://cdn.shopify.com/s/files/1/0798/2303/files/joel3.web.jpg?v=1617962309',
-  'https://cdn.shopify.com/s/files/1/0798/2303/files/joel9.web.jpg?v=1617961115',
+  'https://joelmattli.ch/images/2026/03/04/joel-lets-dance.jpg',
+  'https://joelmattli.ch/images/2022/02/15/model.jpg',
+  'https://joelmattli.ch/images/2022/03/29/joel-winner-foto.jpg',
 ];
 let pi = 0;
 setInterval(() => {
