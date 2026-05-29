@@ -61,6 +61,8 @@
     .btn-spin:hover { opacity: .85; }
     .btn-spin:active { opacity: .75; }
     .btn-spin:disabled { background: var(--surface2); color: var(--text3); cursor: default; opacity: 1; }
+    .btn-joel-collection { display: block; width: 100%; margin-top: 10px; padding: 14px; background: transparent; border: 1px solid var(--border); border-radius: 12px; color: var(--text2); font-size: 14px; font-weight: 400; text-decoration: none; text-align: center; letter-spacing: .02em; transition: border-color .2s, color .2s; }
+    .btn-joel-collection:hover { border-color: var(--text); color: var(--text); }
 
     .prizes-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin-top: 18px; }
     .chip { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 5px 12px; font-size: 11px; color: var(--text2); display: flex; align-items: center; gap: 5px; }
@@ -191,6 +193,7 @@
   <button class="btn-spin" id="btn-spin" onclick="go()">
     Encourager Joel &amp; Tourner la roue ❤️
   </button>
+  <a class="btn-joel-collection" href="https://www.yourmood.net/collections/joel-mattli-ambassadeur-mood" target="_blank">Découvrir la collection de Joel →</a>
 
   <div class="wheel-wrap">
     <div class="w-ptr"></div>
@@ -403,6 +406,7 @@ function confetti() {
 }
 
 window.addEventListener('DOMContentLoaded',()=>{
+  if (new URLSearchParams(location.search).has('reset')) localStorage.removeItem(LS);
   loadCount();
   const stored=localStorage.getItem(LS);
   if (stored) {
