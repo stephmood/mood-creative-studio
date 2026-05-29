@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mood Image FX — Creative Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf7;
+  --s1: #ffffff;
+  --s2: #f5f3ee;
+  --s3: #ebe8e1;
+  --b1: #e5e0d6;
+  --b2: #c9c4b6;
+  --gold: #c9a96e;
+  --gold2: #a88a4e;
+  --gold-bg: rgba(201,169,110,.12);
+  --text: #1a1a1a;
+  --muted: #888;
+  --muted2: #bbb;
+  --r: 14px;
+  --r2: 10px;
+  --r3: 6px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ───────────────────────────────────────────── */
+.hdr {
+  background: var(--s1);
+  border-bottom: 1px solid var(--b1);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.hdr-l { display: flex; align-items: center; gap: 12px; }
+.logo {
+  width: 32px; height: 32px;
+  background: var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 900; color: #000;
+}
+.hdr-title { font-size: 16px; font-weight: 700; letter-spacing: -.4px; }
+.hdr-sub { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 1px; }
+.hdr-badge {
+  font-size: 10px; font-weight: 600;
+  background: var(--gold-bg);
+  border: 1px solid var(--gold);
+  color: var(--gold2);
+  border-radius: 20px;
+  padding: 3px 10px;
+  letter-spacing: .5px;
+}
+
+/* ── LAYOUT ───────────────────────────────────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  min-height: calc(100vh - 61px);
+}
+
+/* ── LEFT PANEL ───────────────────────────────────────── */
+.panel-l {
+  background: var(--s1);
+  border-right: 1px solid var(--b1);
+  padding: 20px 16px;
+  position: sticky;
+  top: 61px;
+  height: calc(100vh - 61px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.panel-l::-webkit-scrollbar { width: 4px; }
+.panel-l::-webkit-scrollbar-thumb { background: var(--b2); border-radius: 2px; }
+
+.sec { display: flex; flex-direction: column; gap: 10px; }
+.sec-label {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Upload zone */
+.upload-zone {
+  border: 1.5px dashed var(--b2);
+  border-radius: var(--r2);
+  padding: 28px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+  background: var(--s2);
+  position: relative;
+  overflow: hidden;
+}
+.upload-zone:hover, .upload-zone.drag-over {
+  border-color: var(--gold);
+  background: var(--gold-bg);
+}
+.upload-zone input[type=file] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+.upload-icon { font-size: 28px; margin-bottom: 8px; }
+.upload-text { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.upload-text strong { color: var(--gold); font-weight: 600; }
+.upload-thumb {
+  width: 100%; height: 80px; object-fit: cover;
+  border-radius: var(--r3); margin-bottom: 6px;
+  display: none;
+}
+.upload-filename { font-size: 10px; color: var(--gold2); font-weight: 600; display: none; }
+
+/* Category tabs */
+.cat-tabs {
+  display: flex; gap: 4px; flex-wrap: wrap;
+}
+.cat-tab {
+  font-size: 10px; font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--b1);
+  background: var(--s2);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .15s;
+}
+.cat-tab:hover { color: var(--text); border-color: var(--b2); }
+.cat-tab.active { background: var(--gold-bg); border-color: var(--gold); color: var(--gold2); }
+
+/* Effect grid */
+.fx-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.fx-btn {
+  background: var(--s2);
+  border: 1.5px solid var(--b1);
+  border-radius: var(--r2);
+  padding: 9px 10px;
+  cursor: pointer;
+  transition: all .15s;
+  text-align: left;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.fx-btn:hover { border-color: var(--b2); background: var(--s3); }
+.fx-btn.on { border-color: var(--gold); background: var(--gold-bg); }
+.fx-btn .fx-emoji { font-size: 16px; }
+.fx-btn .fx-name { font-size: 10px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.fx-btn.on .fx-name { color: var(--gold2); }
+
+/* Intensity slider */
+.slider-wrap { display: flex; flex-direction: column; gap: 7px; }
+.slider-row { display: flex; align-items: center; justify-content: space-between; }
+.slider-val {
+  font-size: 12px; font-weight: 700; color: var(--gold);
+  min-width: 36px; text-align: right;
+}
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%; height: 3px;
+  background: var(--b1);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,.15);
+  cursor: pointer;
+}
+input[type=range]::-moz-range-thumb {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+
+/* Action buttons */
+.btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.btn {
+  padding: 10px 14px;
+  border-radius: var(--r2);
+  font-size: 12px; font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: all .15s;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.btn-reset {
+  background: var(--s2);
+  border-color: var(--b1);
+  color: var(--muted);
+}
+.btn-reset:hover { border-color: var(--b2); color: var(--text); }
+.btn-dl {
+  background: var(--gold);
+  color: #000;
+  font-weight: 700;
+}
+.btn-dl:hover { background: var(--gold2); }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.active-list {
+  display: flex; flex-wrap: wrap; gap: 4px; min-height: 20px;
+}
+.active-tag {
+  font-size: 9px; font-weight: 600;
+  background: var(--gold-bg);
+  border: 1px solid var(--gold);
+  color: var(--gold2);
+  border-radius: 20px;
+  padding: 2px 8px;
+}
+.active-empty { font-size: 10px; color: var(--muted2); font-style: italic; }
+
+/* ── RIGHT PANEL ──────────────────────────────────────── */
+.panel-r {
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  gap: 20px;
+  min-height: calc(100vh - 61px);
+}
+
+.canvas-shell {
+  position: relative;
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0,0,0,.10), 0 1px 6px rgba(0,0,0,.06);
+  background: var(--s3);
+  max-width: 820px;
+  width: 100%;
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.canvas-shell.has-image { aspect-ratio: unset; background: #000; }
+
+#preview-canvas {
+  display: none;
+  max-width: 100%;
+  border-radius: var(--r);
+}
+
+.canvas-placeholder {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 14px; padding: 40px;
+  text-align: center;
+}
+.canvas-placeholder .ph-icon { font-size: 48px; opacity: .3; }
+.canvas-placeholder .ph-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.canvas-placeholder .ph-sub { font-size: 11px; color: var(--muted2); }
+
+.status-bar {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 11px; color: var(--muted);
+  background: var(--s1);
+  border: 1px solid var(--b1);
+  border-radius: 20px;
+  padding: 6px 16px;
+}
+.status-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--b2);
+}
+.status-dot.active { background: var(--gold); box-shadow: 0 0 6px var(--gold); }
+#status-text { font-weight: 600; color: var(--text); }
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--b1);
+  margin: 2px 0;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-l">
+    <div class="logo">m</div>
+    <div>
+      <div class="hdr-title">mood Image FX</div>
+      <div class="hdr-sub">Creative Studio — Effets photo</div>
+    </div>
+  </div>
+  <div class="hdr-badge">100% local · aucune donnée envoyée</div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- LEFT PANEL -->
+  <aside class="panel-l">
+
+    <!-- Upload -->
+    <div class="sec">
+      <div class="sec-label">Photo</div>
+      <div class="upload-zone" id="upload-zone">
+        <input type="file" id="file-input" accept="image/*">
+        <img class="upload-thumb" id="upload-thumb" alt="">
+        <div class="upload-icon" id="upload-icon">🖼️</div>
+        <div class="upload-text" id="upload-text">
+          <strong>Cliquez ou glissez</strong> une photo ici<br>
+          JPG, PNG, WEBP acceptés
+        </div>
+        <div class="upload-filename" id="upload-filename"></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Effect categories -->
+    <div class="sec">
+      <div class="sec-label">Catégorie d'effets</div>
+      <div class="cat-tabs" id="cat-tabs">
+        <button class="cat-tab active" data-cat="ombres">Ombres</button>
+        <button class="cat-tab" data-cat="lumiere">Lumière</button>
+        <button class="cat-tab" data-cat="grain">Grain & Texture</button>
+        <button class="cat-tab" data-cat="color">Color Grading</button>
+        <button class="cat-tab" data-cat="blur">Blur & Focus</button>
+      </div>
+    </div>
+
+    <!-- Effect buttons -->
+    <div class="sec">
+      <div class="sec-label">Effets</div>
+      <div class="fx-grid" id="fx-grid"></div>
+    </div>
+
+    <!-- Active effects -->
+    <div class="sec">
+      <div class="sec-label">Effets actifs</div>
+      <div class="active-list" id="active-list">
+        <span class="active-empty">Aucun effet appliqué</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Intensity -->
+    <div class="sec">
+      <div class="sec-label">Intensité</div>
+      <div class="slider-wrap">
+        <div class="slider-row">
+          <span style="font-size:11px;color:var(--muted)">Légère</span>
+          <span class="slider-val" id="slider-val">70%</span>
+        </div>
+        <input type="range" id="intensity-slider" min="0" max="100" value="70">
+        <div class="slider-row">
+          <span style="font-size:11px;color:var(--muted)">Forte</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Actions -->
+    <div class="sec">
+      <div class="btn-row">
+        <button class="btn btn-reset" id="btn-reset" disabled>↺ Réinitialiser</button>
+        <button class="btn btn-dl" id="btn-dl" disabled>⬇ Télécharger</button>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- RIGHT PANEL -->
+  <main class="panel-r">
+    <div class="canvas-shell" id="canvas-shell">
+      <div class="canvas-placeholder" id="canvas-placeholder">
+        <div class="ph-icon">✨</div>
+        <div class="ph-text">Chargez une photo pour commencer<br>à appliquer vos effets</div>
+        <div class="ph-sub">Tous les effets sont appliqués en temps réel<br>directement dans votre navigateur</div>
+      </div>
+      <canvas id="preview-canvas"></canvas>
+    </div>
+    <div class="status-bar">
+      <div class="status-dot" id="status-dot"></div>
+      <span id="status-text">En attente d'une photo</span>
+    </div>
+  </main>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════
+let originalImage = null;
+let activeEffects = [];
+let intensity = 0.70;
+let activeCat = 'ombres';
+
+const canvas = document.getElementById('preview-canvas');
+const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+// ══════════════════════════════════════════════════════
+// EFFECTS CATALOGUE
+// ══════════════════════════════════════════════════════
+const EFFECTS = {
+
+  // ─── OMBRES ─────────────────────────────────────────
+  'palmiers': {
+    cat: 'ombres', emoji: '🌴', name: 'Ombres palmiers',
+    apply(ctx, w, h, t) {
+      // Multiple palm fronds fanning from top-left corner
+      const fronds = [
+        { angle: 15,  len: 0.85, sweep: 55, baseW: 18 },
+        { angle: 30,  len: 0.80, sweep: 50, baseW: 22 },
+        { angle: 48,  len: 0.75, sweep: 45, baseW: 20 },
+        { angle: 62,  len: 0.72, sweep: 40, baseW: 16 },
+        { angle: 78,  len: 0.68, sweep: 38, baseW: 15 },
+        { angle: 95,  len: 0.65, sweep: 35, baseW: 14 },
+        { angle: 112, len: 0.60, sweep: 32, baseW: 13 },
+      ];
+      const ox = w * -0.04, oy = h * -0.04; // origin slightly off-canvas top-left
+      ctx.save();
+      fronds.forEach((f, i) => {
+        const rad = f.angle * Math.PI / 180;
+        const tipX = ox + Math.cos(rad) * w * f.len;
+        const tipY = oy + Math.sin(rad) * h * f.len * 0.9;
+        // Offset each frond slightly for a staggered look
+        const mX = ox + Math.cos(rad - 0.18) * w * f.len * 0.55 + Math.cos(rad + Math.PI/2) * w * 0.03;
+        const mY = oy + Math.sin(rad - 0.18) * h * f.len * 0.55 * 0.9 + Math.sin(rad + Math.PI/2) * h * 0.03;
+
+        // Build thick frond shape
+        const perp = rad + Math.PI / 2;
+        const bw = f.baseW + 4;
+        ctx.beginPath();
+        ctx.moveTo(ox + Math.cos(perp) * bw, oy + Math.sin(perp) * bw);
+        ctx.quadraticCurveTo(mX + Math.cos(perp) * (bw * 0.5), mY + Math.sin(perp) * (bw * 0.5), tipX, tipY);
+        ctx.quadraticCurveTo(mX - Math.cos(perp) * (bw * 0.5), mY - Math.sin(perp) * (bw * 0.5), ox - Math.cos(perp) * bw, oy - Math.sin(perp) * bw);
+        ctx.closePath();
+
+        const alpha = (0.25 + (i % 3) * 0.04) * t;
+        ctx.fillStyle = `rgba(0,0,0,${alpha.toFixed(3)})`;
+        ctx.fill();
+
+        // Add leaflets — small diagonal strokes along the spine
+        const leafCount = 7;
+        for (let j = 1; j <= leafCount; j++) {
+          const prog = j / (leafCount + 1);
+          const spineX = ox + (mX - ox) * prog * 2 > tipX ? tipX * prog : ox + (tipX - ox) * prog;
+          const spineY = oy + (tipY - oy) * prog;
+          const leafLen = bw * (1 - prog * 0.7) * 0.8;
+          const leafAlpha = alpha * 0.7;
+          [-1, 1].forEach(side => {
+            ctx.beginPath();
+            ctx.moveTo(spineX, spineY);
+            ctx.lineTo(spineX + Math.cos(perp * side + rad * 0.3) * leafLen,
+                       spineY + Math.sin(perp * side + rad * 0.3) * leafLen);
+            ctx.strokeStyle = `rgba(0,0,0,${leafAlpha.toFixed(3)})`;
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+          });
+        }
+      });
+      ctx.restore();
+    }
+  },
+
+  'geometrique': {
+    cat: 'ombres', emoji: '📐', name: 'Ombres géométriques',
+    apply(ctx, w, h, t) {
+      ctx.save();
+      const spacing = 32;
+      const lineW = 7;
+      const alpha = 0.28 * t;
+      ctx.strokeStyle = `rgba(0,0,0,${alpha})`;
+      ctx.lineWidth = lineW;
+      // Diagonal venetian blind lines at 45°
+      const diag = Math.sqrt(w * w + h * h);
+      const count = Math.ceil(diag / spacing) + 4;
+      ctx.translate(w * 0.5, h * 0.5);
+      ctx.rotate(-Math.PI / 4.5);
+      for (let i = -count; i < count; i++) {
+        const x = i * spacing * 1.8;
+        ctx.beginPath();
+        ctx.moveTo(x, -diag);
+        ctx.lineTo(x, diag);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+  },
+
+  'douces': {
+    cat: 'ombres', emoji: '🌫️', name: 'Ombres douces',
+    apply(ctx, w, h, t) {
+      ctx.save();
+      const grad = ctx.createRadialGradient(w * 0.08, h * 0.08, 0, w * 0.08, h * 0.08, w * 0.75);
+      grad.addColorStop(0, `rgba(0,0,0,${(0.45 * t).toFixed(3)})`);
+      grad.addColorStop(0.45, `rgba(0,0,0,${(0.18 * t).toFixed(3)})`);
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+      ctx.restore();
+    }
+  },
+
+  // ─── LUMIÈRE ────────────────────────────────────────
+  'doree': {
+    cat: 'lumiere', emoji: '🌇', name: 'Lumière dorée',
+    apply(ctx, w, h, t) {
+      ctx.save();
+      const grad = ctx.createLinearGradient(w, 0, 0, h);
+      grad.addColorStop(0, `rgba(255,200,80,${(0.38 * t).toFixed(3)})`);
+      grad.addColorStop(0.45, `rgba(255,170,60,${(0.16 * t).toFixed(3)})`);
+      grad.addColorStop(1, `rgba(180,100,20,${(0.05 * t).toFixed(3)})`);
+      ctx.globalCompositeOperation = 'multiply';
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+      ctx.globalCompositeOperation = 'source-over';
+      // Secondary warm veil
+      const grad2 = ctx.createLinearGradient(w, 0, w * 0.3, h * 0.3);
+      grad2.addColorStop(0, `rgba(255,220,120,${(0.22 * t).toFixed(3)})`);
+      grad2.addColorStop(1, 'rgba(255,220,120,0)');
+      ctx.fillStyle = grad2;
+      ctx.fillRect(0, 0, w, h);
+      ctx.restore();
+    }
+  },
+
+  'flare': {
+    cat: 'lumiere', emoji: '☀️', name: 'Lens flare',
+    apply(ctx, w, h, t) {
+      ctx.save();
+      const cx = w * 0.78, cy = h * 0.14;
+      // Main glow
+      const r1 = Math.min(w, h) * 0.22;
+      const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, r1);
+      glow.addColorStop(0, `rgba(255,255,220,${(0.85 * t).toFixed(3)})`);
+      glow.addColorStop(0.18, `rgba(255,240,180,${(0.55 * t).toFixed(3)})`);
+      glow.addColorStop(0.5, `rgba(255,210,120,${(0.18 * t).toFixed(3)})`);
+      glow.addColorStop(1, 'rgba(255,200,100,0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, w, h);
+
+      // Anamorphic streak
+      ctx.globalAlpha = 0.25 * t;
+      const stG = ctx.createLinearGradient(cx - w * 0.5, cy, cx + w * 0.5, cy);
+      stG.addColorStop(0, 'rgba(200,220,255,0)');
+      stG.addColorStop(0.5, 'rgba(200,220,255,0.9)');
+      stG.addColorStop(1, 'rgba(200,220,255,0)');
+      ctx.fillStyle = stG;
+      ctx.fillRect(0, cy - 3, w, 6);
+      ctx.globalAlpha = 1;
+
+      // Satellite flares along diagonal axis from top-right to bottom-left
+      const sats = [
+        { dx: -0.22, dy: 0.18, r: 0.025, a: 0.45 },
+        { dx: -0.38, dy: 0.30, r: 0.014, a: 0.30 },
+        { dx: -0.52, dy: 0.42, r: 0.020, a: 0.20 },
+        { dx: -0.68, dy: 0.55, r: 0.010, a: 0.15 },
+      ];
+      sats.forEach(s => {
+        const sx = cx + s.dx * w;
+        const sy = cy + s.dy * h;
+        const sr = s.r * Math.min(w, h);
+        const sg = ctx.createRadialGradient(sx, sy, 0, sx, sy, sr);
+        sg.addColorStop(0, `rgba(220,235,255,${(s.a * t).toFixed(3)})`);
+        sg.addColorStop(0.5, `rgba(180,210,255,${(s.a * 0.4 * t).toFixed(3)})`);
+        sg.addColorStop(1, 'rgba(180,210,255,0)');
+        ctx.fillStyle = sg;
+        ctx.fillRect(0, 0, w, h);
+      });
+      ctx.restore();
+    }
+  },
+
+  'fuite': {
+    cat: 'lumiere', emoji: '🟧', name: 'Fuite de lumière',
+    apply(ctx, w, h, t) {
+      ctx.save();
+      // Warm orange/red streak across bottom-left corner
+      const leakW = w * 0.55;
+      const leakH = h * 0.40;
+      const grad = ctx.createLinearGradient(0, h, leakW, h - leakH);
+      grad.addColorStop(0, `rgba(220,80,20,${(0.50 * t).toFixed(3)})`);
+      grad.addColorStop(0.3, `rgba(240,120,30,${(0.38 * t).toFixed(3)})`);
+      grad.addColorStop(0.65, `rgba(255,160,60,${(0.20 * t).toFixed(3)})`);
+      grad.addColorStop(1, 'rgba(255,160,60,0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+
+      // Secondary thin streak top-right
+      const grad2 = ctx.createLinearGradient(w, 0, w * 0.6, h * 0.25);
+      grad2.addColorStop(0, `rgba(255,80,30,${(0.30 * t).toFixed(3)})`);
+      grad2.addColorStop(1, 'rgba(255,80,30,0)');
+      ctx.fillStyle = grad2;
+      ctx.fillRect(0, 0, w, h);
+      ctx.restore();
+    }
+  },
+
+  // ─── GRAIN & TEXTURE ────────────────────────────────
+  'grain-cinema': {
+    cat: 'grain', emoji: '🎞️', name: 'Grain cinéma',
+    apply(ctx, w, h, t) {
+      applyGrain(ctx, w, h, 30, 0.18 * t);
+    }
+  },
+
+  'grain-fin': {
+    cat: 'grain', emoji: '🌾', name: 'Grain fin',
+    apply(ctx, w, h, t) {
+      applyGrain(ctx, w, h, 14, 0.11 * t);
+    }
+  },
+
+  'vignette': {
+    cat: 'grain', emoji: '⬛', name: 'Vignette',
+    apply(ctx, w, h, t) {
+      ctx.save();
+      const cx = w / 2, cy = h / 2;
+      const r = Math.sqrt(cx * cx + cy * cy);
+      const innerR = r * (0.42 - 0.12 * t);
+      const grad = ctx.createRadialGradient(cx, cy, innerR, cx, cy, r * 1.1);
+      grad.addColorStop(0, 'rgba(0,0,0,0)');
+      grad.addColorStop(1, `rgba(0,0,0,${(0.72 * t).toFixed(3)})`);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+      ctx.restore();
+    }
+  },
+
+  // ─── COLOR GRADING ──────────────────────────────────
+  'chaud': {
+    cat: 'color', emoji: '🔥', name: 'Chaud',
+    apply(ctx, w, h, t) {
+      shiftPixels(ctx, w, h, (r, g, b) => [
+        clamp(r + Math.round(18 * t)),
+        clamp(g + Math.round(5 * t)),
+        clamp(b - Math.round(12 * t))
+      ]);
+    }
+  },
+
+  'froid': {
+    cat: 'color', emoji: '❄️', name: 'Froid',
+    apply(ctx, w, h, t) {
+      shiftPixels(ctx, w, h, (r, g, b) => [
+        clamp(r - Math.round(10 * t)),
+        clamp(g + Math.round(4 * t)),
+        clamp(b + Math.round(18 * t))
+      ]);
+    }
+  },
+
+  'cinematique': {
+    cat: 'color', emoji: '🎬', name: 'Cinématique',
+    apply(ctx, w, h, t) {
+      // Desaturate slightly + lift shadows + add subtle teal-orange grade
+      shiftPixels(ctx, w, h, (r, g, b) => {
+        const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        const sat = 0.82;
+        let nr = lerp(lum, r, sat);
+        let ng = lerp(lum, g, sat);
+        let nb = lerp(lum, b, sat);
+        // Shadow lift (s-curve approximation)
+        nr = shadowLift(nr, 14 * t);
+        ng = shadowLift(ng, 10 * t);
+        nb = shadowLift(nb, 8 * t);
+        // Subtle teal-orange: push shadows teal, highlights warm
+        const lum2 = 0.2126 * nr + 0.7152 * ng + 0.0722 * nb;
+        const hi = Math.max(0, (lum2 - 128) / 128); // 0..1 in highlights
+        const lo = Math.max(0, 1 - lum2 / 100);      // 0..1 in shadows
+        nr = clamp(Math.round(nr + hi * 8 * t - lo * 4 * t));
+        ng = clamp(Math.round(ng - hi * 2 * t + lo * 2 * t));
+        nb = clamp(Math.round(nb - hi * 6 * t + lo * 10 * t));
+        return [nr, ng, nb];
+      });
+    }
+  },
+
+  'vintage': {
+    cat: 'color', emoji: '📷', name: 'Vintage',
+    apply(ctx, w, h, t) {
+      shiftPixels(ctx, w, h, (r, g, b) => {
+        // Sepia
+        const sr = clamp(Math.round(r * 0.393 + g * 0.769 + b * 0.189));
+        const sg = clamp(Math.round(r * 0.349 + g * 0.686 + b * 0.168));
+        const sb = clamp(Math.round(r * 0.272 + g * 0.534 + b * 0.131));
+        // Blend with original by intensity
+        let nr = lerp(r, sr, 0.55 * t);
+        let ng = lerp(g, sg, 0.55 * t);
+        let nb = lerp(b, sb, 0.55 * t);
+        // Lift blacks (fade) and lower whites slightly
+        const fade = 20 * t;
+        const wh = 1 - 18 * t / 255;
+        nr = Math.round(nr * wh + fade);
+        ng = Math.round(ng * wh + fade * 0.95);
+        nb = Math.round(nb * wh + fade * 0.8);
+        // Extra warm nudge
+        nr = clamp(nr + Math.round(8 * t));
+        nb = clamp(nb - Math.round(6 * t));
+        return [clamp(nr), clamp(ng), clamp(nb)];
+      });
+    }
+  },
+
+  'nb': {
+    cat: 'color', emoji: '⬜', name: 'Noir & Blanc',
+    apply(ctx, w, h, t) {
+      shiftPixels(ctx, w, h, (r, g, b) => {
+        const lum = Math.round(0.2126 * r + 0.7152 * g + 0.0722 * b);
+        const nr = lerp(r, lum, t);
+        const ng = lerp(g, lum, t);
+        const nb = lerp(b, lum, t);
+        return [clamp(nr), clamp(ng), clamp(nb)];
+      });
+    }
+  },
+
+  // ─── BLUR & FOCUS ────────────────────────────────────
+  'tiltshift': {
+    cat: 'blur', emoji: '🔍', name: 'Flou contour',
+    apply(ctx, w, h, t) {
+      // Tilt-shift: blur top and bottom bands, keep center strip sharp
+      const blurPx = Math.round(4 + 8 * t);
+      const stripH = h * (0.35 - 0.1 * t); // half-height of sharp zone
+      const cy = h / 2;
+
+      // Create offscreen blurred version
+      const off = document.createElement('canvas');
+      off.width = w; off.height = h;
+      const offCtx = off.getContext('2d');
+      offCtx.filter = `blur(${blurPx}px)`;
+      offCtx.drawImage(canvas, 0, 0);
+
+      // Composite blurred version with gradient mask — apply to top
+      // Top blur band
+      const gradTop = ctx.createLinearGradient(0, 0, 0, cy - stripH);
+      gradTop.addColorStop(0, `rgba(0,0,0,${(0.9 * t).toFixed(3)})`);
+      gradTop.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.save();
+      ctx.drawImage(off, 0, 0);
+      // Re-overlay the original center strip on top
+      ctx.drawImage(canvas, 0, cy - stripH, w, stripH * 2, 0, cy - stripH, w, stripH * 2);
+
+      // Bottom blur band: draw blurred below
+      const offCtx2 = document.createElement('canvas');
+      offCtx2.width = w; offCtx2.height = h;
+      const c2 = offCtx2.getContext('2d');
+      c2.filter = `blur(${blurPx}px)`;
+      c2.drawImage(canvas, 0, 0);
+      ctx.drawImage(offCtx2, 0, cy + stripH, w, h - (cy + stripH), 0, cy + stripH, w, h - (cy + stripH));
+
+      // Restore center sharp from original
+      ctx.drawImage(canvas, 0, cy - stripH, w, stripH * 2, 0, cy - stripH, w, stripH * 2);
+      ctx.restore();
+    }
+  },
+
+  'douceur': {
+    cat: 'blur', emoji: '🌸', name: 'Douceur',
+    apply(ctx, w, h, t) {
+      ctx.save();
+      const off = document.createElement('canvas');
+      off.width = w; off.height = h;
+      const offCtx = off.getContext('2d');
+      offCtx.filter = 'blur(2.5px)';
+      offCtx.drawImage(canvas, 0, 0);
+      ctx.globalAlpha = 0.40 * t;
+      ctx.drawImage(off, 0, 0);
+      ctx.globalAlpha = 1;
+      ctx.restore();
+    }
+  },
+};
+
+// ══════════════════════════════════════════════════════
+// PIXEL HELPERS
+// ══════════════════════════════════════════════════════
+function clamp(v) { return Math.max(0, Math.min(255, v)); }
+function lerp(a, b, t) { return a + (b - a) * t; }
+function shadowLift(v, lift) { return v < 128 ? v + lift * (1 - v / 128) : v; }
+
+function shiftPixels(ctx, w, h, fn) {
+  const imgData = ctx.getImageData(0, 0, w, h);
+  const d = imgData.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const [nr, ng, nb] = fn(d[i], d[i + 1], d[i + 2]);
+    d[i] = nr; d[i + 1] = ng; d[i + 2] = nb;
+  }
+  ctx.putImageData(imgData, 0, 0);
+}
+
+function applyGrain(ctx, w, h, strength, alpha) {
+  const imgData = ctx.getImageData(0, 0, w, h);
+  const d = imgData.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const noise = (Math.random() * 2 - 1) * strength;
+    d[i]     = clamp(d[i]     + noise * alpha * 255 / strength);
+    d[i + 1] = clamp(d[i + 1] + noise * alpha * 255 / strength);
+    d[i + 2] = clamp(d[i + 2] + noise * alpha * 255 / strength);
+  }
+  ctx.putImageData(imgData, 0, 0);
+}
+
+// ══════════════════════════════════════════════════════
+// CATEGORIES CONFIG
+// ══════════════════════════════════════════════════════
+const CATS = {
+  ombres:  { label: 'Ombres',         keys: ['palmiers', 'geometrique', 'douces'] },
+  lumiere: { label: 'Lumière',        keys: ['doree', 'flare', 'fuite'] },
+  grain:   { label: 'Grain & Texture',keys: ['grain-cinema', 'grain-fin', 'vignette'] },
+  color:   { label: 'Color Grading',  keys: ['chaud', 'froid', 'cinematique', 'vintage', 'nb'] },
+  blur:    { label: 'Blur & Focus',   keys: ['tiltshift', 'douceur'] },
+};
+
+// ══════════════════════════════════════════════════════
+// REDRAW CORE
+// ══════════════════════════════════════════════════════
+function redraw() {
+  if (!originalImage) return;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+  // Apply tilt-shift first if active (needs clean canvas snapshot)
+  const hasTilt = activeEffects.includes('tiltshift');
+  const others = activeEffects.filter(k => k !== 'tiltshift');
+  others.forEach(key => {
+    if (EFFECTS[key]) EFFECTS[key].apply(ctx, canvas.width, canvas.height, intensity);
+  });
+  if (hasTilt) {
+    EFFECTS['tiltshift'].apply(ctx, canvas.width, canvas.height, intensity);
+  }
+  updateStatus();
+}
+
+// ══════════════════════════════════════════════════════
+// UI RENDERING
+// ══════════════════════════════════════════════════════
+function renderFxGrid() {
+  const grid = document.getElementById('fx-grid');
+  const keys = CATS[activeCat].keys;
+  grid.innerHTML = keys.map(k => {
+    const fx = EFFECTS[k];
+    const on = activeEffects.includes(k) ? 'on' : '';
+    return `<button class="fx-btn ${on}" data-key="${k}" onclick="toggleEffect('${k}')">
+      <span class="fx-emoji">${fx.emoji}</span>
+      <span class="fx-name">${fx.name}</span>
+    </button>`;
+  }).join('');
+}
+
+function renderActiveList() {
+  const list = document.getElementById('active-list');
+  if (activeEffects.length === 0) {
+    list.innerHTML = '<span class="active-empty">Aucun effet appliqué</span>';
+    return;
+  }
+  list.innerHTML = activeEffects.map(k =>
+    `<span class="active-tag">${EFFECTS[k].emoji} ${EFFECTS[k].name}</span>`
+  ).join('');
+}
+
+function updateStatus() {
+  const dot = document.getElementById('status-dot');
+  const txt = document.getElementById('status-text');
+  if (!originalImage) {
+    dot.className = 'status-dot';
+    txt.textContent = 'En attente d\'une photo';
+    return;
+  }
+  dot.className = 'status-dot active';
+  const n = activeEffects.length;
+  if (n === 0) txt.textContent = 'Photo chargée · aucun effet';
+  else txt.textContent = `${n} effet${n > 1 ? 's' : ''} appliqué${n > 1 ? 's' : ''}`;
+}
+
+function updateButtons() {
+  const hasImg = !!originalImage;
+  document.getElementById('btn-reset').disabled = !hasImg;
+  document.getElementById('btn-dl').disabled = !hasImg;
+}
+
+// ══════════════════════════════════════════════════════
+// TOGGLE EFFECT
+// ══════════════════════════════════════════════════════
+function toggleEffect(key) {
+  const idx = activeEffects.indexOf(key);
+  if (idx === -1) activeEffects.push(key);
+  else activeEffects.splice(idx, 1);
+  renderFxGrid();
+  renderActiveList();
+  redraw();
+}
+
+// ══════════════════════════════════════════════════════
+// LOAD IMAGE
+// ══════════════════════════════════════════════════════
+function loadImage(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const url = URL.createObjectURL(file);
+  const img = new Image();
+  img.onload = () => {
+    originalImage = img;
+    // Set canvas size — max 820px wide
+    const maxW = 820;
+    const scale = Math.min(1, maxW / img.naturalWidth);
+    canvas.width  = Math.round(img.naturalWidth * scale);
+    canvas.height = Math.round(img.naturalHeight * scale);
+    // Show canvas
+    const shell = document.getElementById('canvas-shell');
+    shell.classList.add('has-image');
+    document.getElementById('canvas-placeholder').style.display = 'none';
+    canvas.style.display = 'block';
+    // Thumb in upload zone
+    const thumb = document.getElementById('upload-thumb');
+    thumb.src = url;
+    thumb.style.display = 'block';
+    document.getElementById('upload-icon').style.display = 'none';
+    document.getElementById('upload-text').style.display = 'none';
+    const fnEl = document.getElementById('upload-filename');
+    fnEl.textContent = file.name;
+    fnEl.style.display = 'block';
+    updateButtons();
+    redraw();
+  };
+  img.src = url;
+}
+
+// ══════════════════════════════════════════════════════
+// EVENT BINDINGS
+// ══════════════════════════════════════════════════════
+
+// File input
+document.getElementById('file-input').addEventListener('change', e => {
+  if (e.target.files[0]) loadImage(e.target.files[0]);
+});
+
+// Drag & drop
+const zone = document.getElementById('upload-zone');
+zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+zone.addEventListener('drop', e => {
+  e.preventDefault();
+  zone.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file) loadImage(file);
+});
+
+// Category tabs
+document.getElementById('cat-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.cat-tab');
+  if (!tab) return;
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  activeCat = tab.dataset.cat;
+  renderFxGrid();
+});
+
+// Intensity slider
+const slider = document.getElementById('intensity-slider');
+slider.addEventListener('input', () => {
+  intensity = slider.value / 100;
+  document.getElementById('slider-val').textContent = slider.value + '%';
+  redraw();
+});
+
+// Reset
+document.getElementById('btn-reset').addEventListener('click', () => {
+  activeEffects = [];
+  renderFxGrid();
+  renderActiveList();
+  redraw();
+});
+
+// Download
+document.getElementById('btn-dl').addEventListener('click', () => {
+  canvas.toBlob(blob => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `mood-fx-${Date.now()}.png`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, 'image/png');
+});
+
+// ══════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════
+renderFxGrid();
+updateStatus();
+</script>
+</body>
+</html>
