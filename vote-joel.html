@@ -38,21 +38,21 @@
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
     /* JOEL HEADER PHOTO */
-    .joel-header { width: 100%; max-width: 480px; margin: 0 auto; padding: 24px 24px 0; }
-    .joel-img-wrap { position: relative; width: 100%; height: 260px; border-radius: 14px; overflow: hidden; background: var(--surface); }
+    .joel-header { width: 100%; max-width: 620px; margin: 0 auto; padding: 24px 24px 0; }
+    .joel-img-wrap { position: relative; width: 100%; height: 380px; border-radius: 14px; overflow: hidden; background: var(--surface); }
     .joel-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transition: opacity .6s; }
     .joel-badge { position: absolute; bottom: 12px; left: 12px; background: rgba(250,248,244,.92); backdrop-filter: blur(8px); border-radius: 8px; padding: 8px 12px; }
     .joel-badge-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; line-height: 1; color: var(--text); }
     .joel-badge-sub { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--text2); margin-top: 2px; }
 
     /* TITLE */
-    .title-area { text-align: center; padding: 28px 24px 20px; max-width: 480px; margin: 0 auto; }
+    .title-area { text-align: center; padding: 28px 24px 20px; max-width: 620px; margin: 0 auto; }
     .title-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
-    .title-main { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 7vw, 40px); font-weight: 300; line-height: 1.1; color: var(--text); }
+    .title-main { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 8vw, 56px); font-weight: 300; line-height: 1.1; color: var(--text); }
 
     /* WHEEL */
-    .wheel-section { padding: 4px 24px 28px; text-align: center; max-width: 480px; margin: 0 auto; }
-    .wheel-wrap { position: relative; display: inline-block; width: min(370px, 92vw); height: min(370px, 92vw); margin-top: 20px; }
+    .wheel-section { padding: 4px 24px 28px; text-align: center; max-width: 620px; margin: 0 auto; }
+    .wheel-wrap { position: relative; display: inline-block; width: min(460px, 92vw); height: min(460px, 92vw); margin-top: 20px; }
     #wc { display: block; width: 100%; height: 100%; filter: drop-shadow(0 4px 18px rgba(0,0,0,.1)); }
     .w-ptr { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 24px solid var(--gold-btn); filter: drop-shadow(0 2px 4px rgba(201,168,76,.4)); z-index: 5; }
     .w-hub { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 44px; height: 44px; border-radius: 50%; background: var(--bg); border: 3px solid var(--gold-btn); display: flex; align-items: center; justify-content: center; font-size: 20px; z-index: 6; box-shadow: 0 0 0 4px var(--bg); }
@@ -76,7 +76,7 @@
     .cnt-lbl { font-size: 11px; color: var(--text2); }
 
     /* ENCOURAGE BOX */
-    .encourage { padding: 20px 24px 0; max-width: 480px; margin: 0 auto; }
+    .encourage { padding: 20px 24px 0; max-width: 620px; margin: 0 auto; }
     .enc-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; margin-bottom: 12px; text-align: center; color: var(--text); }
     .enc-msg { width: 100%; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 14px; font-family: 'Inter', sans-serif; resize: none; height: 68px; outline: none; transition: border-color .2s; margin-bottom: 9px; }
     .enc-msg:focus { border-color: var(--text); }
@@ -86,14 +86,14 @@
     .enc-name::placeholder { color: var(--text3); }
 
     /* CTA BANNER — Willows Auras */
-    .cta-banner { padding: 40px 24px 48px; max-width: 480px; margin: 0 auto; text-align: center; border-top: 1px solid var(--border); margin-top: 48px; }
+    .cta-banner { padding: 40px 24px 48px; max-width: 620px; margin: 0 auto; text-align: center; border-top: 1px solid var(--border); margin-top: 48px; }
     .cta-banner-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
     .cta-banner-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px,7vw,38px); font-weight: 300; line-height: 1.15; margin-bottom: 22px; color: var(--text); }
     .cta-banner-link { display: inline-block; padding: 14px 30px; background: var(--text); color: var(--bg); border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; letter-spacing: .04em; }
     .cta-banner-link:hover { opacity: .82; }
 
     /* VIDEO */
-    .video-section { padding: 0 24px 48px; max-width: 680px; margin: 0 auto; }
+    .video-section { padding: 0 24px 48px; max-width: 760px; margin: 0 auto; }
     .video-lbl { font-size: 10px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--text3); text-align: center; margin-bottom: 8px; }
     .video-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; text-align: center; margin-bottom: 16px; color: var(--text); }
     .video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; background: var(--surface); }
@@ -108,7 +108,7 @@
     /* MODAL */
     .modal-bg { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(26,25,22,.6); backdrop-filter: blur(4px); align-items: flex-end; justify-content: center; }
     .modal-bg.open { display: flex; }
-    .modal { background: var(--bg); border-radius: 22px 22px 0 0; width: 100%; max-width: 480px; padding: 10px 22px 50px; text-align: center; animation: up .4s cubic-bezier(.16,1,.3,1); border: 1px solid var(--border); border-bottom: none; }
+    .modal { background: var(--bg); border-radius: 22px 22px 0 0; width: 100%; max-width: 620px; padding: 10px 22px 50px; text-align: center; animation: up .4s cubic-bezier(.16,1,.3,1); border: 1px solid var(--border); border-bottom: none; }
     @keyframes up { from{transform:translateY(100%)} to{transform:translateY(0)} }
     .m-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 14px auto 22px; }
     .m-from { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--text3); margin-bottom: 16px; }
