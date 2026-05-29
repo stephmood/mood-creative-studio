@@ -12,120 +12,127 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --black: #0b0b0b;
-      --white: #fff;
-      --gold: #c9a84c;
-      --gold2: #e8c97a;
-      --surface: #181818;
-      --surface2: #222;
+      --bg: #faf8f4;
+      --surface: #f2efe8;
+      --surface2: #e9e4da;
+      --text: #1a1916;
+      --text2: #7a7570;
+      --text3: #b8b0a8;
+      --border: #ddd8cf;
+      --gold: #a07828;
+      --gold-btn: #c9a84c;
+      --gold-btn2: #e0c070;
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
     /* TOPBAR */
-    .topbar { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; }
-    .topbar a { font-family: 'Cormorant Garamond', serif; font-size: 14px; letter-spacing: .18em; text-transform: uppercase; color: var(--white); text-decoration: none; }
-    .pill { display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 20px; padding: 6px 13px; font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; }
-    .dot { width: 7px; height: 7px; border-radius: 50%; background: #2ecc71; animation: blink 1.4s infinite; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid var(--border); }
+    .topbar-logo { font-family: 'Cormorant Garamond', serif; font-size: 15px; letter-spacing: .22em; text-transform: uppercase; color: var(--text); text-decoration: none; }
+    .pill { display: flex; align-items: center; gap: 7px; border: 1px solid var(--border); border-radius: 20px; padding: 6px 13px; font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--text2); }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: #2ecc71; animation: blink 1.4s infinite; flex-shrink: 0; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-    /* JOEL CARD — compact */
-    .joel-card { display: flex; align-items: center; gap: 16px; padding: 0 20px 24px; max-width: 480px; margin: 0 auto; }
-    .joel-photo { width: 88px; height: 110px; border-radius: 12px; object-fit: cover; object-position: center 5%; flex-shrink: 0; border: 2px solid rgba(201,168,76,.3); }
-    .joel-info { flex: 1; }
-    .joel-tag { font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-    .joel-name { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; line-height: 1; margin-bottom: 4px; }
-    .joel-sub { font-size: 12px; color: rgba(255,255,255,.45); line-height: 1.4; }
+    /* JOEL HEADER PHOTO */
+    .joel-header { width: 100%; max-width: 480px; margin: 0 auto; padding: 24px 24px 0; }
+    .joel-img-wrap { position: relative; width: 100%; height: 220px; border-radius: 14px; overflow: hidden; background: var(--surface); }
+    .joel-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center 12%; display: block; transition: opacity .6s; }
+    .joel-badge { position: absolute; bottom: 12px; left: 12px; background: rgba(250,248,244,.92); backdrop-filter: blur(8px); border-radius: 8px; padding: 8px 12px; }
+    .joel-badge-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; line-height: 1; color: var(--text); }
+    .joel-badge-sub { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--text2); margin-top: 2px; }
+
+    /* TITLE */
+    .title-area { text-align: center; padding: 28px 24px 20px; max-width: 480px; margin: 0 auto; }
+    .title-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .title-main { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 7vw, 40px); font-weight: 300; line-height: 1.1; color: var(--text); }
+
+    /* WHEEL */
+    .wheel-section { padding: 4px 24px 28px; text-align: center; max-width: 480px; margin: 0 auto; }
+    .wheel-wrap { position: relative; display: inline-block; width: min(300px, 82vw); height: min(300px, 82vw); margin-bottom: 6px; }
+    #wc { display: block; width: 100%; height: 100%; filter: drop-shadow(0 4px 18px rgba(0,0,0,.1)); }
+    .w-ptr { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 24px solid var(--gold-btn); filter: drop-shadow(0 2px 4px rgba(201,168,76,.4)); z-index: 5; }
+    .w-hub { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 44px; height: 44px; border-radius: 50%; background: var(--bg); border: 3px solid var(--gold-btn); display: flex; align-items: center; justify-content: center; font-size: 20px; z-index: 6; box-shadow: 0 0 0 4px var(--bg); }
+
+    .btn-spin { display: block; width: 100%; padding: 17px; background: var(--text); color: var(--bg); border: none; border-radius: 12px; font-size: 15px; font-weight: 500; cursor: pointer; transition: opacity .15s; letter-spacing: .03em; margin-top: 16px; -webkit-tap-highlight-color: transparent; }
+    .btn-spin:hover { opacity: .85; }
+    .btn-spin:active { opacity: .75; }
+    .btn-spin:disabled { background: var(--surface2); color: var(--text3); cursor: default; opacity: 1; }
+
+    .prizes-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin-top: 18px; }
+    .chip { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 5px 12px; font-size: 11px; color: var(--text2); display: flex; align-items: center; gap: 5px; }
+    .chip.g { border-color: rgba(160,120,40,.35); color: var(--gold); background: rgba(160,120,40,.06); }
 
     /* COUNTER */
-    .counter { text-align: center; padding: 0 20px 28px; }
-    .counter-inner { display: inline-flex; align-items: center; gap: 9px; background: rgba(201,168,76,.07); border: 1px solid rgba(201,168,76,.2); border-radius: 100px; padding: 9px 18px; }
-    .cnt { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--gold); transition: transform .15s; }
+    .counter { text-align: center; padding: 24px 20px 4px; }
+    .counter-inner { display: inline-flex; align-items: center; gap: 9px; background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 9px 18px; }
+    .cnt { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--gold); transition: transform .15s; }
     .cnt.bump { transform: scale(1.2); }
-    .cnt-lbl { font-size: 12px; color: rgba(255,255,255,.45); }
+    .cnt-lbl { font-size: 11px; color: var(--text2); }
 
     /* ENCOURAGE BOX */
-    .encourage { padding: 0 20px 24px; max-width: 480px; margin: 0 auto; }
-    .enc-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; margin-bottom: 14px; text-align: center; }
-    .enc-msg { width: 100%; padding: 12px 14px; background: var(--surface); border: 1px solid rgba(255,255,255,.1); border-radius: 11px; color: var(--white); font-size: 14px; font-family: 'Inter', sans-serif; resize: none; height: 72px; outline: none; transition: border-color .2s; margin-bottom: 10px; }
-    .enc-msg:focus { border-color: var(--gold); }
-    .enc-msg::placeholder { color: rgba(255,255,255,.22); font-style: italic; }
-    .enc-name { width: 100%; padding: 11px 14px; background: var(--surface); border: 1px solid rgba(255,255,255,.1); border-radius: 11px; color: var(--white); font-size: 14px; outline: none; transition: border-color .2s; }
-    .enc-name:focus { border-color: var(--gold); }
-    .enc-name::placeholder { color: rgba(255,255,255,.22); }
+    .encourage { padding: 20px 24px 0; max-width: 480px; margin: 0 auto; }
+    .enc-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; margin-bottom: 12px; text-align: center; color: var(--text); }
+    .enc-msg { width: 100%; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 14px; font-family: 'Inter', sans-serif; resize: none; height: 68px; outline: none; transition: border-color .2s; margin-bottom: 9px; }
+    .enc-msg:focus { border-color: var(--text); }
+    .enc-msg::placeholder { color: var(--text3); font-style: italic; }
+    .enc-name { width: 100%; padding: 11px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 14px; outline: none; transition: border-color .2s; }
+    .enc-name:focus { border-color: var(--text); }
+    .enc-name::placeholder { color: var(--text3); }
 
-    /* WHEEL SECTION */
-    .wheel-section { padding: 0 20px 32px; text-align: center; max-width: 480px; margin: 0 auto; }
-    .wheel-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-    .wheel-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 6vw, 36px); font-weight: 300; margin-bottom: 20px; line-height: 1.1; }
-
-    .wheel-wrap { position: relative; display: inline-block; width: min(340px, 90vw); height: min(340px, 90vw); margin-bottom: 4px; }
-    #wc { display: block; width: 100%; height: 100%; filter: drop-shadow(0 6px 24px rgba(0,0,0,.7)); }
-    .w-ptr { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 28px solid var(--gold); filter: drop-shadow(0 2px 6px rgba(201,168,76,.5)); z-index: 5; }
-    .w-hub { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 50px; height: 50px; border-radius: 50%; background: var(--black); border: 3px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 22px; z-index: 6; box-shadow: 0 0 0 5px var(--black); }
-
-    .btn-spin { display: block; width: 100%; padding: 18px; background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--black); border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform .1s; box-shadow: 0 4px 22px rgba(201,168,76,.35); margin-top: 18px; -webkit-tap-highlight-color: transparent; letter-spacing: .02em; }
-    .btn-spin:active { transform: scale(.97); }
-    .btn-spin:disabled { background: var(--surface2); color: #555; cursor: default; box-shadow: none; }
-
-    .prizes-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin-top: 20px; }
-    .chip { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); border-radius: 100px; padding: 5px 12px; font-size: 11px; color: rgba(255,255,255,.55); display: flex; align-items: center; gap: 5px; }
-    .chip.g { border-color: rgba(201,168,76,.4); color: var(--gold); background: rgba(201,168,76,.07); }
+    /* CTA BANNER — Willows Auras */
+    .cta-banner { padding: 40px 24px 48px; max-width: 480px; margin: 0 auto; text-align: center; border-top: 1px solid var(--border); margin-top: 48px; }
+    .cta-banner-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .cta-banner-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px,7vw,38px); font-weight: 300; line-height: 1.15; margin-bottom: 22px; color: var(--text); }
+    .cta-banner-link { display: inline-block; padding: 14px 30px; background: var(--text); color: var(--bg); border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; letter-spacing: .04em; }
+    .cta-banner-link:hover { opacity: .82; }
 
     /* VIDEO */
-    .video-section { padding: 40px 20px 50px; max-width: 680px; margin: 0 auto; }
-    .video-lbl { font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.3); text-align: center; margin-bottom: 8px; }
-    .video-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; text-align: center; margin-bottom: 18px; }
-    .video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; background: #111; }
+    .video-section { padding: 0 24px 48px; max-width: 680px; margin: 0 auto; }
+    .video-lbl { font-size: 10px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--text3); text-align: center; margin-bottom: 8px; }
+    .video-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; text-align: center; margin-bottom: 16px; color: var(--text); }
+    .video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; background: var(--surface); }
     .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
 
     /* FOOTER */
-    .footer { border-top: 1px solid rgba(255,255,255,.07); padding: 28px 20px; text-align: center; }
-    .footer p { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.25); margin-bottom: 9px; }
-    .footer a { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; color: var(--white); text-decoration: underline; text-underline-offset: 5px; text-decoration-color: rgba(255,255,255,.2); }
+    .footer { border-top: 1px solid var(--border); padding: 28px 20px; text-align: center; }
+    .footer p { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--text3); margin-bottom: 9px; }
+    .footer a { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 300; color: var(--text); text-decoration: underline; text-underline-offset: 5px; text-decoration-color: var(--border); }
     .footer a:hover { color: var(--gold); }
 
     /* MODAL */
-    .modal-bg { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.9); align-items: flex-end; justify-content: center; }
+    .modal-bg { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(26,25,22,.6); backdrop-filter: blur(4px); align-items: flex-end; justify-content: center; }
     .modal-bg.open { display: flex; }
-    .modal { background: var(--surface); border-radius: 22px 22px 0 0; width: 100%; max-width: 480px; padding: 10px 22px 50px; text-align: center; animation: up .4s cubic-bezier(.16,1,.3,1); }
+    .modal { background: var(--bg); border-radius: 22px 22px 0 0; width: 100%; max-width: 480px; padding: 10px 22px 50px; text-align: center; animation: up .4s cubic-bezier(.16,1,.3,1); border: 1px solid var(--border); border-bottom: none; }
     @keyframes up { from{transform:translateY(100%)} to{transform:translateY(0)} }
-    .m-handle { width: 36px; height: 4px; background: rgba(255,255,255,.14); border-radius: 2px; margin: 14px auto 22px; }
-    .m-from { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 16px; }
-    .m-icon { font-size: 58px; line-height: 1; margin-bottom: 8px; }
-    .m-type { font-family: 'Cormorant Garamond', serif; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-    .m-prize { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 400; line-height: 1.1; margin-bottom: 8px; }
-    .m-sub { font-size: 13px; color: rgba(255,255,255,.45); margin-bottom: 22px; line-height: 1.5; }
-    .m-sep { height: 1px; background: rgba(255,255,255,.08); margin-bottom: 18px; }
-    .m-lbl { font-size: 14px; font-weight: 500; margin-bottom: 12px; }
+    .m-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 14px auto 22px; }
+    .m-from { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--text3); margin-bottom: 16px; }
+    .m-icon { font-size: 52px; line-height: 1; margin-bottom: 8px; }
+    .m-type { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .m-prize { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400; line-height: 1.1; margin-bottom: 8px; color: var(--text); }
+    .m-sub { font-size: 13px; color: var(--text2); margin-bottom: 22px; line-height: 1.5; }
+    .m-sep { height: 1px; background: var(--border); margin-bottom: 18px; }
+    .m-lbl { font-size: 14px; font-weight: 500; margin-bottom: 12px; color: var(--text); }
     .m-row { display: flex; gap: 9px; margin-bottom: 10px; }
-    .m-inp { flex: 1; padding: 13px 14px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 10px; color: var(--white); font-size: 14px; outline: none; }
-    .m-inp:focus { border-color: var(--gold); }
-    .m-inp::placeholder { color: rgba(255,255,255,.3); }
-    .btn-claim { padding: 13px 16px; background: var(--white); color: var(--black); border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; }
-    .m-ok { display: none; font-size: 13px; color: #2ecc71; background: rgba(46,204,113,.1); border: 1px solid rgba(46,204,113,.2); border-radius: 10px; padding: 12px; }
+    .m-inp { flex: 1; padding: 13px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 14px; outline: none; }
+    .m-inp:focus { border-color: var(--text); }
+    .m-inp::placeholder { color: var(--text3); }
+    .btn-claim { padding: 13px 16px; background: var(--text); color: var(--bg); border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .m-ok { display: none; font-size: 13px; color: #2a8a50; background: rgba(42,138,80,.08); border: 1px solid rgba(42,138,80,.2); border-radius: 10px; padding: 12px; }
     .m-ok.show { display: block; }
-    .btn-share { width: 100%; margin-top: 11px; padding: 13px; background: transparent; border: 1px solid rgba(255,255,255,.14); border-radius: 10px; color: rgba(255,255,255,.6); font-size: 14px; cursor: pointer; }
-    .btn-share:hover { border-color: rgba(255,255,255,.35); }
-    .btn-collection { display: block; width: 100%; margin-top: 9px; padding: 13px; background: rgba(201,168,76,.07); border: 1px solid rgba(201,168,76,.3); border-radius: 10px; color: var(--gold); font-size: 14px; font-weight: 500; text-decoration: none; text-align: center; letter-spacing: .02em; transition: background .2s; }
-    .btn-collection:hover { background: rgba(201,168,76,.16); }
-
-    /* CTA BANNER — Willows Auras */
-    .cta-banner { padding: 36px 20px 48px; max-width: 480px; margin: 0 auto; text-align: center; border-top: 1px solid rgba(201,168,76,.12); }
-    .cta-banner-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
-    .cta-banner-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px,7vw,38px); font-weight: 300; line-height: 1.15; margin-bottom: 20px; }
-    .cta-banner-link { display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--black); border-radius: 12px; font-size: 15px; font-weight: 600; text-decoration: none; letter-spacing: .02em; box-shadow: 0 4px 22px rgba(201,168,76,.35); }
-    .cta-banner-link:hover { opacity: .9; }
+    .btn-share { width: 100%; margin-top: 10px; padding: 13px; background: transparent; border: 1px solid var(--border); border-radius: 10px; color: var(--text2); font-size: 14px; cursor: pointer; }
+    .btn-share:hover { border-color: var(--text); color: var(--text); }
+    .btn-collection { display: block; width: 100%; margin-top: 8px; padding: 13px; background: rgba(160,120,40,.08); border: 1px solid rgba(160,120,40,.3); border-radius: 10px; color: var(--gold); font-size: 14px; font-weight: 500; text-decoration: none; text-align: center; }
+    .btn-collection:hover { background: rgba(160,120,40,.14); }
 
     #confetti { position: fixed; inset: 0; pointer-events: none; z-index: 300; }
 
     @media (min-width: 500px) {
       .modal-bg { align-items: center; }
-      .modal { border-radius: 22px; margin: 20px; }
+      .modal { border-radius: 22px; border: 1px solid var(--border); margin: 20px; }
     }
   </style>
 </head>
@@ -156,43 +163,31 @@
 
 <!-- TOPBAR -->
 <header class="topbar">
-  <a href="https://www.yourmood.net" target="_blank">Mood Collection</a>
+  <a class="topbar-logo" href="https://www.yourmood.net" target="_blank">Mood Collection</a>
   <div class="pill"><div class="dot"></div>Finale ce soir</div>
 </header>
 
-<!-- JOEL COMPACT CARD -->
-<div class="joel-card">
-  <img class="joel-photo" id="joel-img"
-    src="https://cdn.shopify.com/s/files/1/0798/2303/files/joel2.web.jpg?v=1617962296"
-    alt="Joel Mattli">
-  <div class="joel-info">
-    <p class="joel-tag">Let's Dance 2026 · RTL · Finale</p>
-    <h1 class="joel-name">Joel Mattli</h1>
-    <p class="joel-sub">Notre ambassadeur est<br>en finale ce soir 🔥</p>
+<!-- JOEL HEADER PHOTO -->
+<div class="joel-header">
+  <div class="joel-img-wrap">
+    <img id="joel-img"
+      src="https://cdn.shopify.com/s/files/1/0798/2303/files/joel2.web.jpg?v=1617962296"
+      alt="Joel Mattli">
+    <div class="joel-badge">
+      <div class="joel-badge-name">Joel Mattli</div>
+      <div class="joel-badge-sub">Ambassadeur Mood · Finale Let's Dance 2026</div>
+    </div>
   </div>
 </div>
 
-<!-- COUNTER -->
-<div class="counter">
-  <div class="counter-inner">
-    <div class="dot"></div>
-    <span class="cnt" id="cnt">—</span>
-    <span class="cnt-lbl">encouragements envoyés</span>
-  </div>
-</div>
-
-<!-- ENCOURAGE -->
-<div class="encourage">
-  <p class="enc-title">Laisse-lui un mot <span style="color:rgba(255,255,255,.3);font-size:14px">(optionnel)</span></p>
-  <textarea class="enc-msg" id="enc-msg" placeholder="Joel, on est avec toi ce soir…" maxlength="160"></textarea>
-  <input class="enc-name" id="enc-name" type="text" placeholder="Ton prénom (optionnel)" maxlength="40">
+<!-- TITLE -->
+<div class="title-area">
+  <p class="title-eyebrow">RTL · Ce soir</p>
+  <h1 class="title-main">Encourage Joel<br>&amp; tente ta chance</h1>
 </div>
 
 <!-- WHEEL -->
 <section class="wheel-section">
-  <p class="wheel-eyebrow">Tente ta chance</p>
-  <h2 class="wheel-title">Encourage Joel<br>&amp; gagne un cadeau</h2>
-
   <div class="wheel-wrap">
     <div class="w-ptr"></div>
     <canvas id="wc" width="560" height="560"></canvas>
@@ -213,6 +208,29 @@
   </div>
 </section>
 
+<!-- COUNTER -->
+<div class="counter">
+  <div class="counter-inner">
+    <div class="dot"></div>
+    <span class="cnt" id="cnt">—</span>
+    <span class="cnt-lbl">encouragements envoyés</span>
+  </div>
+</div>
+
+<!-- ENCOURAGE -->
+<div class="encourage">
+  <p class="enc-title">Laisse-lui un mot <span style="color:var(--text3);font-size:13px">(optionnel)</span></p>
+  <textarea class="enc-msg" id="enc-msg" placeholder="Joel, on est avec toi ce soir…" maxlength="160"></textarea>
+  <input class="enc-name" id="enc-name" type="text" placeholder="Ton prénom (optionnel)" maxlength="40">
+</div>
+
+<!-- CTA BANNER — Willows Auras -->
+<section class="cta-banner">
+  <p class="cta-banner-eyebrow">Campagne 50% de soleil ☀️</p>
+  <h2 class="cta-banner-title">La collection du moment.<br>Willows Auras.</h2>
+  <a class="cta-banner-link" href="https://www.yourmood.net/collections/willows-auras?utm_source=joel-finale&utm_medium=social&utm_campaign=50pct-soleil" target="_blank">Découvrir la collection →</a>
+</section>
+
 <!-- VIDEO -->
 <section class="video-section">
   <p class="video-lbl">La vidéo de Joel</p>
@@ -222,13 +240,6 @@
       allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
     </iframe>
   </div>
-</section>
-
-<!-- CTA BANNER — Willows Auras -->
-<section class="cta-banner">
-  <p class="cta-banner-eyebrow">Campagne 50% de soleil ☀️</p>
-  <h2 class="cta-banner-title">La collection du moment.<br>Willows Auras.</h2>
-  <a class="cta-banner-link" href="https://www.yourmood.net/collections/willows-auras?utm_source=joel-finale&utm_medium=social&utm_campaign=50pct-soleil" target="_blank">Découvrir la collection →</a>
 </section>
 
 <!-- FOOTER -->
@@ -242,14 +253,14 @@ const COUNTER = 'https://api.counterapi.dev/v1/yourmood/joel-msg-finale-2026';
 const LS = 'mood_joel_2026v4';
 
 const SEGS = [
-  { t:'Un sourire de Joel',   i:'🥰', p:'Bon cadeau CHF 10',   s:'À utiliser sur yourmood.net.',                                      c:'#1a1a1a', tc:'#e8dfc8', w:.26 },
-  { t:'Merci du cœur',        i:'📦', p:'Boîte de rangement',  s:'Pour ranger et exposer tes bagues mood.',                          c:'#eeebe3', tc:'#222',    w:.20 },
-  { t:'Les acclamations',     i:'🎁', p:'Bon cadeau CHF 20',   s:'À utiliser sur yourmood.net.',                                      c:'#1e1608', tc:'#c9a84c', w:.20 },
-  { t:'Standing Ovation',     i:'🎉', p:'Bon cadeau CHF 10',   s:'À utiliser sur yourmood.net.',                                      c:'#252525', tc:'#e8dfc8', w:.14 },
-  { t:'Tonnerre !',           i:'👏', p:'Boîte de rangement',  s:'Pour ranger et exposer tes bagues mood.',                          c:'#e2ddd5', tc:'#222',    w:.09 },
-  { t:'Coup de cœur',         i:'✨', p:'Bon cadeau CHF 50',   s:'Une belle virée sur yourmood.net rien que pour toi.',              c:'#111',    tc:'#c9a84c', w:.07 },
-  { t:'La Légende',           i:'🌟', p:'Bon cadeau CHF 100',  s:'Un grand cadeau Mood.',                                             c:'#1a1000', tc:'#e8c97a', w:.03 },
-  { t:'Icône absolue',        i:'👑', p:'Compo Mood offerte',  s:'Une compo choisie par Stéphanie (~CHF 200). On te contactera !',   c:'#c8102e', tc:'#fff',    w:.01 },
+  { t:'Un sourire de Joel',   i:'🥰', p:'Bon cadeau CHF 10',   s:'À utiliser sur yourmood.net.',                                      c:'#f2efe8', tc:'#6b5a3a', w:.26 },
+  { t:'Merci du cœur',        i:'📦', p:'Boîte de rangement',  s:'Pour ranger et exposer tes bagues mood.',                          c:'#e9e4da', tc:'#4a3f2a', w:.20 },
+  { t:'Les acclamations',     i:'🎁', p:'Bon cadeau CHF 20',   s:'À utiliser sur yourmood.net.',                                      c:'#f7f3ec', tc:'#a07828', w:.20 },
+  { t:'Standing Ovation',     i:'🎉', p:'Bon cadeau CHF 10',   s:'À utiliser sur yourmood.net.',                                      c:'#ede8de', tc:'#6b5a3a', w:.14 },
+  { t:'Tonnerre !',           i:'👏', p:'Boîte de rangement',  s:'Pour ranger et exposer tes bagues mood.',                          c:'#e4dfd4', tc:'#4a3f2a', w:.09 },
+  { t:'Coup de cœur',         i:'✨', p:'Bon cadeau CHF 50',   s:'Une belle virée sur yourmood.net rien que pour toi.',              c:'#f0ebe2', tc:'#a07828', w:.07 },
+  { t:'La Légende',           i:'🌟', p:'Bon cadeau CHF 100',  s:'Un grand cadeau Mood.',                                             c:'#ddd8ce', tc:'#8a6820', w:.03 },
+  { t:'Icône absolue',        i:'👑', p:'Compo Mood offerte',  s:'Une compo choisie par Stéphanie (~CHF 200). On te contactera !',   c:'#1a1916', tc:'#e8dfc8', w:.01 },
 ];
 
 /* ── Counter ── */
@@ -277,7 +288,7 @@ let pi = 0;
 setInterval(() => {
   pi = (pi+1)%PHOTOS.length;
   const img = document.getElementById('joel-img');
-  img.style.transition = 'opacity .6s'; img.style.opacity = '0';
+  img.style.opacity = '0';
   setTimeout(() => { img.src = PHOTOS[pi]; img.style.opacity = '1'; }, 600);
 }, 5000);
 
@@ -293,7 +304,7 @@ function draw(r) {
     const s=SEGS[i], a0=r+i*SA-Math.PI/2, a1=a0+SA;
     ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,R,a0,a1); ctx.closePath();
     ctx.fillStyle=s.c; ctx.fill();
-    ctx.strokeStyle='rgba(0,0,0,.28)'; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.strokeStyle='rgba(180,170,155,.4)'; ctx.lineWidth=1.5; ctx.stroke();
     ctx.save(); ctx.translate(cx,cy); ctx.rotate(a0+SA/2);
     ctx.font='21px serif'; ctx.textAlign='center'; ctx.fillText(s.i, R*.79, 8);
     const words=s.p.split(' '), half=Math.ceil(words.length/2);
@@ -302,8 +313,8 @@ function draw(r) {
     lines.forEach((l,li) => ctx.fillText(l, R*.61, lines.length===1 ? -4 : li===0 ? -12 : 5));
     ctx.restore();
   }
-  ctx.beginPath(); ctx.arc(cx,cy,R,0,2*Math.PI); ctx.strokeStyle='#c9a84c'; ctx.lineWidth=6; ctx.stroke();
-  ctx.beginPath(); ctx.arc(cx,cy,R*.17,0,2*Math.PI); ctx.fillStyle='#0b0b0b'; ctx.fill(); ctx.strokeStyle='#c9a84c'; ctx.lineWidth=4; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,R,0,2*Math.PI); ctx.strokeStyle='#c9a84c'; ctx.lineWidth=5; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,R*.17,0,2*Math.PI); ctx.fillStyle='#faf8f4'; ctx.fill(); ctx.strokeStyle='#c9a84c'; ctx.lineWidth=3; ctx.stroke();
 }
 draw(0);
 
@@ -381,7 +392,7 @@ function doShare() {
 function confetti() {
   const c=document.getElementById('confetti'), x=c.getContext('2d');
   c.width=innerWidth; c.height=innerHeight;
-  const cols=['#c9a84c','#e8c97a','#fff','#c8102e','#2ecc71'];
+  const cols=['#c9a84c','#e8c97a','#1a1916','#a07828','#2ecc71'];
   const ps=Array.from({length:130},()=>({ x:Math.random()*c.width, y:Math.random()*-140-10, r:Math.random()*8+3, col:cols[Math.floor(Math.random()*cols.length)], sp:Math.random()*5+2, dr:(Math.random()-.5)*2.5, an:Math.random()*Math.PI*2, spin:(Math.random()-.5)*.15, sh:Math.random()>.5 }));
   let f=0;
   (function draw() {
