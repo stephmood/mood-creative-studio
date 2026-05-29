@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>mood Creative Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;600;700;800&family=Oswald:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Inter:wght@300;400;600;700;800&family=Oswald:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#fafaf7;--s1:#ffffff;--s2:#f5f3ee;--s3:#ebe8e1;
@@ -381,6 +381,7 @@ input[type=file]{display:none}
         <div class="pill" data-font="Inter" onclick="setFont(this)">Inter</div>
         <div class="pill" data-font="Bebas Neue" onclick="setFont(this)">Bebas</div>
         <div class="pill" data-font="Space Grotesk" onclick="setFont(this)">Grotesk</div>
+        <div class="pill" data-font="Great Vibes" onclick="setFont(this)">Manuscrite ✦</div>
       </div>
     </div>
 
@@ -1969,7 +1970,7 @@ function renderCanvas(photo, tone, lang, format){
   // CTA : toujours sous le texte — jamais au-dessus même si safeAreaBottom est contrainte
   const textEndY=baseY+hH+(showDesc?dH+gapHD:0);
   const minCtaFloor=textEndY+Math.round(gapDB*.35);
-  const ctaY=Math.max(Math.min(textEndY+gapDB, safeAreaBottom-btnHfinal-pad), minCtaFloor);
+  const ctaY=Math.min(Math.max(textEndY+gapDB, minCtaFloor), safeAreaBottom-btnHfinal-pad);
   const ctaTextArrow=copyData.cta+'  →';
   ctx.shadowBlur=0;
 
@@ -1987,6 +1988,7 @@ function renderCanvas(photo, tone, lang, format){
     ctx.beginPath(); ctx.moveTo(ulX,ctaY+btnHfinal*.62); ctx.lineTo(ulX+tw,ctaY+btnHfinal*.62); ctx.stroke();
   } else {
     // Bouton élégant — rayon petit (8px), bordure fine
+    ctx.font=`${style.btnFontWeight||'600'} ${Math.round(dSizeFinal*.92)}px 'Inter', sans-serif`;
     const ctaW=ctx.measureText(ctaTextArrow).width+btnPadX*2.0;
     const btnX=tAlign==='center'?Math.round((fmt.w-ctaW)/2):tAlign==='right'?Math.round(fmt.w-pad-ctaW):Math.round(pad);
     ctx.fillStyle=style.btnColor;
@@ -1996,7 +1998,6 @@ function renderCanvas(photo, tone, lang, format){
     ctx.fill(); ctx.stroke();
     ctx.fillStyle=style.btnTextColor;
     ctx.textAlign='center';
-    ctx.font=`${style.btnFontWeight||'600'} ${Math.round(dSizeFinal*.92)}px 'Inter', sans-serif`;
     ctx.fillText(ctaTextArrow, btnX+ctaW/2, ctaY+btnHfinal*.62);
   }
 
@@ -3257,6 +3258,7 @@ async function generate(){
     document.fonts.load("400 48px 'Playfair Display'"),
     document.fonts.load("400 48px 'Bebas Neue'"),
     document.fonts.load("400 48px 'Space Grotesk'"),
+    document.fonts.load("400 48px 'Great Vibes'"),
   ];
   if(state.fontOverride) fontLoads.push(document.fonts.load(`400 48px '${state.fontOverride}'`));
   await Promise.all(fontLoads).catch(()=>{});
