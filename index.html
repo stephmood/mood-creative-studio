@@ -375,14 +375,31 @@ input[type=file]{display:none}
 
     <div class="sec">
       <div class="sec-label">Police</div>
-      <div class="pills" id="font-pills">
-        <div class="pill on" data-font="" onclick="setFont(this)">Auto</div>
-        <div class="pill" data-font="Cormorant Garamond" onclick="setFont(this)">Garamond</div>
-        <div class="pill" data-font="Playfair Display" onclick="setFont(this)">Playfair</div>
-        <div class="pill" data-font="Inter" onclick="setFont(this)">Inter</div>
-        <div class="pill" data-font="Bebas Neue" onclick="setFont(this)">Bebas</div>
-        <div class="pill" data-font="Space Grotesk" onclick="setFont(this)">Grotesk</div>
-        <div class="pill" data-font="Great Vibes" onclick="setFont(this)">Manuscrite ✦</div>
+      <div class="pills" id="font-pills" style="flex-wrap:wrap;gap:5px">
+        <div class="pill on" data-font="" onclick="setFont(this)" style="font-size:11px">Auto</div>
+        <div class="pill" data-font="Cormorant Garamond" onclick="setFont(this)" style="font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic">Garamond</div>
+        <div class="pill" data-font="Playfair Display" onclick="setFont(this)" style="font-family:'Playfair Display',serif;font-size:14px">Playfair</div>
+        <div class="pill" data-font="Inter" onclick="setFont(this)" style="font-family:'Inter',sans-serif;font-size:12px;font-weight:600">Inter</div>
+        <div class="pill" data-font="Bebas Neue" onclick="setFont(this)" style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.04em">Bebas</div>
+        <div class="pill" data-font="Space Grotesk" onclick="setFont(this)" style="font-family:'Space Grotesk',sans-serif;font-size:12px">Grotesk</div>
+        <div class="pill" data-font="Great Vibes" onclick="setFont(this)" style="font-family:'Great Vibes',cursive;font-size:17px">Manuscrite</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-label">Position du texte</div>
+      <div class="pills" id="text-pos-pills" style="margin-bottom:5px">
+        <div class="pill on" data-pos="auto" onclick="setTextPositionV(this)">Auto</div>
+        <div class="pill" data-pos="top" onclick="setTextPositionV(this)">↑ Haut</div>
+        <div class="pill" data-pos="mid" onclick="setTextPositionV(this)">↕ Milieu</div>
+        <div class="pill" data-pos="bot" onclick="setTextPositionV(this)">↓ Bas</div>
+      </div>
+      <div class="pills" id="text-size-pills">
+        <div class="pill" data-size="0.70" onclick="setTextSize(this)" style="font-size:9px">XS</div>
+        <div class="pill" data-size="0.85" onclick="setTextSize(this)" style="font-size:10px">S</div>
+        <div class="pill on" data-size="1.0" onclick="setTextSize(this)" style="font-size:11px">M</div>
+        <div class="pill" data-size="1.18" onclick="setTextSize(this)" style="font-size:12px">L</div>
+        <div class="pill" data-size="1.38" onclick="setTextSize(this)" style="font-size:13px">XL</div>
       </div>
     </div>
 
@@ -394,11 +411,17 @@ input[type=file]{display:none}
         <div class="pill" data-ctastyle="button" onclick="setCtaStyle(this)">◼ Plein</div>
         <div class="pill" data-ctastyle="button-outline" onclick="setCtaStyle(this)">◻ Contour</div>
       </div>
-      <div class="pills" id="cta-align-pills" style="margin-bottom:6px">
+      <div class="pills" id="cta-align-pills" style="margin-bottom:5px">
         <div class="pill on" data-ctaalign="" onclick="setCtaAlign(this)">Auto</div>
         <div class="pill" data-ctaalign="left" onclick="setCtaAlign(this)">← Gauche</div>
         <div class="pill" data-ctaalign="center" onclick="setCtaAlign(this)">☰ Centre</div>
         <div class="pill" data-ctaalign="right" onclick="setCtaAlign(this)">Droite →</div>
+      </div>
+      <div class="pills" id="cta-size-pills" style="margin-bottom:6px">
+        <div class="pill" data-ctasize="0.70" onclick="setCtaSize(this)" style="font-size:9px">S</div>
+        <div class="pill on" data-ctasize="1.0" onclick="setCtaSize(this)" style="font-size:11px">M</div>
+        <div class="pill" data-ctasize="1.30" onclick="setCtaSize(this)" style="font-size:12px">L</div>
+        <div class="pill" data-ctasize="1.65" onclick="setCtaSize(this)" style="font-size:13px">XL</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
         <label style="font-size:10px;color:var(--muted);min-width:30px">Fond</label>
@@ -1477,6 +1500,9 @@ let state = {
   ctaBgColor:'#c9a96e',
   ctaTextColor:'#111111',
   ctaVariantIdx:0,
+  textPositionV:'auto',
+  textSizeScale:1.0,
+  ctaSizeScale:1.0,
   montageMode:false,
   montageClipDur:5,
   gifMode:false,
@@ -1913,7 +1939,7 @@ function renderCanvas(photo, tone, lang, format){
   }
 
   // ── Typographie ──
-  const fontScale=fbp.fontScale;
+  const fontScale=fbp.fontScale*(state.textSizeScale||1.0);
   const maxW=fmt.w-pad*2;
   const safeAreaBottom=fmt.h*(1-fbp.safeBottom);
   const btnPadX=Math.round(fmt.w*.062);
@@ -1932,7 +1958,8 @@ function renderCanvas(photo, tone, lang, format){
   }
 
   const dSizeFinal=Math.max(24,Math.round(fmt.w*style.descSize*fontScale));
-  const btnHfinal=Math.max(58,Math.round(fmt.w*.070*fontScale));
+  const ctaScale=state.ctaSizeScale||1.0;
+  const btnHfinal=Math.max(50,Math.round(fmt.w*.070*fontScale*ctaScale));
   const lineHHead=hSize*1.38;
   const lineHDesc=dSizeFinal*1.45;
   const gapHD=dSizeFinal*1.20;
@@ -1949,7 +1976,11 @@ function renderCanvas(photo, tone, lang, format){
 
   const textFloor=fmt.h*minTextFrac;
   const textCeil=safeAreaBottom-estBlockH-pad;
-  const baseY=Math.max(textFloor, Math.min(textCeil, safeAreaBottom-estBlockH-pad));
+  const posV=state.textPositionV||'auto';
+  const baseY=posV==='top'?Math.round(fmt.h*(fbp.safeTop||0.06)+pad)
+    :posV==='mid'?Math.round((fmt.h-estBlockH)/2)
+    :posV==='bot'?Math.round(safeAreaBottom-estBlockH-pad)
+    :Math.max(textFloor, Math.min(textCeil, safeAreaBottom-estBlockH-pad));
 
   const tAlign=style.textAlign||'left';
   const textX=tAlign==='center'?fmt.w/2:tAlign==='right'?fmt.w-pad:pad;
@@ -2158,10 +2189,11 @@ async function renderVideoCreative(photo,tone,lang,format){
 
     // Layout pré-calculé
     const pad=fmt.w*.055;
-    const fontScale=fbp.fontScale;
+    const fontScale=fbp.fontScale*(state.textSizeScale||1.0);
     const hSize=Math.round(fmt.w*style.headlineSize*fontScale);
     const dSize=Math.max(28,Math.round(fmt.w*style.descSize*fontScale));
-    const btnH=Math.max(60,Math.round(fmt.w*.07*fontScale));
+    const ctaScaleV=state.ctaSizeScale||1.0;
+    const btnH=Math.max(50,Math.round(fmt.w*.07*fontScale*ctaScaleV));
     const btnPadX=Math.round(fmt.w*.055);
     const maxW=fmt.w-pad*2;
     const stripH=fmt.h*.34;
@@ -2170,7 +2202,11 @@ async function renderVideoCreative(photo,tone,lang,format){
     const estBlockH=hSize*2.5+dSize*2+btnH+dSize;
 
     const textZoneStart=Math.max(fmt.h*0.60, safeBot-estBlockH-pad);
-    const baseY=Math.min(textZoneStart, safeBot-estBlockH-pad);
+    const posVV=state.textPositionV||'auto';
+    const baseY=posVV==='top'?Math.round(fmt.h*(fbp.safeTop||0.06)+pad)
+      :posVV==='mid'?Math.round((fmt.h-estBlockH)/2)
+      :posVV==='bot'?Math.round(safeBot-estBlockH-pad)
+      :Math.min(textZoneStart, safeBot-estBlockH-pad);
 
     const italic=style.headlineItalic?'italic ':'';
     const a=(v)=>v*audBoost;
@@ -2418,14 +2454,19 @@ async function renderGif(photo,tone,lang,format){
     const ctx=canvas.getContext('2d');
 
     // Layout en coordonnées fmt → appliqué via ctx.setTransform(sc)
-    const pad=fmt.w*.055, fontScale=fbp.fontScale;
+    const pad=fmt.w*.055, fontScale=fbp.fontScale*(state.textSizeScale||1.0);
     const hSize=Math.round(fmt.w*style.headlineSize*fontScale);
     const dSize=Math.max(28,Math.round(fmt.w*style.descSize*fontScale));
-    const btnH=Math.max(60,Math.round(fmt.w*.07*fontScale));
+    const ctaScaleG=state.ctaSizeScale||1.0;
+    const btnH=Math.max(50,Math.round(fmt.w*.07*fontScale*ctaScaleG));
     const btnPadX=Math.round(fmt.w*.055), maxW=fmt.w-pad*2;
     const safeBot=fmt.h*(1-fbp.safeBottom);
     const estBlockH=hSize*2.5+dSize*2+btnH+dSize;
-    const baseY=Math.min(Math.max(fmt.h*0.60,safeBot-estBlockH-pad),safeBot-estBlockH-pad);
+    const posVG=state.textPositionV||'auto';
+    const baseY=posVG==='top'?Math.round(fmt.h*(fbp.safeTop||0.06)+pad)
+      :posVG==='mid'?Math.round((fmt.h-estBlockH)/2)
+      :posVG==='bot'?Math.round(safeBot-estBlockH-pad)
+      :Math.min(Math.max(fmt.h*0.60,safeBot-estBlockH-pad),safeBot-estBlockH-pad);
     const italic=style.headlineItalic?'italic ':'';
     const a=(v)=>v*audBoost;
     const tAlign=style.textAlign||'left';
@@ -2575,14 +2616,19 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
     recorder.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
 
     // Layout (identique renderVideoCreative)
-    const pad=fmt.w*.055, fontScale=fbp.fontScale;
+    const pad=fmt.w*.055, fontScale=fbp.fontScale*(state.textSizeScale||1.0);
     const hSize=Math.round(fmt.w*style.headlineSize*fontScale);
     const dSize=Math.max(28,Math.round(fmt.w*style.descSize*fontScale));
-    const btnH=Math.max(60,Math.round(fmt.w*.07*fontScale));
+    const ctaScaleA=state.ctaSizeScale||1.0;
+    const btnH=Math.max(50,Math.round(fmt.w*.07*fontScale*ctaScaleA));
     const btnPadX=Math.round(fmt.w*.055), maxW=fmt.w-pad*2;
     const safeBot=fmt.h*(1-fbp.safeBottom);
     const estBlockH=hSize*2.5+dSize*2+btnH+dSize;
-    const baseY=Math.min(Math.max(fmt.h*0.60,safeBot-estBlockH-pad),safeBot-estBlockH-pad);
+    const posVA=state.textPositionV||'auto';
+    const baseY=posVA==='top'?Math.round(fmt.h*(fbp.safeTop||0.06)+pad)
+      :posVA==='mid'?Math.round((fmt.h-estBlockH)/2)
+      :posVA==='bot'?Math.round(safeBot-estBlockH-pad)
+      :Math.min(Math.max(fmt.h*0.60,safeBot-estBlockH-pad),safeBot-estBlockH-pad);
     const italic=style.headlineItalic?'italic ':'';
     const a=(v)=>v*audBoost;
     const tAlign=style.textAlign||'left';
@@ -2832,14 +2878,19 @@ async function renderSlideshow(tone,lang,format){
     recorder.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
 
     // ── Mise en page texte (calculée une seule fois) ──
-    const pad=fmt.w*.055, fontScale=fbp.fontScale;
+    const pad=fmt.w*.055, fontScale=fbp.fontScale*(state.textSizeScale||1.0);
     const hSize=Math.round(fmt.w*style.headlineSize*fontScale);
     const dSize=Math.max(28,Math.round(fmt.w*style.descSize*fontScale));
-    const btnH=Math.max(60,Math.round(fmt.w*.07*fontScale));
+    const ctaScaleS=state.ctaSizeScale||1.0;
+    const btnH=Math.max(50,Math.round(fmt.w*.07*fontScale*ctaScaleS));
     const btnPadX=Math.round(fmt.w*.055), maxW=fmt.w-pad*2;
     const safeBot=fmt.h*(1-fbp.safeBottom);
     const estBlockH=hSize*2.5+dSize*2+btnH+dSize;
-    const baseY=Math.min(Math.max(fmt.h*0.60,safeBot-estBlockH-pad),safeBot-estBlockH-pad);
+    const posVS=state.textPositionV||'auto';
+    const baseY=posVS==='top'?Math.round(fmt.h*(fbp.safeTop||0.06)+pad)
+      :posVS==='mid'?Math.round((fmt.h-estBlockH)/2)
+      :posVS==='bot'?Math.round(safeBot-estBlockH-pad)
+      :Math.min(Math.max(fmt.h*0.60,safeBot-estBlockH-pad),safeBot-estBlockH-pad);
     const italic=style.headlineItalic?'italic ':'';
     const a=(v)=>v*audBoost;
     const tAlign=style.textAlign||'left';
@@ -3167,6 +3218,24 @@ function setCtaStyle(el){
 function setCtaAlign(el){
   state.ctaAlignOverride=el.dataset.ctaalign||null;
   document.querySelectorAll('#cta-align-pills .pill').forEach(p=>p.classList.toggle('on',p===el));
+}
+
+// Taille CTA
+function setCtaSize(el){
+  state.ctaSizeScale=parseFloat(el.dataset.ctasize)||1.0;
+  document.querySelectorAll('#cta-size-pills .pill').forEach(p=>p.classList.toggle('on',p===el));
+}
+
+// Position verticale texte
+function setTextPositionV(el){
+  state.textPositionV=el.dataset.pos||'auto';
+  document.querySelectorAll('#text-pos-pills .pill').forEach(p=>p.classList.toggle('on',p===el));
+}
+
+// Taille texte
+function setTextSize(el){
+  state.textSizeScale=parseFloat(el.dataset.size)||1.0;
+  document.querySelectorAll('#text-size-pills .pill').forEach(p=>p.classList.toggle('on',p===el));
 }
 
 // Variante de message
