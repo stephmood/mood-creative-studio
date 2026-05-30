@@ -6,6 +6,7 @@
 <title>mood Creative Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Inter:wght@300;400;600;700;800&family=Oswald:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.js"></script>
 <style>
 :root{
   --bg:#fafaf7;--s1:#ffffff;--s2:#f5f3ee;--s3:#ebe8e1;
@@ -459,6 +460,7 @@ input[type=file]{display:none}
     <div style="display:flex;gap:5px;margin-bottom:5px;flex-wrap:wrap">
       <div id="mode-img" class="pill on" onclick="setMode('img')" style="flex:1;text-align:center;font-size:10px;min-width:55px">⚡ Images</div>
       <div id="mode-anim" class="pill" onclick="setMode('anim')" style="flex:1;text-align:center;font-size:10px;min-width:55px">✨ Animée</div>
+      <div id="mode-gif" class="pill" onclick="setMode('gif')" style="flex:1;text-align:center;font-size:10px;min-width:55px">🎭 GIF</div>
       <div id="mode-vid" class="pill" onclick="setMode('vid')" style="flex:1;text-align:center;font-size:10px;min-width:55px">🎬 Vidéo</div>
       <div id="mode-slide" class="pill" onclick="setMode('slide')" style="flex:1;text-align:center;font-size:10px;min-width:55px">📽 Diapo</div>
       <div id="mode-montage" class="pill" onclick="setMode('montage')" style="flex:1;text-align:center;font-size:10px;min-width:55px">🎞 Montage</div>
@@ -1477,6 +1479,7 @@ let state = {
   ctaVariantIdx:0,
   montageMode:false,
   montageClipDur:5,
+  gifMode:false,
   musicFile:null,
   musicVolume:0.4
 };
@@ -1486,8 +1489,10 @@ function setMode(m){
   state.animMode=m==='anim';
   state.slideshowMode=m==='slide';
   state.montageMode=m==='montage';
+  state.gifMode=m==='gif';
   document.getElementById('mode-img').classList.toggle('on',m==='img');
   document.getElementById('mode-anim').classList.toggle('on',m==='anim');
+  document.getElementById('mode-gif').classList.toggle('on',m==='gif');
   document.getElementById('mode-vid').classList.toggle('on',m==='vid');
   document.getElementById('mode-slide').classList.toggle('on',m==='slide');
   document.getElementById('mode-montage').classList.toggle('on',m==='montage');
@@ -2380,6 +2385,164 @@ function buildWebM(w, h, fps, chunks){
     new Uint8Array([0x18,0x53,0x80,0x67]),
     new Uint8Array([0x01,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]),
     segBody).buffer;
+}
+
+// ══════════════════════════════════════════════════════════════════════
+// RENDER GIF — Photo animée exportée en .gif (gif.js CDN)
+// ══════════════════════════════════════════════════════════════════════
+async function renderGif(photo,tone,lang,format){
+  return new Promise(async(resolve)=>{
+    if(typeof GIF==='undefined'){console.warn('gif.js non chargé');resolve(null);return;}
+    const fmt=FORMATS[format];
+    const fbp=FORMAT_BP[format];
+    const style=effStyle(TONE_STYLES[tone]);
+    const audBoost=AUD_OVERLAY[state.audience]||1;
+    const rawCopy=getCopy(tone,lang);
+    if(!rawCopy){resolve(null);return;}
+    const bestCta=(AUD_CTA_VERBS[lang]?.[state.audience]?.[tone])||rawCopy.cta;
+    const copyData={...rawCopy,cta:bestCta};
+    const img=photo.img;
+    await document.fonts.load("300 48px 'Cormorant Garamond'").catch(()=>{});
+
+    // GIF max 540px large pour garder un fichier léger
+    const GIF_MAX_W=540;
+    const sc=Math.min(1,GIF_MAX_W/fmt.w);
+    const GW=Math.round(fmt.w*sc), GH=Math.round(fmt.h*sc);
+
+    const ANIM_DUR=3.5, FPS=8;
+    const TOTAL_FRAMES=Math.round(ANIM_DUR*FPS);
+    const FRAME_MS=Math.round(1000/FPS);
+
+    const canvas=document.createElement('canvas');
+    canvas.width=GW; canvas.height=GH;
+    const ctx=canvas.getContext('2d');
+
+    // Layout en coordonnées fmt → appliqué via ctx.setTransform(sc)
+    const pad=fmt.w*.055, fontScale=fbp.fontScale;
+    const hSize=Math.round(fmt.w*style.headlineSize*fontScale);
+    const dSize=Math.max(28,Math.round(fmt.w*style.descSize*fontScale));
+    const btnH=Math.max(60,Math.round(fmt.w*.07*fontScale));
+    const btnPadX=Math.round(fmt.w*.055), maxW=fmt.w-pad*2;
+    const safeBot=fmt.h*(1-fbp.safeBottom);
+    const estBlockH=hSize*2.5+dSize*2+btnH+dSize;
+    const baseY=Math.min(Math.max(fmt.h*0.60,safeBot-estBlockH-pad),safeBot-estBlockH-pad);
+    const italic=style.headlineItalic?'italic ':'';
+    const a=(v)=>v*audBoost;
+    const tAlign=style.textAlign||'left';
+    const textX=tAlign==='center'?fmt.w/2:tAlign==='right'?fmt.w-pad:pad;
+
+    // Calibrage taille headline
+    const tmpC=document.createElement('canvas');tmpC.width=fmt.w;tmpC.height=fmt.h;
+    const tmpCtx=tmpC.getContext('2d');
+    let hSizeV=hSize;
+    tmpCtx.font=`${italic}${style.headlineWeight} ${hSizeV}px '${style.font}', serif`;
+    let hLinesV=measureWrap(tmpCtx,copyData.h,maxW,1);
+    while(hLinesV>2&&hSizeV>Math.round(fmt.w*0.052)){hSizeV=Math.round(hSizeV*0.88);tmpCtx.font=`${italic}${style.headlineWeight} ${hSizeV}px '${style.font}', serif`;hLinesV=measureWrap(tmpCtx,copyData.h,maxW,1);}
+    const lineHHV=hSizeV*1.40, lineHDV=dSize*1.48, gapHDV=dSize*1.15, gapDBV=dSize*1.70;
+    const hH=measureWrap(tmpCtx,copyData.h,maxW,lineHHV);
+    tmpCtx.font=`300 ${dSize}px '${style.font}', sans-serif`;
+    const dH=measureWrap(tmpCtx,copyData.d,maxW,lineHDV);
+    const descY=baseY+hH+gapHDV;
+    const accentExV=style.accentLine?dSize*1.2:0;
+    const textEndVY=descY+dH+accentExV;
+    const minBtnFloor=textEndVY+Math.round(gapDBV*.35);
+    const btnY=Math.min(Math.max(textEndVY+gapDBV,minBtnFloor),safeBot-btnH-pad);
+    tmpCtx.font=`${style.btnFontWeight||'700'} ${Math.round(dSize*1.0)}px 'Inter', sans-serif`;
+    const ctaArrow=copyData.cta+'  →';
+    const ctaWv=tmpCtx.measureText(ctaArrow).width+btnPadX*2.2;
+    const btnXv=tAlign==='center'?Math.round((fmt.w-ctaWv)/2):tAlign==='right'?Math.round(fmt.w-pad-ctaWv):Math.round(pad);
+
+    // Crop cover de base
+    const imgAR=img.width/img.height, canAR=fmt.w/fmt.h;
+    let bSX=0,bSY=0,bSW=img.width,bSH=img.height;
+    if(imgAR>canAR){bSW=img.height*canAR;bSX=(img.width-bSW)/2;}
+    else{bSH=img.width/canAR;bSY=(img.height-bSH)/2;}
+
+    function easeInOut(t){return t<0.5?2*t*t:-1+(4-2*t)*t;}
+
+    function drawGifFrame(elapsed){
+      const progress=elapsed/ANIM_DUR;
+      const p=easeInOut(progress);
+      const anim=state.animType||'kenburns-in';
+      let sx=bSX,sy=bSY,sw=bSW,sh=bSH;
+      if(anim==='kenburns-in'){const z=1+p*.18;sw=bSW/z;sh=bSH/z;sx=bSX+(bSW-sw)/2+p*bSW*.03;sy=bSY+(bSH-sh)/2;}
+      else if(anim==='kenburns-out'){const z=1.18-p*.18;sw=bSW/z;sh=bSH/z;sx=bSX+(bSW-sw)/2-p*bSW*.02;sy=bSY+(bSH-sh)/2;}
+      else if(anim==='pan-lr'){const z=1.12;sw=bSW/z;sh=bSH/z;sx=bSX+p*(bSW-sw);sy=bSY+(bSH-sh)/2;}
+      else if(anim==='pan-rl'){const z=1.12;sw=bSW/z;sh=bSH/z;sx=bSX+(bSW-sw)*(1-p);sy=bSY+(bSH-sh)/2;}
+      else if(anim==='pan-tb'){const z=1.12;sw=bSW/z;sh=bSH/z;sx=bSX+(bSW-sw)/2;sy=bSY+p*(bSH-sh);}
+      else if(anim==='diagonal'){const z=1+p*.16;sw=bSW/z;sh=bSH/z;sx=bSX+(bSW-sw)*.5*p;sy=bSY+(bSH-sh)*.5*p;}
+
+      // Applique échelle sc : canvas GW×GH, dessin en coordonnées fmt
+      ctx.save();
+      ctx.setTransform(sc,0,0,sc,0,0);
+      ctx.drawImage(img,sx,sy,sw,sh,0,0,fmt.w,fmt.h);
+
+      // Overlay
+      ctx.globalAlpha=1;
+      if(style.overlay==='feather-bottom'||style.overlay==='gradient-editorial'||style.overlay==='ghost-bottom'){
+        const g=ctx.createLinearGradient(0,fmt.h*.50,0,fmt.h);
+        g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.55,`rgba(0,0,0,${a(style.overlayAlpha*.55)})`);g.addColorStop(1,`rgba(0,0,0,${a(style.overlayAlpha)})`);
+        ctx.fillStyle=g;ctx.fillRect(0,0,fmt.w,fmt.h);
+      }else if(style.overlay==='band-bottom'){
+        const g=ctx.createLinearGradient(0,fmt.h*.70,0,fmt.h);
+        g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.10,`rgba(0,0,0,${a(style.overlayAlpha)})`);g.addColorStop(1,`rgba(0,0,0,${a(style.overlayAlpha)})`);
+        ctx.fillStyle=g;ctx.fillRect(0,fmt.h*.70,fmt.w,fmt.h*.30);
+      }
+
+      // Fade in sur premières frames
+      const FADE=0.35;
+      if(elapsed<FADE){ctx.globalAlpha=1-elapsed/FADE;ctx.fillStyle='rgba(0,0,0,1)';ctx.fillRect(0,0,fmt.w,fmt.h);}
+      ctx.globalAlpha=1;
+
+      // Texte
+      ctx.font=`${italic}${style.headlineWeight} ${hSizeV}px '${style.font}', serif`;
+      ctx.fillStyle=style.headlineColor; ctx.textAlign=tAlign;
+      ctx.shadowColor='rgba(0,0,0,.30)'; ctx.shadowBlur=8;
+      wrapText(ctx,copyData.h,textX,baseY,maxW,lineHHV);
+      ctx.font=`300 ${dSize}px '${style.font}', sans-serif`;
+      ctx.fillStyle=style.descColor; ctx.textAlign=tAlign; ctx.shadowBlur=4;
+      wrapText(ctx,copyData.d,textX,descY,maxW,lineHDV);
+      ctx.shadowBlur=0;
+
+      // CTA
+      if(style.ctaStyle==='text-arrow'){
+        ctx.font=`${style.btnFontWeight||'400'} ${Math.round(dSize*.92)}px 'Inter', sans-serif`;
+        ctx.fillStyle=style.btnTextColor; ctx.textAlign=tAlign;
+        ctx.fillText(ctaArrow,textX,btnY+btnH*.38);
+      }else{
+        ctx.fillStyle=style.btnColor; ctx.strokeStyle=style.btnBorder; ctx.lineWidth=Math.max(1.5,fmt.w*.0018);
+        ctx.beginPath();ctx.roundRect(btnXv,btnY,ctaWv,btnH,8);ctx.fill();ctx.stroke();
+        ctx.fillStyle=style.btnTextColor; ctx.textAlign='center';
+        ctx.font=`${style.btnFontWeight||'700'} ${Math.round(dSize*1.0)}px 'Inter', sans-serif`;
+        ctx.fillText(ctaArrow,btnXv+ctaWv/2,btnY+btnH*.62);
+      }
+      drawMoodLogo(ctx,fmt,style.logoPos);
+      ctx.restore();
+    }
+
+    // Charger worker gif.js depuis CDN (blob URL pour éviter CORS web worker)
+    let workerURL;
+    try{
+      const resp=await fetch('https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.worker.js');
+      const text=await resp.text();
+      workerURL=URL.createObjectURL(new Blob([text],{type:'application/javascript'}));
+    }catch(e){console.warn('gif.js worker fetch failed:',e);resolve(null);return;}
+
+    const gif=new GIF({workers:2,quality:8,width:GW,height:GH,workerScript:workerURL});
+
+    for(let f=0;f<TOTAL_FRAMES;f++){
+      const t=(f/TOTAL_FRAMES)*ANIM_DUR;
+      drawGifFrame(t);
+      gif.addFrame(canvas,{copy:true,delay:FRAME_MS});
+    }
+
+    gif.on('finished',(blob)=>{
+      URL.revokeObjectURL(workerURL);
+      resolve({blob,url:URL.createObjectURL(blob),ext:'gif'});
+    });
+    gif.on('error',(e)=>{console.warn('gif.js error:',e);URL.revokeObjectURL(workerURL);resolve(null);});
+    gif.render();
+  });
 }
 
 async function renderAnimatedPhoto(photo,tone,lang,format){
@@ -3303,12 +3466,13 @@ async function generate(){
     const isMontage=item.isMontage;
     const nVids=state.photos.filter(p=>p.isVideo).length;
     const isAnimMode=!isSlide&&!isMontage&&!item.photo.isVideo&&state.animMode;
+    const isGifMode=!isSlide&&!isMontage&&!item.photo.isVideo&&state.gifMode;
     const isVidMode=!isSlide&&!isMontage&&item.photo.isVideo&&state.videoMode;
     const nPhotos=state.photos.filter(p=>!p.isVideo).length;
     const slideDur=(nPhotos*state.slideshowPhotoDur+1.5).toFixed(0);
-    const icon=isMontage?'🎞':isSlide?'📽':isVidMode?'🎬':isAnimMode?'✨':'🖼';
+    const icon=isMontage?'🎞':isSlide?'📽':isVidMode?'🎬':isGifMode?'🎭':isAnimMode?'✨':'🖼';
     const clipDurLabel=(state.montageClipDur||5)*nVids;
-    const label=isMontage?`Montage ${nVids} vidéos (~${clipDurLabel}s)…`:isSlide?`Diaporama ${nPhotos} photos (~${slideDur}s)…`:isVidMode?'Vidéo en cours…':isAnimMode?'Photo animée en cours…':'Image';
+    const label=isMontage?`Montage ${nVids} vidéos (~${clipDurLabel}s)…`:isSlide?`Diaporama ${nPhotos} photos (~${slideDur}s)…`:isVidMode?'Vidéo en cours…':isGifMode?'GIF animé en cours…':isAnimMode?'Photo animée en cours…':'Image';
     document.getElementById('progress-label').textContent=`${icon} ${i+1}/${total} — ${label}`;
     document.getElementById('progress-fill').style.width=`${Math.round((i/total)*100)}%`;
     await new Promise(r=>setTimeout(r,10));
@@ -3324,6 +3488,9 @@ async function generate(){
       }else if(isVidMode){
         const res=await renderVideoCreative(item.photo,item.tone,item.lang,item.format);
         if(res) creative={...item,isVideo:true,dataUrl:res.url,blob:res.blob,ext:res.ext};
+      }else if(isGifMode){
+        const res=await renderGif(item.photo,item.tone,item.lang,item.format);
+        if(res) creative={...item,isVideo:false,isGif:true,dataUrl:res.url,blob:res.blob,ext:'gif'};
       }else if(isAnimMode){
         const res=await renderAnimatedPhoto(item.photo,item.tone,item.lang,item.format);
         if(res) creative={...item,isVideo:true,dataUrl:res.url,blob:res.blob,ext:res.ext};
@@ -3394,7 +3561,7 @@ function renderResults(){
     const copy=getCopyFor(c);
     const previewW=200;
     const previewH=Math.round(previewW*(fmt.h/fmt.w));
-    const dlLabel=c.isVideo?`↓ ${(c.ext||'webm').toUpperCase()}`:'↓ PNG';
+    const dlLabel=c.isGif?'↓ GIF':c.isVideo?`↓ ${(c.ext||'webm').toUpperCase()}`:'↓ PNG';
     const gIdx=state.creatives.indexOf(c);
     const sig=getCreativeSig(c);
     const score=getScore(sig);
@@ -3405,21 +3572,23 @@ function renderResults(){
     const r=ratings[sig]||{good:0,bad:0};
     const isGood=r.good>r.bad&&r.good>0;
     const isBad=r.bad>r.good&&r.bad>0;
-    const mediaEl=c.isVideo
-      ?`<video id="prev-${i}" style="width:100%;height:${previewH}px;object-fit:cover" src="${c.dataUrl}" muted loop playsinline></video>`
-      :`<canvas id="prev-${i}" width="${previewW}" height="${previewH}"></canvas>`;
+    const mediaEl=c.isGif
+      ?`<img id="prev-${i}" style="width:100%;height:${previewH}px;object-fit:cover" src="${c.dataUrl}">`
+      :c.isVideo
+        ?`<video id="prev-${i}" style="width:100%;height:${previewH}px;object-fit:cover" src="${c.dataUrl}" muted loop playsinline></video>`
+        :`<canvas id="prev-${i}" width="${previewW}" height="${previewH}"></canvas>`;
     return `
       <div class="creative-card" onclick="previewCreative(${i})">
         <div class="card-preview" style="height:${previewH}px">
           ${mediaEl}
           <div class="card-format-badge">${fmt.label}</div>
-          ${c.isVideo?'<div class="card-video-badge">▶</div>':''}
+          ${c.isGif?'<div class="card-video-badge">GIF</div>':c.isVideo?'<div class="card-video-badge">▶</div>':''}
           ${scoreBadge}
           <button class="card-dl-overlay" onclick="event.stopPropagation();downloadByGlobalIdx(${gIdx})" title="Télécharger">↓</button>
           <button class="card-delete" onclick="event.stopPropagation();deleteCreative(${gIdx})" title="Supprimer">×</button>
         </div>
         <div class="card-meta">
-          <div class="card-tone" style="color:${TONE_COLORS[c.tone]}">${style.label} · ${c.lang.toUpperCase()}${c.isVideo?' · 🎬':''}</div>
+          <div class="card-tone" style="color:${TONE_COLORS[c.tone]}">${style.label} · ${c.lang.toUpperCase()}${c.isGif?' · 🎭':c.isVideo?' · 🎬':''}</div>
           <div class="card-copy">${copy?copy.h+' — '+copy.d:'—'}</div>
           ${copy?`<div class="card-cta-text" onclick="event.stopPropagation();copyCtaText(${gIdx})" title="Cliquer pour copier le CTA">📋 ${copy.cta} →</div>`:''}
           <div class="perf-sig perf-${perf}">${PERF_LABELS[perf]} · ${PERF_ROAS[perf]}</div>
@@ -3468,11 +3637,11 @@ function downloadCreative(i){
   const c=filterCreatives()[i];
   if(!c) return;
   const a=document.createElement('a');
-  const ext=c.isVideo?(c.ext||'webm'):'png';
+  const ext=c.isGif?'gif':c.isVideo?(c.ext||'webm'):'png';
   a.download=`mood_${state.concept}_${state.audience}_${c.tone}_${c.lang}_${c.format}.${ext}`;
   a.href=getDataUrl(c);
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  toast(`${c.isVideo?'Vidéo':'PNG'} téléchargé ✓`);
+  toast(`${c.isGif?'GIF':c.isVideo?'Vidéo':'PNG'} téléchargé ✓`);
 }
 
 function copyCtaText(i){
@@ -3498,7 +3667,7 @@ function exportAll(){
 }
 
 function getDataUrl(c){
-  if(c.isVideo) return c.dataUrl;
+  if(c.isVideo||c.isGif) return c.dataUrl;
   if(!c._dataUrl) c._dataUrl=c.canvas.toDataURL('image/png');
   return c._dataUrl;
 }
@@ -3508,7 +3677,7 @@ function previewCreative(i){
   if(!c) return;
   const w=window.open('','_blank','width=640,height=900');
   const src=getDataUrl(c);
-  const content=c.isVideo
+  const content=c.isVideo&&!c.isGif
     ?`<video src="${src}" autoplay loop muted playsinline style="max-width:100%;max-height:100vh">`
     :`<img src="${src}" style="max-width:100%;max-height:100vh">`;
   w.document.write(`<html><body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh">${content}</body></html>`);
@@ -3564,11 +3733,11 @@ function downloadByGlobalIdx(gIdx){
   const c=state.creatives[gIdx];
   if(!c)return;
   const a=document.createElement('a');
-  const ext=c.isVideo?(c.ext||'webm'):'png';
+  const ext=c.isGif?'gif':c.isVideo?(c.ext||'webm'):'png';
   a.download=`mood_${state.concept}_${state.audience}_${c.tone}_${c.lang}_${c.format}.${ext}`;
   a.href=getDataUrl(c);
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  toast(`${c.isVideo?'Vidéo':'PNG'} téléchargé ✓`);
+  toast(`${c.isGif?'GIF':c.isVideo?'Vidéo':'PNG'} téléchargé ✓`);
 }
 
 // ═══════════════════════════════════════════
