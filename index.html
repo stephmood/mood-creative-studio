@@ -404,13 +404,6 @@ input[type=file]{display:none}
     </div>
 
     <div class="sec">
-      <div class="sec-label">📝 Tes textes (optionnel — sinon auto)</div>
-      <input type="text" id="headline-override" placeholder="Titre de l'offre / nouveauté" maxlength="120" oninput="state.headlineOverride=this.value" style="width:100%;padding:8px 10px;border:1px solid var(--b1);border-radius:6px;background:var(--bg);color:var(--text);font-family:inherit;font-size:13px;margin-bottom:6px;box-sizing:border-box">
-      <input type="text" id="cta-label-override" placeholder="Texte du bouton (ex : Je découvre)" maxlength="40" oninput="state.ctaLabelOverride=this.value" style="width:100%;padding:8px 10px;border:1px solid var(--b1);border-radius:6px;background:var(--bg);color:var(--text);font-family:inherit;font-size:13px;box-sizing:border-box">
-      <div style="font-size:10px;color:var(--muted);margin-top:5px;font-style:italic">Laisser vide = textes générés automatiquement selon le concept et le ton</div>
-    </div>
-
-    <div class="sec">
       <div class="sec-label">Bouton CTA</div>
       <div class="pills" id="cta-style-pills" style="margin-bottom:5px">
         <div class="pill on" data-ctastyle="" onclick="setCtaStyle(this)">Auto</div>
@@ -1514,21 +1507,8 @@ let state = {
   montageClipDur:5,
   gifMode:false,
   musicFile:null,
-  musicVolume:0.4,
-  headlineOverride:'',
-  ctaLabelOverride:''
+  musicVolume:0.4
 };
-
-// Apply user-set text overrides to the auto-generated copy.
-// Returns a modified copyData object — call right after copyData is built in each renderer.
-function applyTextOverrides(copyData){
-  if(!copyData) return copyData;
-  const headlineOv = (state.headlineOverride||'').trim();
-  const ctaOv = (state.ctaLabelOverride||'').trim();
-  if(headlineOv) copyData.h = headlineOv;
-  if(ctaOv) copyData.cta = ctaOv;
-  return copyData;
-}
 
 function setMode(m){
   state.videoMode=m==='vid';
@@ -1900,7 +1880,7 @@ function renderCanvas(photo, tone, lang, format){
   const rawCopy=getCopy(tone,lang);
   if(!rawCopy) return null;
   const bestCta=(AUD_CTA_VERBS[lang]?.[state.audience]?.[tone])||rawCopy.cta;
-  const copyData=applyTextOverrides({...rawCopy, cta:bestCta});
+  const copyData={...rawCopy, cta:bestCta};
 
   const canvas=document.createElement('canvas');
   canvas.width=fmt.w; canvas.height=fmt.h;
@@ -2163,7 +2143,7 @@ async function renderVideoCreative(photo,tone,lang,format){
     const rawCopy=getCopy(tone,lang);
     if(!rawCopy){resolve(null);return;}
     const bestCta=(AUD_CTA_VERBS[lang]?.[state.audience]?.[tone])||rawCopy.cta;
-    const copyData=applyTextOverrides({...rawCopy,cta:bestCta});
+    const copyData={...rawCopy,cta:bestCta};
 
     // Vidéo source
     const vid=document.createElement('video');
@@ -2456,7 +2436,7 @@ async function renderGif(photo,tone,lang,format){
     const rawCopy=getCopy(tone,lang);
     if(!rawCopy){resolve(null);return;}
     const bestCta=(AUD_CTA_VERBS[lang]?.[state.audience]?.[tone])||rawCopy.cta;
-    const copyData=applyTextOverrides({...rawCopy,cta:bestCta});
+    const copyData={...rawCopy,cta:bestCta};
     const img=photo.img;
     await document.fonts.load("300 48px 'Cormorant Garamond'").catch(()=>{});
 
@@ -2615,7 +2595,7 @@ async function renderAnimatedPhoto(photo,tone,lang,format){
     const rawCopy=getCopy(tone,lang);
     if(!rawCopy){resolve(null);return;}
     const bestCta=(AUD_CTA_VERBS[lang]?.[state.audience]?.[tone])||rawCopy.cta;
-    const copyData=applyTextOverrides({...rawCopy,cta:bestCta});
+    const copyData={...rawCopy,cta:bestCta};
     const img=photo.img;
     await document.fonts.load("300 48px 'Cormorant Garamond'").catch(()=>{});
 
@@ -2872,7 +2852,7 @@ async function renderSlideshow(tone,lang,format){
     const rawCopy=getCopy(tone,lang);
     if(!rawCopy){resolve(null);return;}
     const bestCta=(AUD_CTA_VERBS[lang]?.[state.audience]?.[tone])||rawCopy.cta;
-    const copyData=applyTextOverrides({...rawCopy,cta:bestCta});
+    const copyData={...rawCopy,cta:bestCta};
     await document.fonts.load("300 48px 'Cormorant Garamond'").catch(()=>{});
 
     const PHOTO_DUR=state.slideshowPhotoDur;
@@ -3342,7 +3322,7 @@ async function renderMontage(tone,lang,format){
     const rawCopy=getCopy(tone,lang);
     if(!rawCopy){resolve(null);return;}
     const bestCta=(AUD_CTA_VERBS[lang]?.[state.audience]?.[tone])||rawCopy.cta;
-    const copyData=applyTextOverrides({...rawCopy,cta:bestCta});
+    const copyData={...rawCopy,cta:bestCta};
     await document.fonts.load(`300 48px '${style.font}'`).catch(()=>{});
 
     // Charger les vidéos
